@@ -61,8 +61,6 @@ export interface StakeholderOptions extends BaseDecoratorOptions {
    * Business context where this stakeholder operates (required)
    * COMPILE-TIME TYPE SAFETY: Must be a class decorated with @Context
    *
-   * NOTE: This is aabha's @Context (business perspective),
-   * NOT bhasha's @BoundedContext (domain boundary)
    *
    * @example
    * ```typescript

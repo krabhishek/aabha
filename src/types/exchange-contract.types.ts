@@ -11,14 +11,6 @@ import type { InteractionPattern } from '../enums/interaction-pattern.enum.js';
 /**
  * Exchange item - can be a string description or a constructor reference
  *
- * @example
- * ```typescript
- * // String description
- * 'email address'
- *
- * // Constructor reference (e.g., from bhasha domain types)
- * EmailValueObject
- * ```
  */
 export type ExchangeItem = string | Constructor;
 

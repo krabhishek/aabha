@@ -483,7 +483,6 @@ Aabha is **compile-time only** with minimal runtime footprint:
 - **Type Brands**: Each decorator applies a type brand for compile-time validation
 - **Phantom Properties**: Tiny non-enumerable `__decoratorBrand` property added at runtime
 - **Zero Dependencies**: Completely standalone package
-- **Independent**: No ties to DDD or domain modeling
 
 See [ARCHITECTURE.md](./ARCHITECTURE.md) for full details.
 
@@ -557,6 +556,39 @@ Run `pnpm run build` to build the library.
 ## Running unit tests
 
 Run `pnpm test` to execute the unit tests via [Vitest](https://vitest.dev/).
+
+## Documentation
+
+**Comprehensive documentation is available**:
+
+📚 **[Read the Full Documentation →](./docs/README.md)**
+
+**Quick Links**:
+- [Quick Start Guide](./docs/getting-started/quick-start.md) - Build your first model in 5 minutes
+- [Core Concepts](./docs/getting-started/core-concepts.md) - Understand Context = Perspective
+- [Strategic Build Order](./docs/best-practices/strategic-build-order.md) - Step-by-step guide
+- [API Reference](./docs/api/) - Complete decorator documentation
+- [OgPgy Bank Examples](./docs/examples/ogpgy-bank/) - Real-world banking examples
+
+## Contributing
+
+We welcome contributions! **50+ documentation files** are marked "In Progress" and ready for community input.
+
+**📚 Read the [CONTRIBUTING.md](./CONTRIBUTING.md) guide** for:
+- How to contribute documentation
+- Development setup
+- Pull request process
+- Style guidelines
+
+**High-priority areas**:
+- ✍️ **API Reference** - 13 decorator docs need completion
+- 📖 **Guides** - Understanding Contexts, Product Completeness, etc.
+- 💡 **OgPgy Bank Examples** - Real-world banking transformation
+- ⭐ **Best Practices** - Naming, organizing, testing strategies
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for complete list and guidelines.
+
+Fork and contribute: [github.com/krabhishek/aabha](https://github.com/krabhishek/aabha)
 
 ## License
 

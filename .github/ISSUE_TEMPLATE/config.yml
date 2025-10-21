@@ -1,0 +1,14 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 💬 GitHub Discussions
+    url: https://github.com/krabhishek/aabha/discussions
+    about: Ask questions and discuss ideas with the community
+  - name: 📚 Documentation
+    url: https://github.com/krabhishek/aabha/tree/main/docs
+    about: Browse the complete documentation
+  - name: 🎓 Quick Start Guide
+    url: https://github.com/krabhishek/aabha/blob/main/docs/getting-started/quick-start.md
+    about: Build your first product model in 5 minutes
+  - name: 🤝 Contributing Guide
+    url: https://github.com/krabhishek/aabha/blob/main/CONTRIBUTING.md
+    about: Learn how to contribute to Aabha

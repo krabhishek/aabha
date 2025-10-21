@@ -6,9 +6,6 @@
  * COMPILE-TIME ONLY: This decorator has zero runtime overhead.
  * It only applies type brands for compile-time validation.
  *
- * NOTE: This is different from DDD's BoundedContext.
- * Context in aabha represents business perspectives (Sales, Marketing, Compliance)
- * while BoundedContext in bhasha represents domain boundaries.
  */
 
 import type { ContextRelationship } from '../../enums/context-relationship.enum.js';

@@ -25,6 +25,8 @@
     "README.md",
     "LICENSE",
     "ARCHITECTURE.md",
+    "CONTRIBUTING.md",
+    "CHANGELOG.md",
     "!**/*.tsbuildinfo"
   ],
   "publishConfig": {
@@ -61,7 +63,7 @@
     "type": "git",
     "url": "https://github.com/krabhishek/aabha"
   },
-  "homepage": "https://github.com/krabhishek/aabha#readme",
+  "homepage": "https://github.com/krabhishek/aabha/tree/main/docs",
   "bugs": {
     "url": "https://github.com/krabhishek/aabha/issues"
   }
