@@ -11,9 +11,14 @@
  * while BoundedContext in bhasha represents domain boundaries.
  */
 
-import type { Constructor, WithContext, WithStakeholder } from '../../types/branded-types.js';
 import type { ContextRelationship } from '../../enums/context-relationship.enum.js';
 import { applyBrand } from '../../internal/brand.utils.js';
+import type {
+  Constructor,
+  WithContext,
+  WithStakeholder,
+} from '../../types/branded-types.js';
+import type { BaseDecoratorOptions } from '../../types/decorator-options.types.js';
 
 /**
  * Relationship to another context
@@ -45,7 +50,7 @@ export interface ContextRelationshipDefinition {
  * Context decorator options
  * Represents a business perspective or lens
  */
-export interface ContextOptions {
+export interface ContextOptions extends BaseDecoratorOptions {
   /**
    * Context name (required)
    * Examples: "Sales", "Marketing", "Compliance", "Customer Support"
@@ -119,11 +124,6 @@ export interface ContextOptions {
    * Systems/tools used in this context
    */
   systems?: string[];
-
-  /**
-   * Extension point for custom metadata
-   */
-  extensions?: Record<string, unknown>;
 }
 
 /**
@@ -176,7 +176,7 @@ export interface ContextOptions {
 export function Context(options: ContextOptions) {
   return function <T extends Constructor>(
     target: T,
-    _context: ClassDecoratorContext<T>
+    _context?: ClassDecoratorContext<T>
   ): WithContext<T> {
     applyBrand(target, 'context');
     void options;

@@ -12,16 +12,30 @@ import type {
   WithStakeholder,
   WithPersona,
   WithContext,
-} from '../../types/branded-types.js';
+  BaseDecoratorOptions,
+} from '../../types/index.js';
+import type { StakeholderType } from '../../enums/stakeholder-type.enum.js';
 import { applyBrand } from '../../internal/brand.utils.js';
 
 /**
  * Stakeholder decorator options
  */
-export interface StakeholderOptions {
+export interface StakeholderOptions extends BaseDecoratorOptions {
+  /**
+   * Type of stakeholder (required)
+   * Distinguishes between Human, Team, Organization, and System stakeholders
+   *
+   * @example
+   * ```typescript
+   * type: StakeholderType.System
+   * type: StakeholderType.Human
+   * ```
+   */
+  type: StakeholderType;
+
   /**
    * Stakeholder role name (required)
-   * Example: "Investor", "Account Owner", "Compliance Officer"
+   * Example: "Investor", "Account Owner", "Email Validation Service"
    */
   role: string;
 
@@ -29,9 +43,16 @@ export interface StakeholderOptions {
    * Reference to underlying persona (required)
    * COMPILE-TIME TYPE SAFETY: Must be a class decorated with @Persona
    *
+   * Even systems have personas! A persona represents the entity's identity
+   * and characteristics, while the stakeholder role is context-specific.
+   *
    * @example
    * ```typescript
-   * persona: TechSavvyMillennial // Must have @Persona decorator
+   * // Human persona
+   * persona: TechSavvyMillennial
+   *
+   * // System persona
+   * persona: AuthenticationSystemPersona
    * ```
    */
   persona: WithPersona<Constructor>;
@@ -104,11 +125,6 @@ export interface StakeholderOptions {
    * Tags for categorization
    */
   tags?: string[];
-
-  /**
-   * Extension point for custom metadata
-   */
-  extensions?: Record<string, unknown>;
 }
 
 /**
@@ -121,42 +137,46 @@ export interface StakeholderOptions {
  * Stakeholders represent context-specific roles that a Persona plays.
  * They bridge WHO (persona) with WHAT (role) in WHERE (context).
  *
+ * Key concept: The same persona can be different stakeholders in different contexts.
+ * For example, an AuthenticationSystem persona can be:
+ * - "Authentication Provider" stakeholder in a Login context
+ * - "Audit Subject" stakeholder in an Audit context
+ *
  * @param options - Stakeholder configuration
  * @returns Class decorator that brands the class with WithStakeholder type
  *
- * @example
+ * @example Human Stakeholder
  * ```typescript
  * @Stakeholder({
+ *   type: StakeholderType.Human,
  *   role: 'Investor',
  *   persona: TechSavvyMillennial,
  *   context: InvestmentContext,
- *   goals: [
- *     'Maximize returns',
- *     'Track portfolio in real-time',
- *     'Minimize risk'
- *   ],
- *   responsibilities: [
- *     'Review investment opportunities',
- *     'Monitor portfolio performance',
- *     'Rebalance portfolio quarterly'
- *   ],
- *   interests: ['Market trends', 'Portfolio diversification', 'Tax optimization'],
+ *   goals: ['Maximize returns', 'Track portfolio in real-time'],
+ *   responsibilities: ['Review opportunities', 'Monitor performance'],
  *   influence: 'high',
- *   engagement: 'daily',
- *   permissions: ['view_portfolio', 'execute_trades', 'download_statements'],
- *   contextAttributes: {
- *     riskTolerance: 'moderate',
- *     investmentHorizon: '10+ years',
- *     preferredAssets: ['stocks', 'bonds', 'crypto']
- *   }
+ *   engagement: 'daily'
  * })
  * class InvestorStakeholder {}
+ * ```
+ *
+ * @example System Stakeholder
+ * ```typescript
+ * @Stakeholder({
+ *   type: StakeholderType.System,
+ *   role: 'Email Validation Provider',
+ *   persona: EmailValidationSystemPersona,
+ *   context: DigitalBankingContext,
+ *   responsibilities: ['Validate email format', 'Check DNS records'],
+ *   permissions: ['read_email_input', 'write_validation_result']
+ * })
+ * class EmailValidationServiceStakeholder {}
  * ```
  */
 export function Stakeholder(options: StakeholderOptions) {
   return function <T extends Constructor>(
     target: T,
-    _context: ClassDecoratorContext<T>
+    _context?: ClassDecoratorContext<T>
   ): WithStakeholder<T> {
     applyBrand(target, 'stakeholder');
     void options;

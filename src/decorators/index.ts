@@ -58,8 +58,8 @@ export type { PersonaOptions } from './persona/index.js';
 export { Behavior } from './behavior/index.js';
 export type { BehaviorOptions } from './behavior/index.js';
 
-export { Test, TestType } from './test/index.js';
-export type { TestOptions } from './test/index.js';
+export { Witness, WitnessType } from './witness/index.js';
+export type { WitnessOptions } from './witness/index.js';
 
 export { Attribute } from './attribute/index.js';
 export type { AttributeOptions } from './attribute/index.js';

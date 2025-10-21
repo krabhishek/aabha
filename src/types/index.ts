@@ -18,8 +18,8 @@ export type {
   WithStakeholder,
   WithPersona,
   WithBehavior,
-  WithTest,
   WithAttribute,
+  WithWitness,
 } from './branded-types.js';
 
 export type {
@@ -36,3 +36,13 @@ export type {
   ValidateBrand,
   ValidateArrayBrands,
 } from './type-utilities.js';
+
+export type {
+  ExchangeItem,
+  ExchangeConstraints,
+  ExchangeContract,
+} from './exchange-contract.types.js';
+
+export type {
+  BaseDecoratorOptions,
+} from './decorator-options.types.js';

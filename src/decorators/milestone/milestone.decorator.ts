@@ -159,7 +159,7 @@ export interface MilestoneOptions {
 export function Milestone(options: MilestoneOptions) {
   return function <T extends Constructor>(
     target: T,
-    _context: ClassDecoratorContext<T>
+    _context?: ClassDecoratorContext<T>
   ): WithMilestone<T> {
     applyBrand(target, 'milestone');
     void options;

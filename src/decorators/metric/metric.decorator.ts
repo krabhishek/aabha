@@ -7,8 +7,9 @@
  * It only applies type brands for compile-time validation.
  */
 
-import type { Constructor, WithMetric } from '../../types/branded-types.js';
 import { applyBrand } from '../../internal/brand.utils.js';
+import type { Constructor, WithMetric } from '../../types/branded-types.js';
+import type { BaseDecoratorOptions } from '../../types/decorator-options.types.js';
 
 /**
  * Metric threshold configuration
@@ -58,7 +59,7 @@ export interface MetricDataSource {
 /**
  * Metric decorator options
  */
-export interface MetricOptions {
+export interface MetricOptions extends BaseDecoratorOptions {
   /**
    * Metric name (required)
    */
@@ -161,11 +162,6 @@ export interface MetricOptions {
    * Historical trend ("improving", "declining", "stable")
    */
   trend?: 'improving' | 'declining' | 'stable';
-
-  /**
-   * Extension point for custom metadata
-   */
-  extensions?: Record<string, unknown>;
 }
 
 /**
@@ -220,7 +216,7 @@ export interface MetricOptions {
 export function Metric(options: MetricOptions) {
   return function <T extends Constructor>(
     target: T,
-    _context: ClassDecoratorContext<T>
+    _context?: ClassDecoratorContext<T>
   ): WithMetric<T> {
     applyBrand(target, 'metric');
     void options;

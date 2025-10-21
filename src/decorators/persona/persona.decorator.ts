@@ -7,13 +7,14 @@
  * It only applies type brands for compile-time validation.
  */
 
-import type { Constructor, WithPersona } from '../../types/branded-types.js';
 import { applyBrand } from '../../internal/brand.utils.js';
+import type { Constructor, WithPersona } from '../../types/branded-types.js';
+import type { BaseDecoratorOptions } from '../../types/decorator-options.types.js';
 
 /**
  * Persona decorator options
  */
-export interface PersonaOptions {
+export interface PersonaOptions extends BaseDecoratorOptions {
   /**
    * Persona name (required)
    * Example: "Tech-Savvy Millennial", "Budget-Conscious Parent"
@@ -74,11 +75,6 @@ export interface PersonaOptions {
    * Demographics
    */
   demographics?: Record<string, unknown>;
-
-  /**
-   * Extension point for custom metadata
-   */
-  extensions?: Record<string, unknown>;
 }
 
 /**
@@ -120,7 +116,7 @@ export interface PersonaOptions {
 export function Persona(options: PersonaOptions) {
   return function <T extends Constructor>(
     target: T,
-    _context: ClassDecoratorContext<T>
+    _context?: ClassDecoratorContext<T>
   ): WithPersona<T> {
     applyBrand(target, 'persona');
     void options;

@@ -7,14 +7,15 @@
  * It only applies type brands for compile-time validation.
  */
 
+import { applyBrand } from '../../internal/brand.utils.js';
 import type {
   Constructor,
   WithBusinessInitiative,
-  WithStrategy,
   WithJourney,
   WithMetric,
+  WithStrategy,
 } from '../../types/branded-types.js';
-import { applyBrand } from '../../internal/brand.utils.js';
+import type { BaseDecoratorOptions } from '../../types/decorator-options.types.js';
 
 /**
  * Milestone definition for timeline tracking
@@ -45,7 +46,7 @@ export interface InitiativeMilestone {
  * BusinessInitiative decorator options
  * Represents concrete initiatives that implement strategy
  */
-export interface BusinessInitiativeOptions {
+export interface BusinessInitiativeOptions extends BaseDecoratorOptions {
   /**
    * Initiative name (required)
    */
@@ -157,11 +158,6 @@ export interface BusinessInitiativeOptions {
     impact?: 'high' | 'medium' | 'low';
     likelihood?: 'high' | 'medium' | 'low';
   }[];
-
-  /**
-   * Extension point for custom metadata
-   */
-  extensions?: Record<string, unknown>;
 }
 
 /**
@@ -205,7 +201,7 @@ export interface BusinessInitiativeOptions {
 export function BusinessInitiative(options: BusinessInitiativeOptions) {
   return function <T extends Constructor>(
     target: T,
-    _context: ClassDecoratorContext<T>
+    _context?: ClassDecoratorContext<T>
   ): WithBusinessInitiative<T> {
     applyBrand(target, 'business-initiative');
     void options;

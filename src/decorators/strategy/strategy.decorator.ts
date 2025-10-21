@@ -155,7 +155,7 @@ export interface StrategyOptions {
 export function Strategy(options: StrategyOptions) {
   return function <T extends Constructor>(
     target: T,
-    _context: ClassDecoratorContext<T>
+    _context?: ClassDecoratorContext<T>
   ): WithStrategy<T> {
     // Apply the brand property for TypeScript inference
     applyBrand(target, 'strategy');

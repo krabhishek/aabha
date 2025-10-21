@@ -167,17 +167,30 @@ export type WithBehavior<T extends Constructor = Constructor> =
   T & DecoratorBrand<'behavior'>;
 
 /**
- * Branded type for classes decorated with @Test
- *
- * @template T The class constructor type
- */
-export type WithTest<T extends Constructor = Constructor> =
-  T & DecoratorBrand<'test'>;
-
-/**
  * Branded type for classes decorated with @Attribute
  *
  * @template T The class constructor type
  */
 export type WithAttribute<T extends Constructor = Constructor> =
   T & DecoratorBrand<'attribute'>;
+
+/**
+ * Branded type for methods decorated with @Witness
+ *
+ * Unlike other brands which are for classes, this brand is for methods
+ * that serve as verification witnesses for behaviors.
+ *
+ * @template T The method signature type
+ *
+ * @example
+ * ```typescript
+ * @Behavior({ name: 'ValidateEmail' })
+ * class ValidateEmailBehavior {
+ *   @Witness({ name: 'Valid email witness', type: WitnessType.Unit })
+ *   witnessValidEmail() { } // Type includes WithWitness brand
+ * }
+ * ```
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type WithWitness<T = (...args: any[]) => any> =
+  T & DecoratorBrand<'witness'>;

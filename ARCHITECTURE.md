@@ -27,7 +27,7 @@ Blueprint uses **native Stage 3 decorators** (TypeScript 5.0+), NOT the legacy e
 
 ### Compile-Time Safety Guarantees
 
-1. **Hierarchy Enforcement** - Parents can only reference properly branded children (the `kunti` concept! iykyk)
+1. **Hierarchy Enforcement** - Parents can only reference properly branded children
 2. **Completeness Validation** - Required fields must be provided (enforced by types)
 3. **Consistency Checking** - Relationships must be valid (e.g., Journey can only reference WithMilestone types)
 4. **One-Way References** - Children cannot reference parents (enforced by type system)
@@ -108,14 +108,19 @@ Milestone (significant waypoint)
   ↓ references
 Step (granular action)
   ↓ references
-Expectation (stakeholder expectation)
+Expectation (stakeholder contract between provider and consumer)
   ↓ references
-Behavior (executable behavior)
-  ↓ references
-Test (verification)
+Behavior (executable behavior with witnesses)
+  ↓ contains
+Witness (method-level proof that behavior works)
 ```
 
 **One-Way Rule**: Parents reference children via branded arrays. Children have NO knowledge of parents.
+
+**Contract Model**: Expectations define explicit contracts between two stakeholders:
+- **Provider**: Stakeholder who fulfills the expectation
+- **Consumer**: Stakeholder who benefits from the expectation
+- **Exchange**: Optional structured contract defining inputs, outputs, interaction pattern, and constraints
 
 ## Decorator Reference
 
@@ -131,57 +136,88 @@ Test (verification)
 - `@Step` - Granular actions within a milestone
 
 ### Expectation Level
-- `@Expectation` - Stakeholder expectations
-- `@Stakeholder` - Context-specific stakeholder roles
-- `@Persona` - Underlying user personas
+- `@Expectation` - Stakeholder expectations (contracts between provider and consumer)
+- `@Stakeholder` - Context-specific stakeholder roles (Human, Team, Organization, System)
+- `@Persona` - Underlying user/system personas
 
 ### Behavioral Level
-- `@Behavior` - Executable behaviors (no Logic/Policy/Rule/Specification)
-- `@Test` - Verification tests
+- `@Behavior` - Executable behaviors with participant stakeholders
+- `@Witness` - Method-level verification witnesses (live inside Behavior classes)
 - `@Attribute` - Reusable attributes
 
 ## Example Usage
 
 ```typescript
-// 1. Define strategy
-@Strategy({
-  name: 'E-Commerce Growth',
-  whereToPlay: ['Direct-to-Consumer', 'B2B Marketplace'],
-  howToWin: 'Best-in-class UX with 24/7 support',
+// 1. Define stakeholders with types
+@Stakeholder({
+  type: StakeholderType.System,
+  role: 'Email Validation Service',
+  persona: EmailValidationSystemPersona,
+  context: DigitalBankingContext,
 })
-class ECommerceStrategy {}
+class EmailValidationServiceStakeholder {}
 
-// 2. Define initiative linked to strategy
-@BusinessInitiative({
-  name: 'Seamless Checkout Experience',
-  strategy: ECommerceStrategy, // Type-safe! Must be WithStrategy
-  objectives: ['Reduce cart abandonment by 30%'],
+@Stakeholder({
+  type: StakeholderType.Human,
+  role: 'Digital-First Customer',
+  persona: TechSavvyMillennialPersona,
+  context: RetailBankingContext,
 })
-class SeamlessCheckoutInitiative {}
+class DigitalFirstCustomerStakeholder {}
 
-// 3. Define journey linked to initiative
-@Journey({
-  name: 'Product Purchase',
-  primaryStakeholder: CustomerStakeholder,
+// 2. Define behavior with witnesses and participants
+@Behavior({
+  name: 'Validate Email Format',
+  participants: [EmailValidationServiceStakeholder],
+  implementation: 'RFC 5322 regex validation + DNS MX check',
 })
-class ProductPurchaseJourney {}
+class ValidateEmailBehavior {
+  @Witness({
+    name: 'Valid Email Format Witness',
+    type: WitnessType.Unit,
+    given: ['Valid email format provided'],
+    when: ['Validation executes'],
+    then: ['Returns true', 'No errors thrown']
+  })
+  witnessValidFormat() {
+    const result = this.validate('test@example.com');
+    assert(result === true);
+  }
 
-// 4. Link journey to initiative (parent knows child)
-@BusinessInitiative({
-  name: 'Seamless Checkout Experience',
-  strategy: ECommerceStrategy,
-  journeys: [ProductPurchaseJourney], // Type-safe! Must be WithJourney
+  validate(email: string): boolean {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+}
+
+// 3. Define expectation as contract with exchange
+@Expectation({
+  name: 'Fast Email Validation',
+  description: 'Email validation completes in under 1 second',
+  provider: EmailValidationServiceStakeholder, // Who provides
+  consumer: DigitalFirstCustomerStakeholder,   // Who benefits
+  exchange: {
+    inputs: ['email address string'],
+    outputs: ['validation result boolean', 'error message if invalid'],
+    interactionPattern: InteractionPattern.RequestResponse,
+    constraints: {
+      maxLatency: '< 1 second',
+      availability: '99.9%'
+    }
+  },
+  behaviors: [ValidateEmailBehavior], // Type-safe! Must be WithBehavior
 })
-class SeamlessCheckoutInitiativeComplete {}
+class FastEmailValidationExpectation {}
 
-// 5. If you try to pass a non-Journey class, TypeScript error!
-class NotAJourney {}
+// 4. If you try to pass a non-Behavior class, TypeScript error!
+class NotABehavior {}
 
-@BusinessInitiative({
-  name: 'Seamless Checkout Experience',
-  journeys: [NotAJourney], // ❌ COMPILE ERROR! Missing @Journey decorator
+@Expectation({
+  name: 'Invalid Expectation',
+  provider: EmailValidationServiceStakeholder,
+  consumer: DigitalFirstCustomerStakeholder,
+  behaviors: [NotABehavior], // ❌ COMPILE ERROR! Missing @Behavior decorator
 })
-class BadInitiative {}
+class BadExpectation {}
 ```
 
 ## Compilation = Validation

@@ -7,14 +7,15 @@
  * It only applies type brands for compile-time validation.
  */
 
+import { applyBrand } from '../../internal/brand.utils.js';
 import type {
   Constructor,
   WithJourney,
-  WithStakeholder,
-  WithMilestone,
   WithMetric,
+  WithMilestone,
+  WithStakeholder,
 } from '../../types/branded-types.js';
-import { applyBrand } from '../../internal/brand.utils.js';
+import type { BaseDecoratorOptions } from '../../types/decorator-options.types.js';
 
 /**
  * Milestone reference for Journey decorator
@@ -88,7 +89,7 @@ export interface StakeholderInteraction {
 /**
  * Journey decorator options
  */
-export interface JourneyOptions {
+export interface JourneyOptions extends BaseDecoratorOptions {
   /**
    * Journey name (required)
    */
@@ -195,11 +196,6 @@ export interface JourneyOptions {
    * Tags for categorization
    */
   tags?: string[];
-
-  /**
-   * Extension point for custom metadata
-   */
-  extensions?: Record<string, unknown>;
 }
 
 /**
@@ -237,7 +233,7 @@ export interface JourneyOptions {
 export function Journey(options: JourneyOptions) {
   return function <T extends Constructor>(
     target: T,
-    _context: ClassDecoratorContext<T>
+    _context?: ClassDecoratorContext<T>
   ): WithJourney<T> {
     applyBrand(target, 'journey');
     void options;

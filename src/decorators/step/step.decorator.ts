@@ -7,18 +7,19 @@
  * It only applies type brands for compile-time validation.
  */
 
+import { applyBrand } from '../../internal/brand.utils.js';
 import type {
   Constructor,
-  WithStep,
-  WithStakeholder,
   WithExpectation,
+  WithStakeholder,
+  WithStep,
 } from '../../types/branded-types.js';
-import { applyBrand } from '../../internal/brand.utils.js';
+import type { BaseDecoratorOptions } from '../../types/decorator-options.types.js';
 
 /**
  * Step decorator options
  */
-export interface StepOptions {
+export interface StepOptions extends BaseDecoratorOptions {
   /**
    * Step name (required)
    */
@@ -76,11 +77,6 @@ export interface StepOptions {
    * Tags for categorization
    */
   tags?: string[];
-
-  /**
-   * Extension point for custom metadata
-   */
-  extensions?: Record<string, unknown>;
 }
 
 /**
@@ -115,7 +111,7 @@ export interface StepOptions {
 export function Step(options: StepOptions) {
   return function <T extends Constructor>(
     target: T,
-    _context: ClassDecoratorContext<T>
+    _context?: ClassDecoratorContext<T>
   ): WithStep<T> {
     applyBrand(target, 'step');
     void options;

@@ -7,13 +7,14 @@
  * It only applies type brands for compile-time validation.
  */
 
-import type { Constructor, WithAttribute } from '../../types/branded-types.js';
 import { applyBrand } from '../../internal/brand.utils.js';
+import type { Constructor, WithAttribute } from '../../types/branded-types.js';
+import type { BaseDecoratorOptions } from '../../types/decorator-options.types.js';
 
 /**
  * Attribute decorator options
  */
-export interface AttributeOptions {
+export interface AttributeOptions extends BaseDecoratorOptions {
   /**
    * Attribute name (required)
    */
@@ -54,11 +55,6 @@ export interface AttributeOptions {
    * Tags for categorization
    */
   tags?: string[];
-
-  /**
-   * Extension point for custom metadata
-   */
-  extensions?: Record<string, unknown>;
 }
 
 /**
@@ -88,7 +84,7 @@ export interface AttributeOptions {
 export function Attribute(options: AttributeOptions) {
   return function <T extends Constructor>(
     target: T,
-    _context: ClassDecoratorContext<T>
+    _context?: ClassDecoratorContext<T>
   ): WithAttribute<T> {
     applyBrand(target, 'attribute');
     void options;

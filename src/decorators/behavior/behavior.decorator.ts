@@ -13,29 +13,33 @@
 import type {
   Constructor,
   WithBehavior,
-  WithTest,
-} from '../../types/branded-types.js';
+  WithStakeholder,
+  BaseDecoratorOptions,
+} from '../../types/index.js';
 import { applyBrand } from '../../internal/brand.utils.js';
 
 /**
  * Behavior decorator options
  */
-export interface BehaviorOptions {
+export interface BehaviorOptions extends BaseDecoratorOptions {
   /**
    * Behavior name (required)
    */
   name: string;
 
   /**
-   * Tests that verify this behavior
-   * COMPILE-TIME TYPE SAFETY: Must be classes decorated with @Test
+   * Stakeholders who participate in this behavior
+   * COMPILE-TIME TYPE SAFETY: Must be classes decorated with @Stakeholder
+   *
+   * Behaviors can involve multiple stakeholders. For example, email validation
+   * might involve the EmailValidationSystem and AuditLogSystem stakeholders.
    *
    * @example
    * ```typescript
-   * tests: [PositiveAmountTest, ValidFormatTest]
+   * participants: [EmailValidationServiceStakeholder, AuditLogSystemStakeholder]
    * ```
    */
-  tests?: WithTest<Constructor>[];
+  participants?: WithStakeholder<Constructor>[];
 
   /**
    * Behavior implementation description
@@ -66,11 +70,6 @@ export interface BehaviorOptions {
    * Tags for categorization
    */
   tags?: string[];
-
-  /**
-   * Extension point for custom metadata
-   */
-  extensions?: Record<string, unknown>;
 }
 
 /**
@@ -83,8 +82,8 @@ export interface BehaviorOptions {
  * Behaviors represent executable actions that implement expectations.
  * They can be reused across multiple expectations.
  *
- * Enforces one-way hierarchy: Behavior knows about Tests, but Tests
- * don't know about the Behavior (enables test reusability).
+ * Behaviors contain @Witness methods that prove the behavior works correctly.
+ * A witness without a behavior is meaningless.
  *
  * @param options - Behavior configuration
  * @returns Class decorator that brands the class with WithBehavior type
@@ -92,16 +91,28 @@ export interface BehaviorOptions {
  * @example
  * ```typescript
  * @Behavior({
- *   name: 'ValidatePositiveAmount',
- *   tests: [PositiveNumberTest, NonZeroTest],
- *   implementation: 'Check if amount > 0',
- *   preconditions: ['Amount is provided'],
- *   postconditions: ['Amount is validated as positive'],
- *   description: 'Validates that deposit amount is positive'
+ *   name: 'Validate Email Format',
+ *   participants: [EmailValidationServiceStakeholder, AuditLogSystemStakeholder],
+ *   implementation: 'RFC 5322 regex validation + DNS MX record check',
+ *   preconditions: ['Email address is provided'],
+ *   postconditions: ['Validation result returned', 'Audit log created'],
+ *   description: 'Validates email format and DNS records'
  * })
- * class ValidatePositiveAmountBehavior {
- *   validate(amount: number): boolean {
- *     return amount > 0;
+ * class ValidateEmailFormatBehavior {
+ *   @Witness({
+ *     name: 'Valid Email Format Witness',
+ *     type: WitnessType.Unit,
+ *     given: ['Email with valid format'],
+ *     when: ['Validation executes'],
+ *     then: ['Returns true', 'No errors']
+ *   })
+ *   witnessValidFormat() {
+ *     const result = this.validate('test@example.com');
+ *     assert(result === true);
+ *   }
+ *
+ *   validate(email: string): boolean {
+ *     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
  *   }
  * }
  * ```
@@ -109,7 +120,7 @@ export interface BehaviorOptions {
 export function Behavior(options: BehaviorOptions) {
   return function <T extends Constructor>(
     target: T,
-    _context: ClassDecoratorContext<T>
+    _context?: ClassDecoratorContext<T>
   ): WithBehavior<T> {
     applyBrand(target, 'behavior');
     void options;

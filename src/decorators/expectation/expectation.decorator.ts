@@ -12,24 +12,25 @@ import type {
   WithExpectation,
   WithStakeholder,
   WithBehavior,
-} from '../../types/branded-types.js';
+  BaseDecoratorOptions,
+} from '../../types/index.js';
 import type { ExpectationPriority } from '../../enums/expectation-priority.enum.js';
+import type { ExchangeContract } from '../../types/exchange-contract.types.js';
 import { applyBrand } from '../../internal/brand.utils.js';
 
 /**
  * Expectation decorator options
  */
-export interface ExpectationOptions {
+export interface ExpectationOptions extends BaseDecoratorOptions {
   /**
-   * Expectation ID (required)
-   * Should follow convention: journey-slug-EXP-nnn
+   * Expectation name (required)
    *
    * @example
    * ```typescript
-   * expectationId: 'deposit-money-EXP-001'
+   * name: 'Fast Email Validation'
    * ```
    */
-  expectationId: string;
+  name: string;
 
   /**
    * Expectation description (required)
@@ -43,15 +44,53 @@ export interface ExpectationOptions {
   description: string;
 
   /**
-   * Stakeholder who has this expectation (required)
+   * Provider stakeholder - who fulfills/implements this expectation (required)
    * COMPILE-TIME TYPE SAFETY: Must be a class decorated with @Stakeholder
    *
    * @example
    * ```typescript
-   * stakeholder: AccountOwnerStakeholder // Must have @Stakeholder decorator
+   * provider: BankingSystemStakeholder // The system providing the capability
    * ```
    */
-  stakeholder: WithStakeholder<Constructor>;
+  provider: WithStakeholder<Constructor>;
+
+  /**
+   * Consumer stakeholder - who benefits from this expectation (required)
+   * COMPILE-TIME TYPE SAFETY: Must be a class decorated with @Stakeholder
+   *
+   * @example
+   * ```typescript
+   * consumer: DigitalFirstCustomer // The stakeholder benefiting from the capability
+   * ```
+   */
+  consumer: WithStakeholder<Constructor>;
+
+  /**
+   * Exchange contract defining the interaction between provider and consumer (required)
+   *
+   * Specifies:
+   * - What inputs the provider needs
+   * - What outputs the consumer receives
+   * - How the exchange happens (interaction pattern)
+   * - Preconditions and postconditions
+   * - SLA constraints
+   *
+   * @example
+   * ```typescript
+   * exchange: {
+   *   inputs: ['email address', EmailValueObject],
+   *   outputs: ['validation result boolean', ValidationResult],
+   *   interactionPattern: InteractionPattern.RequestResponse,
+   *   preconditions: ['Email is provided', 'System is available'],
+   *   postconditions: ['Result is returned', 'Result is cached'],
+   *   constraints: {
+   *     maxLatency: '< 1 second',
+   *     availability: '99.9%'
+   *   }
+   * }
+   * ```
+   */
+  exchange: ExchangeContract;
 
   /**
    * Behaviors that implement this expectation
@@ -83,16 +122,6 @@ export interface ExpectationOptions {
    * Tags for categorization
    */
   tags?: string[];
-
-  /**
-   * Human-readable name (defaults to expectationId)
-   */
-  name?: string;
-
-  /**
-   * Extension point for custom metadata
-   */
-  extensions?: Record<string, unknown>;
 }
 
 /**
@@ -102,7 +131,8 @@ export interface ExpectationOptions {
  * COMPILE-TIME ONLY: Zero runtime overhead. This decorator only applies
  * type brands for compile-time validation. No metadata is stored at runtime.
  *
- * Expectations represent stakeholder expectations that must be met.
+ * Expectations represent contracts between two stakeholders: a provider who
+ * fulfills the expectation and a consumer who benefits from it.
  * They are traceable through the hierarchy and linked to behaviors.
  *
  * Enforces one-way hierarchy: Expectation knows about Behaviors, but Behaviors
@@ -114,25 +144,37 @@ export interface ExpectationOptions {
  * @example
  * ```typescript
  * @Expectation({
- *   expectationId: 'deposit-money-EXP-001',
- *   description: 'Given a valid account, When depositing positive amount, Then balance should increase by deposit amount',
- *   stakeholder: AccountOwnerStakeholder,
- *   behaviors: [ValidateAmountBehavior, UpdateBalanceBehavior],
+ *   name: 'Fast Email Validation',
+ *   description: 'Email validation service validates email format and DNS records in real-time',
+ *   provider: EmailValidationServiceStakeholder,
+ *   consumer: DigitalFirstCustomerStakeholder,
+ *   exchange: {
+ *     inputs: ['email address string'],
+ *     outputs: ['validation result boolean', 'error message if invalid'],
+ *     interactionPattern: InteractionPattern.RequestResponse,
+ *     preconditions: ['Email address provided', 'Service available'],
+ *     postconditions: ['Validation result returned', 'Result cached for 5 minutes'],
+ *     constraints: {
+ *       maxLatency: '< 1 second',
+ *       availability: '99.9%'
+ *     }
+ *   },
+ *   behaviors: [ValidateEmailFormatBehavior, CheckDNSRecordsBehavior],
  *   priority: ExpectationPriority.Critical,
  *   acceptanceCriteria: [
- *     'Amount must be positive',
- *     'Account must be active',
- *     'Balance must increase by exact deposit amount'
+ *     'Email format validated using RFC 5322',
+ *     'DNS MX records checked',
+ *     'Response within 1 second'
  *   ],
- *   businessValue: 'Ensure customer deposits are accurately reflected'
+ *   businessValue: 'Prevent invalid emails early in signup flow'
  * })
- * class PositiveDepositExpectation {}
+ * class FastEmailValidationExpectation {}
  * ```
  */
 export function Expectation(options: ExpectationOptions) {
   return function <T extends Constructor>(
     target: T,
-    _context: ClassDecoratorContext<T>
+    _context?: ClassDecoratorContext<T>
   ): WithExpectation<T> {
     applyBrand(target, 'expectation');
     void options;

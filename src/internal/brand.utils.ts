@@ -20,8 +20,8 @@ export function applyBrand<T extends Constructor>(
 ): void {
   Object.defineProperty(target, '__decoratorBrand', {
     value: brand,
-    enumerable: false,   // Hidden from Object.keys() and for...in loops
+    enumerable: false, // Hidden from Object.keys() and for...in loops
     configurable: false, // Cannot be deleted or reconfigured
-    writable: false,     // Cannot be changed
+    writable: false, // Cannot be changed
   });
 }
