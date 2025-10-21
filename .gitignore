@@ -2,3 +2,4 @@ node_modules/
 dist/
 test-output/
 tsconfig.lib.tsbuildinfo
+aabha-*.tgz
