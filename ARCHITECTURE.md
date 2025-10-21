@@ -1,6 +1,6 @@
 # Blueprint Architecture: Compile-Time Only Product Management
 
-## Design Philosophy (The `kunti` Design)
+## Design Philosophy
 
 Blueprint is a **compile-time focused** package that uses TypeScript's type system for validation. The goal is:
 
@@ -27,7 +27,7 @@ Blueprint uses **native Stage 3 decorators** (TypeScript 5.0+), NOT the legacy e
 
 ### Compile-Time Safety Guarantees
 
-1. **Hierarchy Enforcement** - Parents can only reference properly branded children
+1. **Hierarchy Enforcement** - Parents can only reference properly branded children (the `kunti` concept! iykyk)
 2. **Completeness Validation** - Required fields must be provided (enforced by types)
 3. **Consistency Checking** - Relationships must be valid (e.g., Journey can only reference WithMilestone types)
 4. **One-Way References** - Children cannot reference parents (enforced by type system)
