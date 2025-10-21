@@ -1,7 +1,7 @@
 /**
  * @Milestone Decorator
  * Marks a class as a Milestone (business-significant achievement)
- * @module blueprint/decorators/milestone
+ * @module aabha/decorators/milestone
  *
  * COMPILE-TIME ONLY: This decorator has zero runtime overhead.
  * It only applies type brands for compile-time validation.

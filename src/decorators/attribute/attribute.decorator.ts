@@ -1,7 +1,7 @@
 /**
  * @Attribute Decorator
  * Marks a class property as an Attribute (reusable property definition)
- * @module blueprint/decorators/attribute
+ * @module aabha/decorators/attribute
  *
  * COMPILE-TIME ONLY: This decorator has zero runtime overhead.
  * It only applies type brands for compile-time validation.

@@ -1,6 +1,6 @@
 /**
  * Journey decorator exports
- * @module blueprint/decorators/journey
+ * @module aabha/decorators/journey
  */
 
 export { Journey } from './journey.decorator.js';

@@ -1,6 +1,6 @@
 /**
  * Internal branding utilities
- * @module blueprint/internal
+ * @module aabha/internal
  * @internal
  */
 

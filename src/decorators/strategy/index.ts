@@ -1,6 +1,6 @@
 /**
  * Strategy decorator exports
- * @module blueprint/decorators/strategy
+ * @module aabha/decorators/strategy
  */
 
 export { Strategy } from './strategy.decorator.js';

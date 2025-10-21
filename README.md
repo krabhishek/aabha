@@ -1,14 +1,18 @@
-# Blueprint
+# Aabha
 
-**Product Management as Code** - Define strategy, initiatives, journeys, and expectations with TypeScript decorators.
+**Aabha** (Sanskrit: आभा, meaning "aura" or "radiance") - **Product Management as Code**
 
-Bring the rigor of software engineering to product management. Blueprint transforms product strategy, user journeys, and stakeholder expectations into executable TypeScript code with complete compile-time validation.
+Define strategy, initiatives, journeys, and expectations with TypeScript decorators.
 
-## Why Blueprint?
+Bring the rigor of software engineering to product management. Aabha transforms product strategy, user journeys, and stakeholder expectations into executable TypeScript code with complete compile-time validation.
+
+Just as an aura radiates from a well-crafted product vision, Aabha brings clarity and structure to product management.
+
+## Why Aabha?
 
 ### 📋 Complete Clarity & Rigor
 
-Traditional product management relies on scattered documents, spreadsheets, and diagrams. Blueprint brings **engineering discipline** to product definition:
+Traditional product management relies on scattered documents, spreadsheets, and diagrams. Aabha brings **engineering discipline** to product definition:
 
 - **Single Source of Truth** - Your product model IS your code
 - **Compile-Time Validation** - Inconsistencies caught before implementation
@@ -18,7 +22,7 @@ Traditional product management relies on scattered documents, spreadsheets, and 
 
 ### 🤝 Business-Engineering Alignment
 
-Blueprint creates a **shared language** between business and engineering:
+Aabha creates a **shared language** between business and engineering:
 
 - **Traceability** - Track features from strategy → initiatives → journeys → expectations → code
 - **Impact Analysis** - TypeScript shows what changes when strategy shifts
@@ -28,11 +32,11 @@ Blueprint creates a **shared language** between business and engineering:
 
 ### 🤖 AI-Assisted Development Acceleration
 
-Blueprint models provide **rich, structured context** for AI coding assistants (Gemini, Claude Code, GitHub Copilot, Cursor, etc.):
+Aabha models provide **rich, structured context** for AI coding assistants (Gemini, Claude Code, GitHub Copilot, Cursor, etc.):
 
 #### 🎯 High Signal-to-Noise Ratio = Massive Token Savings
 
-Blueprint delivers **maximum context with minimum tokens**:
+Aabha delivers **maximum context with minimum tokens**:
 
 ```typescript
 // Traditional approach: 500+ tokens of scattered context
@@ -42,7 +46,7 @@ Blueprint delivers **maximum context with minimum tokens**:
 // - Describe metrics
 // - Clarify ambiguities
 
-// Blueprint approach: 50 tokens of dense, structured context
+// Aabha approach: 50 tokens of dense, structured context
 @BusinessInitiative({
   name: 'Seamless Checkout',
   strategy: GrowthStrategy, // Links entire strategy context
@@ -52,7 +56,7 @@ Blueprint delivers **maximum context with minimum tokens**:
 })
 class CheckoutInitiative {}
 
-// 10x token efficiency! AI reads the structure:
+// 10x token efficiency! AI reads the Aabha structure:
 // ✅ Business goal (reduce abandonment)
 // ✅ Linked strategy (growth)
 // ✅ User experience (checkout journey)
@@ -69,14 +73,14 @@ class CheckoutInitiative {}
 
 #### 🧠 AI-Powered Product Planning
 
-Blueprint enables AI assistants to **co-create product plans** with type-safe validation:
+Aabha enables AI assistants to **co-create product plans** with type-safe validation:
 
 **1. AI as Product Planning Partner**
 
 ```typescript
 // Developer: "Claude, help me plan the 'User Onboarding' initiative"
 
-// AI generates structured blueprint:
+// AI generates structured Aabha model:
 @BusinessInitiative({
   name: 'User Onboarding',
   objectives: [
@@ -144,7 +148,7 @@ class SignupJourney {}
 
 #### AI-Powered "Vibe Coding" with Context Richness
 
-With blueprint, AI assistants can:
+With Aabha, AI assistants can:
 
 1. **Generate Implementation** - "Implement the CheckoutJourney with all expectations"
 2. **Suggest Architecture** - AI sees stakeholder relationships and suggests optimal design
@@ -165,11 +169,11 @@ We want to reduce cart abandonment.
 The primary user is a tech-savvy millennial who values speed..." ❌
 // Problem: AI must infer structure, relationships, metrics
 
-// Blueprint: Precise, uses 50 tokens + type-safe structure
+// Aabha: Precise, uses 50 tokens + type-safe structure
 "Implement CheckoutJourney with all milestones, ensuring CustomerStakeholder
 expectations are met and CartAbandonmentRate metric is tracked" ✅
 
-// AI instantly understands from blueprint model:
+// AI instantly understands from Aabha model:
 // - Primary stakeholder: CustomerStakeholder (with persona details)
 // - Business goal: Reduce cart abandonment to 30%
 // - User journey: CheckoutJourney (with all milestones)
@@ -183,21 +187,21 @@ expectations are met and CartAbandonmentRate metric is tracked" ✅
 
 #### Token Efficiency Comparison
 
-| Scenario                | Traditional Approach              | Blueprint Approach               | Token Savings |
+| Scenario                | Traditional Approach              | Aabha Approach                   | Token Savings |
 | ----------------------- | --------------------------------- | -------------------------------- | ------------- |
 | **Context Sharing**     | 500-1000 tokens (copy-paste docs) | 50-100 tokens (structured model) | **90%**       |
 | **AI Query**            | Repeat context each time          | Reference once, reuse            | **80%**       |
 | **Clarification Round** | Multiple back-and-forth cycles    | Type errors guide AI immediately | **70%**       |
 | **Implementation**      | Verbose requirements              | Dense, linked structure          | **85%**       |
 
-**Cumulative Effect**: Blueprint reduces token consumption by **80-90%** across development lifecycle while improving output quality!
+**Cumulative Effect**: Aabha reduces token consumption by **80-90%** across development lifecycle while improving output quality!
 
 ### ⚡ Team Velocity Benefits
 
 - **Faster Onboarding** - New developers understand product by reading code
 - **Reduced Context Switching** - Product specs and code live together
 - **AI-Augmented Coding** - Junior developers ship senior-level work with AI assistance
-- **Consistency** - Blueprint enforces architectural patterns across teams
+- **Consistency** - Aabha enforces architectural patterns across teams
 - **Knowledge Retention** - Product knowledge captured in executable code, not tribal knowledge
 
 ## Features
@@ -212,11 +216,11 @@ expectations are met and CartAbandonmentRate metric is tracked" ✅
 ## Installation
 
 ```bash
-npm install blueprint
+npm install aabha
 # or
-yarn add blueprint
+yarn add aabha
 # or
-pnpm add blueprint
+pnpm add aabha
 ```
 
 ## Quick Start
@@ -231,7 +235,7 @@ import {
   Persona,
   Context,
   Metric,
-} from 'blueprint';
+} from 'aabha';
 
 // 1. Define a Persona (WHO people are)
 @Persona({
@@ -300,7 +304,7 @@ class SeamlessCheckoutInitiative {}
 
 ## Compile-Time Safety
 
-Blueprint enforces relationships at **compile time**:
+Aabha enforces relationships at **compile time**:
 
 ```typescript
 // ✅ VALID: All types are correctly branded
@@ -440,7 +444,7 @@ class FirstProjectJourney {}
 
 ```typescript
 // Engineer: "Claude, implement FirstProjectJourney"
-// AI reads the blueprint model and generates:
+// AI reads the aabha model and generates:
 // - API endpoints for each milestone
 // - Frontend components for each step
 // - Tests validating all expectations
@@ -464,7 +468,7 @@ class FirstProjectJourney {}
 
 ### Continuous Evolution
 
-6. **Product evolves** - Blueprint tracks changes:
+6. **Product evolves** - Aabha tracks changes:
 
 ```typescript
 // Modify strategy → TypeScript shows all impacted initiatives
@@ -474,7 +478,7 @@ class FirstProjectJourney {}
 
 ## Architecture
 
-Blueprint is **compile-time only** with minimal runtime footprint:
+Aabha is **compile-time only** with minimal runtime footprint:
 
 - **Type Brands**: Each decorator applies a type brand for compile-time validation
 - **Phantom Properties**: Tiny non-enumerable `__decoratorBrand` property added at runtime
@@ -483,9 +487,9 @@ Blueprint is **compile-time only** with minimal runtime footprint:
 
 See [ARCHITECTURE.md](./ARCHITECTURE.md) for full details.
 
-## Blueprint vs Traditional Approaches
+## Aabha vs Traditional Approaches
 
-| Traditional Approach                      | Blueprint Approach               |
+| Traditional Approach                      | Aabha Approach                   |
 | ----------------------------------------- | -------------------------------- |
 | 📄 Scattered docs (PRDs, specs, diagrams) | 💻 Single executable codebase    |
 | ❌ Manual validation                      | ✅ Compile-time type checking    |
@@ -509,7 +513,7 @@ See [ARCHITECTURE.md](./ARCHITECTURE.md) for full details.
 6. Features shipped with gaps
 7. AI assistant has no context
 
-**Blueprint**:
+**Aabha**:
 
 1. PM adds `@BusinessInitiative` with objectives
 2. Designer adds `@Journey` with milestones
@@ -529,7 +533,7 @@ See the [examples](./examples) directory for complete examples:
 
 ## TypeScript Configuration
 
-Blueprint uses **TypeScript 5.0+ Stage 3 decorators** (native decorators), NOT the experimental decorators:
+Aabha uses **TypeScript 5.0+ Stage 3 decorators** (native decorators), NOT the experimental decorators:
 
 ```json
 {
@@ -544,15 +548,15 @@ Blueprint uses **TypeScript 5.0+ Stage 3 decorators** (native decorators), NOT t
 }
 ```
 
-**Important**: Blueprint is incompatible with legacy `experimentalDecorators`. Ensure it's **disabled** or **omitted** from your tsconfig.json.
+**Important**: Aabha is incompatible with legacy `experimentalDecorators`. Ensure it's **disabled** or **omitted** from your tsconfig.json.
 
 ## Building
 
-Run `vite build blueprint` to build the library.
+Run `pnpm run build` to build the library.
 
 ## Running unit tests
 
-Run `vitest blueprint` to execute the unit tests via [Vitest](https://vitest.dev/).
+Run `pnpm test` to execute the unit tests via [Vitest](https://vitest.dev/).
 
 ## License
 

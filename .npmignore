@@ -1,0 +1,61 @@
+# Source files
+src/
+
+# Development and test files
+test/
+tests/
+test-output/
+*.spec.ts
+*.test.ts
+
+# Build configuration
+tsconfig.json
+tsconfig.spec.json
+tsconfig.*.json
+*.tsbuildinfo
+
+# Linting and formatting
+.eslintrc*
+eslint.config.*
+.prettierrc*
+.editorconfig
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+.travis.yml
+circle.yml
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Package manager
+node_modules/
+pnpm-lock.yaml
+yarn.lock
+package-lock.json
+
+# Misc
+*.log
+.env
+.env.*
+coverage/
+.nyc_output/
+
+# Keep these files (they're in package.json "files" field)
+# dist/
+# examples/
+# README.md
+# LICENSE
+# ARCHITECTURE.md
+# CHANGELOG.md

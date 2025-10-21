@@ -1,7 +1,7 @@
 /**
  * Account Opening Journey - Complete Export
  *
- * Demonstrates proper blueprint hierarchy:
+ * Demonstrates proper aabha hierarchy:
  * Journey → Milestone → Step → Expectation → Behavior → Test
  *
  * This is the reference implementation for all other journeys.

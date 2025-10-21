@@ -1,7 +1,7 @@
 /**
  * Context Relationship Type Enum
  * Defines how business contexts relate to each other
- * @module blueprint/enums
+ * @module aabha/enums
  */
 
 /**

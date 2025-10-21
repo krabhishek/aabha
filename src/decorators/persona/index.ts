@@ -1,6 +1,6 @@
 /**
  * Persona decorator exports
- * @module blueprint/decorators/persona
+ * @module aabha/decorators/persona
  */
 
 export { Persona } from './persona.decorator.js';

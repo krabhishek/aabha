@@ -1,6 +1,6 @@
 /**
  * Stakeholder decorator exports
- * @module blueprint/decorators/stakeholder
+ * @module aabha/decorators/stakeholder
  */
 
 export { Stakeholder } from './stakeholder.decorator.js';

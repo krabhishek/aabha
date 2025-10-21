@@ -1,6 +1,6 @@
 /**
  * Expectation priority enumeration
- * @module blueprint/enums
+ * @module aabha/enums
  */
 
 /**

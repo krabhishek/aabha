@@ -1,7 +1,7 @@
 /**
  * @Stakeholder Decorator
  * Marks a class as a Stakeholder (context-specific role)
- * @module blueprint/decorators/stakeholder
+ * @module aabha/decorators/stakeholder
  *
  * COMPILE-TIME ONLY: This decorator has zero runtime overhead.
  * It only applies type brands for compile-time validation.
@@ -61,7 +61,7 @@ export interface StakeholderOptions extends BaseDecoratorOptions {
    * Business context where this stakeholder operates (required)
    * COMPILE-TIME TYPE SAFETY: Must be a class decorated with @Context
    *
-   * NOTE: This is blueprint's @Context (business perspective),
+   * NOTE: This is aabha's @Context (business perspective),
    * NOT bhasha's @BoundedContext (domain boundary)
    *
    * @example

@@ -1,7 +1,7 @@
 /**
  * @Metric Decorator
  * Marks a class as a Metric (measurable outcome)
- * @module blueprint/decorators/metric
+ * @module aabha/decorators/metric
  *
  * COMPILE-TIME ONLY: This decorator has zero runtime overhead.
  * It only applies type brands for compile-time validation.

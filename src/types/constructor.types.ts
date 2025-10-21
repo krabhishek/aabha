@@ -1,6 +1,6 @@
 /**
  * Constructor type definitions
- * @module blueprint/types
+ * @module aabha/types
  */
 
 /**

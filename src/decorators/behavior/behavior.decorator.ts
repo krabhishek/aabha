@@ -1,12 +1,12 @@
 /**
  * @Behavior Decorator
  * Marks a class as a Behavior (executable behavior)
- * @module blueprint/decorators/behavior
+ * @module aabha/decorators/behavior
  *
  * COMPILE-TIME ONLY: This decorator has zero runtime overhead.
  * It only applies type brands for compile-time validation.
  *
- * NOTE: Blueprint only includes @Behavior, NOT Logic/Policy/Rule/Specification
+ * NOTE: Aabha only includes @Behavior, NOT Logic/Policy/Rule/Specification
  * (those are DDD concepts that belong in bhasha)
  */
 

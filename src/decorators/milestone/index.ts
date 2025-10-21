@@ -1,6 +1,6 @@
 /**
  * Milestone decorator exports
- * @module blueprint/decorators/milestone
+ * @module aabha/decorators/milestone
  */
 
 export { Milestone } from './milestone.decorator.js';

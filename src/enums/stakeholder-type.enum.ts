@@ -1,8 +1,8 @@
 /**
  * Stakeholder Type Enumeration
- * @module blueprint/enums/stakeholder-type
+ * @module aabha/enums/stakeholder-type
  *
- * Defines the different types of stakeholders in a blueprint model.
+ * Defines the different types of stakeholders in a aabha model.
  */
 
 /**

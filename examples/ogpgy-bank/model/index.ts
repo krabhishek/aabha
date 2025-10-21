@@ -2,7 +2,7 @@
  * OgPgyBank Product Model - Main Export
  *
  * Complete product model for OgPgyBank's digital transformation (2024-2027).
- * This model demonstrates blueprint's capabilities for comprehensive product definition.
+ * This model demonstrates aabha's capabilities for comprehensive product definition.
  *
  * Model Statistics:
  * - 1 Strategy (Digital Transformation)

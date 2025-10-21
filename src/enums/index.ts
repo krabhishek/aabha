@@ -1,6 +1,6 @@
 /**
  * Enum exports
- * @module blueprint/enums
+ * @module aabha/enums
  */
 
 export { ContextRelationship } from './context-relationship.enum.js';

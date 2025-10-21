@@ -1,6 +1,6 @@
 /**
  * Branded types for compile-time decorator presence verification
- * @module blueprint/types/branded-types
+ * @module aabha/types/branded-types
  *
  * These branded types enable TypeScript to verify at compile time that classes
  * have the required decorators applied. This transforms validation into

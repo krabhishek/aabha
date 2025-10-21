@@ -1,6 +1,6 @@
 /**
  * Attribute decorator exports
- * @module blueprint/decorators/attribute
+ * @module aabha/decorators/attribute
  */
 
 export { Attribute } from './attribute.decorator.js';

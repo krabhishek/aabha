@@ -1,7 +1,7 @@
 /**
  * @Persona Decorator
  * Marks a class as a Persona (user archetype)
- * @module blueprint/decorators/persona
+ * @module aabha/decorators/persona
  *
  * COMPILE-TIME ONLY: This decorator has zero runtime overhead.
  * It only applies type brands for compile-time validation.

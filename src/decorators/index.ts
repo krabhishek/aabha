@@ -1,6 +1,6 @@
 /**
  * Decorator exports
- * @module blueprint/decorators
+ * @module aabha/decorators
  */
 
 // Strategic Level

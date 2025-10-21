@@ -2,7 +2,7 @@
 /**
  * @Witness Decorator
  * Marks a method as a Witness (verification witness for a behavior)
- * @module blueprint/decorators/witness
+ * @module aabha/decorators/witness
  *
  * COMPILE-TIME ONLY: This decorator has zero runtime overhead.
  * It only applies type brands for compile-time validation.

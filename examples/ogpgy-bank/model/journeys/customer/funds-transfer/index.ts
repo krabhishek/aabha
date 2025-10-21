@@ -1,7 +1,7 @@
 /**
  * Funds Transfer Journey - Complete Export
  *
- * Demonstrates proper blueprint hierarchy:
+ * Demonstrates proper aabha hierarchy:
  * Journey → Milestone → Step → Expectation → Behavior → Test
  */
 

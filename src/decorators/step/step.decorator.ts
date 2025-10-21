@@ -1,7 +1,7 @@
 /**
  * @Step Decorator
  * Marks a class as a Step (granular action within a milestone)
- * @module blueprint/decorators/step
+ * @module aabha/decorators/step
  *
  * COMPILE-TIME ONLY: This decorator has zero runtime overhead.
  * It only applies type brands for compile-time validation.

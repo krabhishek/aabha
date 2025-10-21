@@ -1,14 +1,14 @@
-# Blueprint Architecture: Compile-Time Only Product Management
+# Aabha Architecture: Compile-Time Only Product Management
 
 ## Design Philosophy
 
-Blueprint is a **compile-time focused** package that uses TypeScript's type system for validation. The goal is:
+Aabha is a **compile-time focused** package that uses TypeScript's type system for validation. The goal is:
 
 > **Type error-free compilation = Internally consistent and complete product model**
 
 ## TypeScript 5.0+ Stage 3 Decorators
 
-Blueprint uses **native Stage 3 decorators** (TypeScript 5.0+), NOT the legacy experimental decorators:
+Aabha uses **native Stage 3 decorators** (TypeScript 5.0+), NOT the legacy experimental decorators:
 
 - ✅ **Stage 3 decorators** - Modern, standardized ECMAScript decorators
 - ❌ **NOT experimental decorators** - Legacy pre-TC39 syntax

@@ -1,6 +1,6 @@
 /**
  * @Witness decorator exports
- * @module blueprint/decorators/witness
+ * @module aabha/decorators/witness
  */
 
 export { Witness, WitnessType } from './witness.decorator.js';

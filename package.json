@@ -1,7 +1,7 @@
 {
-  "name": "blueprint",
+  "name": "aabha",
   "version": "1.0.0",
-  "description": "Product Management as Code - Define strategy, initiatives, journeys, and expectations with TypeScript decorators. Compile-time only with zero runtime overhead.",
+  "description": "Aabha (aura) - Product Management as Code. Define strategy, initiatives, journeys, and expectations with TypeScript decorators. Compile-time only with zero runtime overhead.",
   "author": {
     "name": "Abhishek Pathak",
     "url": "https://github.com/krabhishek"
@@ -21,8 +21,15 @@
   },
   "files": [
     "dist",
+    "examples",
+    "README.md",
+    "LICENSE",
+    "ARCHITECTURE.md",
     "!**/*.tsbuildinfo"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "keywords": [
     "product-management",
     "strategy",
@@ -52,7 +59,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/krabhishek/blueprint",
-    "directory": "packages/blueprint"
+    "url": "https://github.com/krabhishek/aabha"
+  },
+  "homepage": "https://github.com/krabhishek/aabha#readme",
+  "bugs": {
+    "url": "https://github.com/krabhishek/aabha/issues"
   }
 }

@@ -1,6 +1,6 @@
 /**
  * Exchange Contract Types
- * @module blueprint/types/exchange-contract
+ * @module aabha/types/exchange-contract
  *
  * Defines the contract structure for expectation exchanges between stakeholders.
  */

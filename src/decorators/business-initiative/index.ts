@@ -1,6 +1,6 @@
 /**
  * BusinessInitiative decorator exports
- * @module blueprint/decorators/business-initiative
+ * @module aabha/decorators/business-initiative
  */
 
 export { BusinessInitiative } from './business-initiative.decorator.js';

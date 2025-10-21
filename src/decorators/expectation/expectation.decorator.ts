@@ -1,7 +1,7 @@
 /**
  * @Expectation Decorator
  * Marks a class as an Expectation (stakeholder expectation)
- * @module blueprint/decorators/expectation
+ * @module aabha/decorators/expectation
  *
  * COMPILE-TIME ONLY: This decorator has zero runtime overhead.
  * It only applies type brands for compile-time validation.

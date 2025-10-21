@@ -1,6 +1,6 @@
-# OgPgyBank: Comprehensive Blueprint Product Model
+# OgPgyBank: Comprehensive Aabha Product Model
 
-This is a comprehensive product model demonstrating blueprint's capabilities for large-scale product definition in a realistic banking transformation scenario.
+This is a comprehensive product model demonstrating aabha's capabilities for large-scale product definition in a realistic banking transformation scenario.
 
 ## 📖 Backstory
 
@@ -355,13 +355,13 @@ Rich, structured context enables 80-90% token savings for AI assistants.
 
 ## 📚 Learn More
 
-- **Blueprint README:** [`../../README.md`](../../README.md)
+- **Aabha README:** [`../../README.md`](../../README.md)
 - **Architecture:** [`../../ARCHITECTURE.md`](../../ARCHITECTURE.md)
 - **E-Commerce Example:** [`../ecommerce-strategy.ts`](../ecommerce-strategy.ts)
 
 ## 🙏 Credits
 
-This model demonstrates blueprint's vision: **product specifications as executable code**.
+This model demonstrates aabha's vision: **product specifications as executable code**.
 
 No more scattered PRDs, Confluence pages, or Figma files. The model IS the truth.
 
@@ -371,4 +371,4 @@ No more scattered PRDs, Confluence pages, or Figma files. The model IS the truth
 
 **Version:** 1.0
 **Created:** October 2025
-**Purpose:** Comprehensive blueprint demonstration using realistic banking transformation scenario
+**Purpose:** Comprehensive aabha demonstration using realistic banking transformation scenario

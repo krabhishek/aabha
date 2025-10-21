@@ -1,6 +1,6 @@
 /**
  * Interaction Pattern Enumeration
- * @module blueprint/enums/interaction-pattern
+ * @module aabha/enums/interaction-pattern
  *
  * Defines how stakeholders interact in an expectation exchange.
  */

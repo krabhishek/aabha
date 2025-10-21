@@ -1,6 +1,6 @@
 /**
  * Metric decorator exports
- * @module blueprint/decorators/metric
+ * @module aabha/decorators/metric
  */
 
 export { Metric } from './metric.decorator.js';

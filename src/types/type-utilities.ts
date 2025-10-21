@@ -1,6 +1,6 @@
 /**
  * Type-level utilities for compile-time validation
- * @module blueprint/types/type-utilities
+ * @module aabha/types/type-utilities
  *
  * These utilities enable powerful compile-time checks and transformations,
  * turning runtime validation into TypeScript type errors.

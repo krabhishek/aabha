@@ -1,6 +1,6 @@
 /**
  * Step decorator exports
- * @module blueprint/decorators/step
+ * @module aabha/decorators/step
  */
 
 export { Step } from './step.decorator.js';

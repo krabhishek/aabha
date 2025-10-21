@@ -1,13 +1,13 @@
 /**
  * @Context Decorator
  * Marks a class as a Context (business perspective/lens)
- * @module blueprint/decorators/context
+ * @module aabha/decorators/context
  *
  * COMPILE-TIME ONLY: This decorator has zero runtime overhead.
  * It only applies type brands for compile-time validation.
  *
  * NOTE: This is different from DDD's BoundedContext.
- * Context in blueprint represents business perspectives (Sales, Marketing, Compliance)
+ * Context in aabha represents business perspectives (Sales, Marketing, Compliance)
  * while BoundedContext in bhasha represents domain boundaries.
  */
 

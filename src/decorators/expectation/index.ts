@@ -1,6 +1,6 @@
 /**
  * Expectation decorator exports
- * @module blueprint/decorators/expectation
+ * @module aabha/decorators/expectation
  */
 
 export { Expectation } from './expectation.decorator.js';

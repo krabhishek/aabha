@@ -1,7 +1,7 @@
 /**
  * @Journey Decorator
  * Marks a class as a Journey (user/stakeholder experience flow)
- * @module blueprint/decorators/journey
+ * @module aabha/decorators/journey
  *
  * COMPILE-TIME ONLY: This decorator has zero runtime overhead.
  * It only applies type brands for compile-time validation.

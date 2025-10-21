@@ -1,6 +1,6 @@
 /**
  * Behavior decorator exports
- * @module blueprint/decorators/behavior
+ * @module aabha/decorators/behavior
  */
 
 export { Behavior } from './behavior.decorator.js';

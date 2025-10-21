@@ -1,6 +1,6 @@
 /**
  * Context decorator exports
- * @module blueprint/decorators/context
+ * @module aabha/decorators/context
  */
 
 export { Context } from './context.decorator.js';

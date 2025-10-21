@@ -1,6 +1,6 @@
 /**
  * Base Decorator Options Types
- * @module blueprint/types/decorator-options
+ * @module aabha/types/decorator-options
  *
  * Provides common base types that all decorator options extend from.
  */
@@ -24,8 +24,8 @@ export interface BaseDecoratorOptions {
    * Extension point for custom metadata
    *
    * Use this field to add any custom data that your organization needs
-   * beyond the standard Blueprint fields. This allows you to extend
-   * Blueprint without modifying the core API.
+   * beyond the standard Aabha fields. This allows you to extend
+   * Aabha without modifying the core API.
    *
    * @example
    * ```typescript

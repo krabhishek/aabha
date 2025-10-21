@@ -1,14 +1,15 @@
 /**
- * Blueprint - Product Management as Code
+ * Aabha - Product Management as Code
  *
- * A compile-time only TypeScript package for defining product strategy,
- * initiatives, journeys, and expectations with zero runtime overhead.
+ * Aabha (Sanskrit: आभा, meaning "aura") - A compile-time only TypeScript package
+ * for defining product strategy, initiatives, journeys, and expectations with
+ * zero runtime overhead.
  *
- * @module blueprint
+ * @module aabha
  *
  * @example
  * ```typescript
- * import { Strategy, BusinessInitiative, Journey, Metric } from 'blueprint';
+ * import { Strategy, BusinessInitiative, Journey, Metric } from 'aabha';
  *
  * @Strategy({
  *   name: 'E-Commerce Growth',

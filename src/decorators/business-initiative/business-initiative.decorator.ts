@@ -1,7 +1,7 @@
 /**
  * @BusinessInitiative Decorator
  * Marks a class as a Business Initiative (concrete strategic initiative)
- * @module blueprint/decorators/business-initiative
+ * @module aabha/decorators/business-initiative
  *
  * COMPILE-TIME ONLY: This decorator has zero runtime overhead.
  * It only applies type brands for compile-time validation.

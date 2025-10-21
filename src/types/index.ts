@@ -1,6 +1,6 @@
 /**
  * Type exports
- * @module blueprint/types
+ * @module aabha/types
  */
 
 export type { Constructor } from './constructor.types.js';

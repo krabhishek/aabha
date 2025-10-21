@@ -465,7 +465,7 @@ This backstory provides:
 5. **Customer Diversity:** Different segments with different needs
 6. **Transformation Journey:** Change management and cultural evolution themes
 
-When creating `blueprint` examples, reference:
+When creating `aabha` examples, reference:
 - Specific personas as stakeholders
 - Real journeys (e.g., "Maria Santos opens a savings account")
 - Actual pain points driving features
@@ -477,4 +477,4 @@ When creating `blueprint` examples, reference:
 ---
 
 *Version 1.0 - Created October 2025*
-*For use in `blueprint` example implementation*
+*For use in `aabha` example implementation*
