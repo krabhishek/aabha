@@ -1,0 +1,58 @@
+{
+  "name": "blueprint",
+  "version": "1.0.0",
+  "description": "Product Management as Code - Define strategy, initiatives, journeys, and expectations with TypeScript decorators. Compile-time only with zero runtime overhead.",
+  "author": {
+    "name": "Abhishek Pathak",
+    "url": "https://github.com/krabhishek"
+  },
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "!**/*.tsbuildinfo"
+  ],
+  "keywords": [
+    "product-management",
+    "strategy",
+    "journey-mapping",
+    "okr",
+    "metrics",
+    "typescript",
+    "decorators",
+    "compile-time",
+    "zero-runtime",
+    "type-safety"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.lib.json",
+    "clean": "rm -rf dist dist-test",
+    "typecheck": "tsc --noEmit",
+    "typecheck:test": "tsc -p tsconfig.spec.json --noEmit",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "@eslint/js": "^9.38.0",
+    "eslint": "^9.38.0",
+    "globals": "^16.4.0",
+    "typescript-eslint": "^8.46.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/krabhishek/blueprint",
+    "directory": "packages/blueprint"
+  }
+}
