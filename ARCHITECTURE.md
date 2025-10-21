@@ -115,7 +115,7 @@ Behavior (executable behavior with witnesses)
 Witness (method-level proof that behavior works)
 ```
 
-**One-Way Rule**: Parents reference children via branded arrays. Children have NO knowledge of parents.
+**One-Way Rule**: Parents reference children via branded arrays. Children have NO knowledge of parents (`kunti` pattern - `#iykyk` 😂).
 
 **Contract Model**: Expectations define explicit contracts between two stakeholders:
 - **Provider**: Stakeholder who fulfills the expectation
