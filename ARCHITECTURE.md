@@ -1,6 +1,6 @@
 # Blueprint Architecture: Compile-Time Only Product Management
 
-## Design Philosophy
+## Design Philosophy (The `kunti` Design)
 
 Blueprint is a **compile-time focused** package that uses TypeScript's type system for validation. The goal is:
 
