@@ -1,0 +1,14 @@
+packages:
+  - aabha
+  - eslint-plugin-aabha
+
+autoInstallPeers: true
+
+onlyBuiltDependencies:
+  - '@swc/core'
+  - esbuild
+  - nx
+  - rollup
+  - unrs-resolver
+
+strictPeerDependencies: false

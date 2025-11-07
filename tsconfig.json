@@ -1,50 +1,67 @@
 {
-  "compilerOptions": {
-    // Language and Environment
-    "target": "ES2022",
-    "lib": ["ES2022"],
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": false,
-
-    // Modules
-    "module": "ESNext",
-    "moduleResolution": "bundler",
-    "resolveJsonModule": true,
-
-    // Emit
-    "declaration": true,
-    "declarationMap": true,
-    "sourceMap": true,
-    "removeComments": false,
-    "importHelpers": false,
-
-    // Interop Constraints
-    "isolatedModules": true,
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-
-    // Type Checking
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "noUncheckedIndexedAccess": true,
-    "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": true,
-
-    // Completeness
-    "skipLibCheck": true
-  },
+  "extends": "./tsconfig.base.json",
+  "compileOnSave": false,
   "files": [],
-  "include": [],
   "references": [
     {
-      "path": "./tsconfig.lib.json"
+      "path": "./tools/logger"
     },
     {
-      "path": "./tsconfig.spec.json"
+      "path": "./tools/astute"
+    },
+    {
+      "path": "./tools/printing-press"
+    },
+    {
+      "path": "./utils/pull-strings"
+    },
+    {
+      "path": "./packages/aabha"
+    },
+    {
+      "path": "./packages/aabha-schema"
+    },
+    {
+      "path": "./packages/aabha-analyzer"
+    },
+    {
+      "path": "./packages/aabha-transformer"
+    },
+    {
+      "path": "./apps/aabha-vscode-extension"
+    },
+    {
+      "path": "./apps/aabha-language-server"
+    },
+    {
+      "path": "./packages/aabha-webviews"
+    },
+    {
+      "path": "./examples/aabha/ogpgy-bank"
+    },
+    {
+      "path": "./examples/aabha-plugins/aabha-plugin-example"
+    },
+    {
+      "path": "./packages/aabha-plugin-core-rules"
+    },
+    {
+      "path": "./apps/bhumika-cli"
+    },
+    {
+      "path": "./tools/analytics-sdk"
+    },
+    {
+      "path": "./examples/aabha/test-aabha-project"
+    },
+    {
+      "path": "./utils/configstore"
+    },
+    {
+      "path": "./apps/aabha-mcp-server"
+    },
+    {
+      "path": "./packages/eslint-plugin-aabha"
     }
   ]
 }

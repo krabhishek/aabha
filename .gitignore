@@ -1,5 +1,9 @@
-node_modules/
-dist/
-test-output/
-tsconfig.lib.tsbuildinfo
-aabha-*.tgz
+
+.nx/installation
+.nx/cache
+.nx/workspace-data
+
+
+node_modules
+dist
+out-tsc

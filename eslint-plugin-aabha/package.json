@@ -1,0 +1,36 @@
+{
+  "name": "eslint-plugin-aabha",
+  "version": "1.1.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "@bhumika-ai/source": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "!**/*.tsbuildinfo"
+  ],
+  "peerDependencies": {
+    "eslint": ">=9.0.0"
+  },
+  "dependencies": {
+    "@typescript-eslint/utils": "^8.46.3",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "@types/eslint": "^9.6.1",
+    "@typescript-eslint/parser": "^8.46.3",
+    "@typescript-eslint/rule-tester": "^8.46.3",
+    "typescript": "^5.0.0",
+    "vite": "^7.1.12",
+    "vitest": "^3.2.4"
+  }
+}
