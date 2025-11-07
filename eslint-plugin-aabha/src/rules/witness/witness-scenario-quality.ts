@@ -1,38 +1,116 @@
 /**
- * WitnessScenarioQuality Rule
- * TODO: Port from aabha-plugin-core-rules
+ * Witness Scenario Quality Rule
+ *
+ * **Why this rule exists:**
+ * In Aabha's behavioral framework, **scenario quality** ensures that witness scenarios are
+ * meaningful and descriptive. Scenarios that are too short, vague, or empty don't provide
+ * enough context for AI systems to understand test purpose or generate documentation.
+ *
+ * Scenario quality enables AI to:
+ * 1. **Understand test purpose** - Know what business scenario is being tested
+ * 2. **Generate documentation** - Create test documentation from scenarios
+ * 3. **Trace to requirements** - Link scenarios to business requirements
+ * 4. **Improve test clarity** - Make test intent clear to developers and AI
+ *
+ * Poor scenario quality means AI can't understand test purpose or generate meaningful documentation.
+ *
+ * **What it checks:**
+ * - Witness scenarios are not empty
+ * - Scenarios are at least 10 characters (meaningful description)
+ * - Scenarios avoid vague terms like "test", "check", "verify"
+ *
+ * **Examples:**
+ * ```typescript
+ * // ✅ Good - Quality scenario
+ * @Witness({
+ *   name: 'Payment Processing Test',
+ *   scenario: 'User successfully completes payment with valid credit card'
+ * })
+ * witnessPaymentProcessing() {}
+ *
+ * // ❌ Bad - Poor scenario quality
+ * @Witness({
+ *   name: 'Payment Processing Test',
+ *   scenario: 'test'  // Too vague, not descriptive
+ * })
+ * witnessPaymentProcessing() {}
+ * ```
  *
  * @category witness
  */
 
 import type { TSESTree } from '@typescript-eslint/utils';
 import { createRule } from '../../utils/create-rule.js';
-import { getAabhaDecorators } from '../../utils/decorator-parser.js';
+import { parseAabhaDecorator } from '../../utils/decorator-parser.js';
 
-export const witnessScenarioQuality = createRule({
+const VAGUE_SCENARIO_TERMS = ['test', 'check', 'verify', 'validate', 'ensure'];
+
+type MessageIds = 'missingScenario' | 'scenarioTooShort' | 'scenarioTooVague';
+
+export const witnessScenarioQuality = createRule<[], MessageIds>({
   name: 'witness-scenario-quality',
   meta: {
     type: 'problem',
     docs: {
-      description: 'TODO: Add description from core rules',
+      description: 'Witness scenarios should be meaningful and descriptive to enable AI comprehension and documentation generation',
     },
     messages: {
-      // TODO: Add message definitions
+      missingScenario: "Witness '{{name}}' is missing a 'scenario' field. Scenarios provide high-level test context in plain language and help AI systems understand test purpose and generate documentation. Add a scenario field (e.g., 'scenario: \"User successfully completes payment with valid credit card\"').",
+      scenarioTooShort: "Witness '{{name}}' has a scenario that is too short ({{length}} characters). Scenarios should be at least 10 characters to provide meaningful context. Write a descriptive scenario that explains the business context being tested (e.g., 'User successfully completes payment with valid credit card' instead of 'test').",
+      scenarioTooVague: "Witness '{{name}}' has a vague scenario '{{scenario}}'. Scenarios should be specific and descriptive, avoiding generic terms like 'test', 'check', or 'verify'. Write a scenario that describes the specific business situation being tested (e.g., 'User successfully completes payment with valid credit card').",
     },
     schema: [],
-    // TODO: Add hasFix: true if rule has auto-fix capability
   },
   defaultOptions: [],
   create(context) {
     return {
-      ClassDeclaration(node: TSESTree.ClassDeclaration) {
-        // TODO: Implement rule logic
-        // Reference: packages/aabha-plugin-core-rules/src/rules/witness/witness-scenario-quality.ts
+      MethodDefinition(node: TSESTree.MethodDefinition) {
+        // Check if this method has decorators
+        if (!node.decorators || node.decorators.length === 0) return;
 
-        const _decorators = getAabhaDecorators(node);
+        // Find @Witness decorator
+        for (const decorator of node.decorators) {
+          const parsed = parseAabhaDecorator(decorator);
+          if (!parsed || parsed.type !== 'Witness') continue;
 
-        // TODO: Port validation logic from core rules
-        // Use _decorators to access Aabha decorator metadata
+          const name = parsed.metadata.name as string | undefined;
+          const scenario = parsed.metadata.scenario as string | undefined;
+
+          if (!scenario) {
+            context.report({
+              node: decorator,
+              messageId: 'missingScenario',
+              data: { name: name || 'Unnamed witness' },
+            });
+            continue;
+          }
+
+          if (scenario.length < 10) {
+            context.report({
+              node: decorator,
+              messageId: 'scenarioTooShort',
+              data: {
+                name: name || 'Unnamed witness',
+                length: scenario.length,
+              },
+            });
+          }
+
+          const scenarioLower = scenario.toLowerCase();
+          for (const vagueTerm of VAGUE_SCENARIO_TERMS) {
+            if (scenarioLower === vagueTerm || scenarioLower.trim() === vagueTerm) {
+              context.report({
+                node: decorator,
+                messageId: 'scenarioTooVague',
+                data: {
+                  name: name || 'Unnamed witness',
+                  scenario,
+                },
+              });
+              break;
+            }
+          }
+        }
       },
     };
   },

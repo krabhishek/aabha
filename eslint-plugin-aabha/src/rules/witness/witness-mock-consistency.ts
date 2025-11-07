@@ -1,38 +1,100 @@
 /**
- * WitnessMockConsistency Rule
- * TODO: Port from aabha-plugin-core-rules
+ * Witness Mock Consistency Rule
+ *
+ * **Why this rule exists:**
+ * In Aabha's behavioral framework, **mock consistency** ensures that witnesses that use mocks
+ * have them properly documented in fixtures. Mocks that are used but not declared create confusion
+ * about test dependencies and prevent AI from generating correct test setup code.
+ *
+ * Mock consistency enables AI to:
+ * 1. **Generate test code** - Create test setup with proper mocks
+ * 2. **Understand test dependencies** - Know which services are mocked
+ * 3. **Validate test setup** - Ensure all mocks are properly configured
+ * 4. **Document test isolation** - Understand what external dependencies are mocked
+ *
+ * Inconsistent mocks mean AI can't generate correct test setup code or understand test dependencies.
+ *
+ * **What it checks:**
+ * - Witnesses that use mocks have them declared in fixtures.mocks
+ * - Mock declarations are consistent with test needs
+ * - Integration tests that should use mocks have them declared
+ *
+ * **Examples:**
+ * ```typescript
+ * // ✅ Good - Mocks properly declared
+ * @Witness({
+ *   name: 'Payment Test',
+ *   type: WitnessType.Integration,
+ *   fixtures: {
+ *     mocks: ['PaymentGateway', 'EmailService']  // ✓ Declared
+ *   }
+ * })
+ * witnessPaymentProcessing() {}
+ *
+ * // ❌ Bad - Integration test without mocks
+ * @Witness({
+ *   name: 'Payment Test',
+ *   type: WitnessType.Integration
+ *   // Missing mocks - integration tests typically need mocks
+ * })
+ * witnessPaymentProcessing() {}
+ * ```
  *
  * @category witness
  */
 
 import type { TSESTree } from '@typescript-eslint/utils';
 import { createRule } from '../../utils/create-rule.js';
-import { getAabhaDecorators } from '../../utils/decorator-parser.js';
+import { parseAabhaDecorator } from '../../utils/decorator-parser.js';
 
-export const witnessMockConsistency = createRule({
+type MessageIds = 'integrationTestMissingMocks';
+
+export const witnessMockConsistency = createRule<[], MessageIds>({
   name: 'witness-mock-consistency',
   meta: {
-    type: 'problem',
+    type: 'suggestion',
     docs: {
-      description: 'TODO: Add description from core rules',
+      description: 'Integration and E2E witnesses should have mocks declared in fixtures when external dependencies are used',
     },
     messages: {
-      // TODO: Add message definitions
+      integrationTestMissingMocks: "Witness '{{name}}' is an integration test but doesn't declare mocks. Integration tests typically interact with external services and should declare mocks in fixtures.mocks to document test dependencies and enable proper test setup. Consider adding 'fixtures: { mocks: [\"ServiceName1\", \"ServiceName2\"] }' if this test uses external dependencies.",
     },
     schema: [],
-    // TODO: Add hasFix: true if rule has auto-fix capability
   },
   defaultOptions: [],
   create(context) {
     return {
-      ClassDeclaration(node: TSESTree.ClassDeclaration) {
-        // TODO: Implement rule logic
-        // Reference: packages/aabha-plugin-core-rules/src/rules/witness/witness-mock-consistency.ts
+      MethodDefinition(node: TSESTree.MethodDefinition) {
+        // Check if this method has decorators
+        if (!node.decorators || node.decorators.length === 0) return;
 
-        const _decorators = getAabhaDecorators(node);
+        // Find @Witness decorator
+        for (const decorator of node.decorators) {
+          const parsed = parseAabhaDecorator(decorator);
+          if (!parsed || parsed.type !== 'Witness') continue;
 
-        // TODO: Port validation logic from core rules
-        // Use _decorators to access Aabha decorator metadata
+          const name = parsed.metadata.name as string | undefined;
+          const type = parsed.metadata.type as string | undefined;
+          const fixtures = parsed.metadata.fixtures as Record<string, unknown> | undefined;
+
+          if (!type) continue;
+
+          const typeLower = type.toLowerCase().replace('witnesstype.', '');
+          const isIntegration = typeLower === 'integration' || typeLower === 'e2e';
+
+          if (isIntegration) {
+            const mocks = fixtures?.mocks;
+            const hasMocks = mocks && Array.isArray(mocks) && mocks.length > 0;
+
+            if (!hasMocks) {
+              context.report({
+                node: decorator,
+                messageId: 'integrationTestMissingMocks',
+                data: { name: name || 'Unnamed witness' },
+              });
+            }
+          }
+        }
       },
     };
   },

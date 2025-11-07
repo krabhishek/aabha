@@ -103,7 +103,6 @@ import { stakeholderStrategicAlignment } from './stakeholder/stakeholder-strateg
 import { strategyGovernanceCompleteness } from './strategy/strategy-governance-completeness.js';
 import { strategyMetricsRequired } from './strategy/strategy-metrics-required.js';
 import { strategyP2wCompleteness } from './strategy/strategy-p2w-completeness.js';
-import { schemaValidation } from './validation/schema-validation.js';
 import { witnessBddCompleteness } from './witness/witness-bdd-completeness.js';
 import { witnessBelongsToBehavior } from './witness/witness-belongs-to-behavior.js';
 import { witnessCoverageTraceability } from './witness/witness-coverage-traceability.js';
@@ -218,7 +217,6 @@ export const rules: Record<string, TSESLint.RuleModule<string, readonly unknown[
   'strategy-governance-completeness': strategyGovernanceCompleteness,
   'strategy-metrics-required': strategyMetricsRequired,
   'strategy-p2w-completeness': strategyP2wCompleteness,
-  'schema-validation': schemaValidation,
   'witness-bdd-completeness': witnessBddCompleteness,
   'witness-belongs-to-behavior': witnessBelongsToBehavior,
   'witness-coverage-traceability': witnessCoverageTraceability,
