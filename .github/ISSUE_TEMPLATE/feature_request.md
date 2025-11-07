@@ -6,6 +6,13 @@ labels: 'enhancement'
 assignees: ''
 ---
 
+## Component
+
+<!-- Select the component this feature request is for -->
+
+- [ ] **aabha** - Core Aabha framework (decorators, types, core functionality)
+- [ ] **eslint-plugin-aabha** - ESLint plugin and validation rules
+
 ## Feature Description
 
 <!-- A clear and concise description of the feature you'd like to see -->

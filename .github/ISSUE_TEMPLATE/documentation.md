@@ -6,6 +6,14 @@ labels: 'documentation'
 assignees: ''
 ---
 
+## Component
+
+<!-- Select the component this documentation is for -->
+
+- [ ] **aabha** - Core Aabha framework documentation
+- [ ] **eslint-plugin-aabha** - ESLint plugin documentation
+- [ ] **General** - General documentation (guides, examples, etc.)
+
 ## Documentation Type
 
 <!-- Check one -->

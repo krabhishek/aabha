@@ -6,6 +6,14 @@ labels: 'question'
 assignees: ''
 ---
 
+## Component
+
+<!-- Select the component your question is about -->
+
+- [ ] **aabha** - Core Aabha framework (decorators, types, core functionality)
+- [ ] **eslint-plugin-aabha** - ESLint plugin and validation rules
+- [ ] **General** - General question about Aabha ecosystem
+
 ## Question
 
 <!-- Ask your question here -->

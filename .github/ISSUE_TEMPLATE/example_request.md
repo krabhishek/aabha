@@ -6,6 +6,14 @@ labels: 'example, documentation'
 assignees: ''
 ---
 
+## Component
+
+<!-- Select the component this example is for -->
+
+- [ ] **aabha** - Core Aabha framework examples
+- [ ] **eslint-plugin-aabha** - ESLint plugin usage examples
+- [ ] **General** - General examples and case studies
+
 ## Example Request
 
 <!-- What type of example would you like to see? -->

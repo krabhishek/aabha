@@ -6,6 +6,13 @@ labels: 'bug'
 assignees: ''
 ---
 
+## Component
+
+<!-- Select the component this bug report is for -->
+
+- [ ] **aabha** - Core Aabha framework (decorators, types, core functionality)
+- [ ] **eslint-plugin-aabha** - ESLint plugin and validation rules
+
 ## Bug Description
 
 <!-- A clear and concise description of what the bug is -->
