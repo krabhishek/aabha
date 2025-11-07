@@ -4,64 +4,10 @@
   "files": [],
   "references": [
     {
-      "path": "./tools/logger"
+      "path": "./aabha/tsconfig.json"
     },
     {
-      "path": "./tools/astute"
-    },
-    {
-      "path": "./tools/printing-press"
-    },
-    {
-      "path": "./utils/pull-strings"
-    },
-    {
-      "path": "./packages/aabha"
-    },
-    {
-      "path": "./packages/aabha-schema"
-    },
-    {
-      "path": "./packages/aabha-analyzer"
-    },
-    {
-      "path": "./packages/aabha-transformer"
-    },
-    {
-      "path": "./apps/aabha-vscode-extension"
-    },
-    {
-      "path": "./apps/aabha-language-server"
-    },
-    {
-      "path": "./packages/aabha-webviews"
-    },
-    {
-      "path": "./examples/aabha/ogpgy-bank"
-    },
-    {
-      "path": "./examples/aabha-plugins/aabha-plugin-example"
-    },
-    {
-      "path": "./packages/aabha-plugin-core-rules"
-    },
-    {
-      "path": "./apps/bhumika-cli"
-    },
-    {
-      "path": "./tools/analytics-sdk"
-    },
-    {
-      "path": "./examples/aabha/test-aabha-project"
-    },
-    {
-      "path": "./utils/configstore"
-    },
-    {
-      "path": "./apps/aabha-mcp-server"
-    },
-    {
-      "path": "./packages/eslint-plugin-aabha"
+      "path": "./eslint-plugin-aabha/tsconfig.json"
     }
   ]
 }
