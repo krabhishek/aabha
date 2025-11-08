@@ -13,9 +13,6 @@
       "pattern": "./aabha"
     },
     {
-      "pattern": "./eslint-plugin-aabha"
-    },
-    {
       "pattern": "./aabha/examples/ogpgy-bank"
     }
   ],

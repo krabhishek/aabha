@@ -14,7 +14,7 @@ Just as an aura radiates from a well-crafted enterprise vision, Aabha brings cla
 
 **AI coding assistants (Claude, Gemini, GitHub Copilot, Cursor, etc.)**: To understand the Aabha API and use it effectively, read the comprehensive **AI Primer** documentation designed specifically for AI systems:
 
-📚 **Start here**: [`docs/ai-primer/README.md`](./aabha/docs/ai-primer/README.md)
+📚 **Start here**: [`docs/ai-primer/README.md`](./docs/ai-primer/README.md)
 
 The AI Primer provides:
 - **Token-efficient documentation** (~71K tokens total, modular loading strategy)
@@ -797,6 +797,11 @@ See [ARCHITECTURE.md](./ARCHITECTURE.md) for full details.
 
 **Result**: 10x faster iteration with fewer bugs.
 
+## Examples
+
+See the [examples](./examples) directory for complete examples:
+
+- `ecommerce-strategy.ts` - Full e-commerce strategy with type safety demonstrations
 
 ## TypeScript Configuration
 
@@ -822,19 +827,18 @@ Run `pnpm run build` to build the library.
 ## Running unit tests
 
 Run `pnpm test` to execute the unit tests via [Vitest](https://vitest.dev/).
-Contribute by adding tests!
 
 ## Documentation
 
 **Comprehensive documentation is available**:
 
-📚 **[Read the Full Documentation →](./aabha/docs/README.md)**
+📚 **[Read the Full Documentation →](./docs/README.md)**
 
 **Quick Links**:
-- [Quick Start Guide](./aabha/docs/getting-started/quick-start.md) - Build your first model in 5 minutes
-- [Core Concepts](./aabha/docs/getting-started/core-concepts.md) - Understand Context = Perspective
-- [Strategic Build Order](./aabha/docs/best-practices/strategic-build-order.md) - Step-by-step guide
-- [API Reference](./aabha/docs/api/) - Complete decorator documentation (Under development)
+- [Quick Start Guide](./docs/getting-started/quick-start.md) - Build your first model in 5 minutes
+- [Core Concepts](./docs/getting-started/core-concepts.md) - Understand Context = Perspective
+- [Strategic Build Order](./docs/best-practices/strategic-build-order.md) - Step-by-step guide
+- [API Reference](./docs/api/) - Complete decorator documentation
 
 ## Contributing
 

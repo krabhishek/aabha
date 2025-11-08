@@ -1,9 +1,0 @@
-{
-  "name": "eslint-plugin-aabha",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/eslint-plugin-aabha/src",
-  "projectType": "library",
-  "tags": ["analysis", "rules", "eslint", "aabha-plugins"],
-  "// targets": "to see all targets run: nx show project eslint-plugin-aabha --web",
-  "targets": {}
-}

@@ -1,9 +1,3 @@
-
-.nx/installation
-.nx/cache
-.nx/workspace-data
-
-
-node_modules
-dist
-out-tsc
+node_modules/
+dist/
+out-tsc/

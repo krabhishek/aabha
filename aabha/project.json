@@ -1,9 +1,0 @@
-{
-  "name": "aabha",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/aabha/src",
-  "projectType": "library",
-  "tags": ["aabha", "public", "oss"],
-  "// targets": "to see all targets run: nx show project aabha --web",
-  "targets": {}
-}
