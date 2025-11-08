@@ -2,6 +2,7 @@ import { Collaboration } from 'aabha';
 import { RiskManagementContext } from '../contexts/RiskManagementContext.js';
 import { RiskManagerStakeholder } from '../stakeholders/human/RiskManagerStakeholder.js';
 import { ComplianceOfficerStakeholder } from '../stakeholders/human/ComplianceOfficerStakeholder.js';
+import { RetailCustomerStakeholder } from '../stakeholders/human/RetailCustomerStakeholder.js';
 
 /**
  * Loan Approval Committee Collaboration
@@ -75,7 +76,7 @@ import { ComplianceOfficerStakeholder } from '../stakeholders/human/ComplianceOf
       type: 'document',
       required: true,
       format: 'Digital package',
-      owner: 'Loan Applicant',
+      owner: RetailCustomerStakeholder,
       description: 'Complete loan application with borrower information, financial statements, and supporting documentation'
     },
     {

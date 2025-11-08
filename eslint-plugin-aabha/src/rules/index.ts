@@ -100,6 +100,19 @@ import { contextConstraintsRecommended } from './context/context-constraints-rec
 import { contextOutOfScopeRecommended } from './context/context-out-of-scope-recommended.js';
 import { contextTagsRecommended } from './context/context-tags-recommended.js';
 import { contextDomainModelCompleteness } from './context/context-domain-model-completeness.js';
+// Expectation required fields
+import { expectationRequiredFields } from './expectation/expectation-required-fields.js';
+
+// Expectation recommended fields
+import { expectationBehaviorsRecommended } from './expectation/expectation-behaviors-recommended.js';
+import { expectationQualityRecommended } from './expectation/expectation-quality-recommended.js';
+import { expectationVerificationRecommended } from './expectation/expectation-verification-recommended.js';
+import { expectationObservabilityRecommended } from './expectation/expectation-observability-recommended.js';
+import { expectationBusinessContextRecommended } from './expectation/expectation-business-context-recommended.js';
+import { expectationClassificationRecommended } from './expectation/expectation-classification-recommended.js';
+import { expectationTagsRecommended } from './expectation/expectation-tags-recommended.js';
+
+// Existing expectation validation rules
 import { expectationAdditionalInteractionsUniqueRoles } from './expectation/expectation-additional-interactions-unique-roles.js';
 import { expectationAdditionalStakeholdersUniqueRoles } from './expectation/expectation-additional-stakeholders-unique-roles.js';
 import { expectationNoSelfReference } from './expectation/expectation-no-self-reference.js';
@@ -107,6 +120,32 @@ import { expectationObservabilityMetricsNonempty } from './expectation/expectati
 import { expectationProviderConsumerDistinct } from './expectation/expectation-provider-consumer-distinct.js';
 import { expectationSloTargetRealism } from './expectation/expectation-slo-target-realism.js';
 import { expectationVerificationLevelCoverage } from './expectation/expectation-verification-level-coverage.js';
+// Required fields
+import { interactionRequiredFields } from './interaction/interaction-required-fields.js';
+
+// Recommended fields
+import { interactionDescriptionRecommended } from './interaction/interaction-description-recommended.js';
+import { interactionQualityRecommended } from './interaction/interaction-quality-recommended.js';
+import { interactionSecurityRecommended } from './interaction/interaction-security-recommended.js';
+import { interactionProtocolRecommended } from './interaction/interaction-protocol-recommended.js';
+import { interactionErrorHandlingRecommended } from './interaction/interaction-error-handling-recommended.js';
+import { interactionObservabilityRecommended } from './interaction/interaction-observability-recommended.js';
+import { interactionTagsRecommended } from './interaction/interaction-tags-recommended.js';
+
+// Completeness checks
+import { interactionInputsCompleteness } from './interaction/interaction-inputs-completeness.js';
+import { interactionOutputsCompleteness } from './interaction/interaction-outputs-completeness.js';
+
+// Layer-specific config recommendations
+import { interactionFrontendConfigRecommended } from './interaction/interaction-frontend-config-recommended.js';
+import { interactionBackendConfigRecommended } from './interaction/interaction-backend-config-recommended.js';
+import { interactionDataConfigRecommended } from './interaction/interaction-data-config-recommended.js';
+import { interactionDeviceConfigRecommended } from './interaction/interaction-device-config-recommended.js';
+import { interactionInterpersonalConfigRecommended } from './interaction/interaction-interpersonal-config-recommended.js';
+import { interactionManualConfigRecommended } from './interaction/interaction-manual-config-recommended.js';
+import { interactionOrganizationalConfigRecommended } from './interaction/interaction-organizational-config-recommended.js';
+
+// Existing interaction rules
 import { interactionBackendResilienceTimeouts } from './interaction/interaction-backend-resilience-timeouts.js';
 import { interactionErrorCodeUniqueness } from './interaction/interaction-error-code-uniqueness.js';
 import { interactionInterpersonalDurationRealism } from './interaction/interaction-interpersonal-duration-realism.js';
@@ -122,6 +161,19 @@ import { interactionOrganizationalLegalFramework } from './interaction/interacti
 import { interactionParticipantsValidation } from './interaction/interaction-participants-validation.js';
 import { interactionProtocolPatternMatching } from './interaction/interaction-protocol-pattern-matching.js';
 import { interactionQualitySloPercentileOrdering } from './interaction/interaction-quality-slo-percentile-ordering.js';
+// Journey required fields
+import { journeyRequiredFields } from './journey/journey-required-fields.js';
+
+// Journey recommended fields
+import { journeyDescriptionRecommended } from './journey/journey-description-recommended.js';
+import { journeyActionsRecommended } from './journey/journey-actions-recommended.js';
+import { journeyTagsRecommended } from './journey/journey-tags-recommended.js';
+
+// Journey validation rules
+import { journeyEntryActionsValidation } from './journey/journey-entry-actions-validation.js';
+import { journeyOutcomesCompleteness } from './journey/journey-outcomes-completeness.js';
+
+// Existing journey rules
 import { journeyEntryActionsExist } from './journey/journey-entry-actions-exist.js';
 import { journeyMetricsRelevant } from './journey/journey-metrics-relevant.js';
 import { journeyOutcomesMeasurable } from './journey/journey-outcomes-measurable.js';
@@ -315,6 +367,17 @@ export const rules: Record<string, TSESLint.RuleModule<string, readonly unknown[
   'context-out-of-scope-recommended': contextOutOfScopeRecommended,
   'context-tags-recommended': contextTagsRecommended,
   'context-domain-model-completeness': contextDomainModelCompleteness,
+  // Expectation required fields
+  'expectation-required-fields': expectationRequiredFields,
+  // Expectation recommended fields
+  'expectation-behaviors-recommended': expectationBehaviorsRecommended,
+  'expectation-quality-recommended': expectationQualityRecommended,
+  'expectation-verification-recommended': expectationVerificationRecommended,
+  'expectation-observability-recommended': expectationObservabilityRecommended,
+  'expectation-business-context-recommended': expectationBusinessContextRecommended,
+  'expectation-classification-recommended': expectationClassificationRecommended,
+  'expectation-tags-recommended': expectationTagsRecommended,
+  // Existing expectation validation rules
   'expectation-additional-interactions-unique-roles': expectationAdditionalInteractionsUniqueRoles,
   'expectation-additional-stakeholders-unique-roles': expectationAdditionalStakeholdersUniqueRoles,
   'expectation-no-self-reference': expectationNoSelfReference,
@@ -322,6 +385,28 @@ export const rules: Record<string, TSESLint.RuleModule<string, readonly unknown[
   'expectation-provider-consumer-distinct': expectationProviderConsumerDistinct,
   'expectation-slo-target-realism': expectationSloTargetRealism,
   'expectation-verification-level-coverage': expectationVerificationLevelCoverage,
+  // Interaction required fields
+  'interaction-required-fields': interactionRequiredFields,
+  // Interaction recommended fields
+  'interaction-description-recommended': interactionDescriptionRecommended,
+  'interaction-quality-recommended': interactionQualityRecommended,
+  'interaction-security-recommended': interactionSecurityRecommended,
+  'interaction-protocol-recommended': interactionProtocolRecommended,
+  'interaction-error-handling-recommended': interactionErrorHandlingRecommended,
+  'interaction-observability-recommended': interactionObservabilityRecommended,
+  'interaction-tags-recommended': interactionTagsRecommended,
+  // Interaction completeness checks
+  'interaction-inputs-completeness': interactionInputsCompleteness,
+  'interaction-outputs-completeness': interactionOutputsCompleteness,
+  // Interaction layer-specific config recommendations
+  'interaction-frontend-config-recommended': interactionFrontendConfigRecommended,
+  'interaction-backend-config-recommended': interactionBackendConfigRecommended,
+  'interaction-data-config-recommended': interactionDataConfigRecommended,
+  'interaction-device-config-recommended': interactionDeviceConfigRecommended,
+  'interaction-interpersonal-config-recommended': interactionInterpersonalConfigRecommended,
+  'interaction-manual-config-recommended': interactionManualConfigRecommended,
+  'interaction-organizational-config-recommended': interactionOrganizationalConfigRecommended,
+  // Existing interaction rules
   'interaction-backend-resilience-timeouts': interactionBackendResilienceTimeouts,
   'interaction-error-code-uniqueness': interactionErrorCodeUniqueness,
   'interaction-interpersonal-duration-realism': interactionInterpersonalDurationRealism,
@@ -337,6 +422,16 @@ export const rules: Record<string, TSESLint.RuleModule<string, readonly unknown[
   'interaction-participants-validation': interactionParticipantsValidation,
   'interaction-protocol-pattern-matching': interactionProtocolPatternMatching,
   'interaction-quality-slo-percentile-ordering': interactionQualitySloPercentileOrdering,
+  // Journey required fields
+  'journey-required-fields': journeyRequiredFields,
+  // Journey recommended fields
+  'journey-description-recommended': journeyDescriptionRecommended,
+  'journey-actions-recommended': journeyActionsRecommended,
+  'journey-tags-recommended': journeyTagsRecommended,
+  // Journey validation rules
+  'journey-entry-actions-validation': journeyEntryActionsValidation,
+  'journey-outcomes-completeness': journeyOutcomesCompleteness,
+  // Existing journey rules
   'journey-entry-actions-exist': journeyEntryActionsExist,
   'journey-metrics-relevant': journeyMetricsRelevant,
   'journey-outcomes-measurable': journeyOutcomesMeasurable,

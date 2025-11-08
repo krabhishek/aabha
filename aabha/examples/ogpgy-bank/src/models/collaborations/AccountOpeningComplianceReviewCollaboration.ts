@@ -2,6 +2,7 @@ import { Collaboration } from 'aabha';
 import { ComplianceContext } from '../contexts/ComplianceContext.js';
 import { ComplianceOfficerStakeholder } from '../stakeholders/human/ComplianceOfficerStakeholder.js';
 import { ComplianceSystemStakeholder } from '../stakeholders/system/ComplianceSystemStakeholder.js';
+import { DigitalCustomerStakeholder } from '../stakeholders/human/DigitalCustomerStakeholder.js';
 
 /**
  * Account Opening Manual Compliance Review Collaboration
@@ -62,7 +63,7 @@ import { ComplianceSystemStakeholder } from '../stakeholders/system/ComplianceSy
       type: 'document',
       required: true,
       format: 'Digital form',
-      owner: 'Customer',
+      owner: DigitalCustomerStakeholder,
       description: 'Customer account application with personal and financial information'
     },
     {
@@ -70,7 +71,7 @@ import { ComplianceSystemStakeholder } from '../stakeholders/system/ComplianceSy
       type: 'document',
       required: true,
       format: 'Scanned government ID',
-      owner: 'Customer',
+      owner: DigitalCustomerStakeholder,
       description: 'Government-issued ID documents for identity verification'
     },
     {

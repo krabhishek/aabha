@@ -19,7 +19,9 @@
     "!**/*.tsbuildinfo"
   ],
   "scripts": {
-    "build": "pnpm vite build"
+    "build": "pnpm vite build",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "nx": {
     "name": "ogpgy-bank-example"

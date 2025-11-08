@@ -231,11 +231,19 @@ const recommendedConfig: TSESLint.FlatConfig.Config = {
     'aabha/collaboration-documentation-completeness': 'warn',
 
     // Expectation Rules - Critical errors
+    'aabha/expectation-required-fields': 'error',
     'aabha/expectation-provider-consumer-distinct': 'error',
     'aabha/expectation-no-self-reference': 'error',
     'aabha/expectation-verification-level-coverage': 'error',
 
     // Expectation Rules - Warnings for best practices
+    'aabha/expectation-behaviors-recommended': 'warn',
+    'aabha/expectation-quality-recommended': 'warn',
+    'aabha/expectation-verification-recommended': 'warn',
+    'aabha/expectation-observability-recommended': 'warn',
+    'aabha/expectation-business-context-recommended': 'warn',
+    'aabha/expectation-classification-recommended': 'warn',
+    'aabha/expectation-tags-recommended': 'warn',
     'aabha/expectation-additional-interactions-unique-roles': 'warn',
     'aabha/expectation-additional-stakeholders-unique-roles': 'warn',
     'aabha/expectation-observability-metrics-nonempty': 'warn',
@@ -261,11 +269,17 @@ const recommendedConfig: TSESLint.FlatConfig.Config = {
     'aabha/interaction-quality-slo-percentile-ordering': 'warn',
 
     // Journey Rules - Critical errors
+    'aabha/journey-required-fields': 'error',
     'aabha/journey-entry-actions-exist': 'error',
+    'aabha/journey-entry-actions-validation': 'error',
     'aabha/journey-outcomes-measurable': 'error',
 
     // Journey Rules - Warnings for best practices
+    'aabha/journey-description-recommended': 'warn',
+    'aabha/journey-actions-recommended': 'warn',
+    'aabha/journey-tags-recommended': 'warn',
     'aabha/journey-metrics-relevant': 'warn',
+    'aabha/journey-outcomes-completeness': 'warn',
 
     // Persona Rules - Critical errors
     'aabha/persona-identity-completeness': 'error',
@@ -487,6 +501,14 @@ const allConfig: TSESLint.FlatConfig.Config = {
     'aabha/collaboration-documentation-completeness': 'error',
 
     // Expectation Rules
+    'aabha/expectation-required-fields': 'error',
+    'aabha/expectation-behaviors-recommended': 'error',
+    'aabha/expectation-quality-recommended': 'error',
+    'aabha/expectation-verification-recommended': 'error',
+    'aabha/expectation-observability-recommended': 'error',
+    'aabha/expectation-business-context-recommended': 'error',
+    'aabha/expectation-classification-recommended': 'error',
+    'aabha/expectation-tags-recommended': 'error',
     'aabha/expectation-additional-interactions-unique-roles': 'error',
     'aabha/expectation-additional-stakeholders-unique-roles': 'error',
     'aabha/expectation-no-self-reference': 'error',
@@ -513,9 +535,15 @@ const allConfig: TSESLint.FlatConfig.Config = {
     'aabha/interaction-quality-slo-percentile-ordering': 'error',
 
     // Journey Rules
+    'aabha/journey-required-fields': 'error',
+    'aabha/journey-description-recommended': 'error',
+    'aabha/journey-actions-recommended': 'error',
+    'aabha/journey-tags-recommended': 'error',
     'aabha/journey-entry-actions-exist': 'error',
+    'aabha/journey-entry-actions-validation': 'error',
     'aabha/journey-metrics-relevant': 'error',
     'aabha/journey-outcomes-measurable': 'error',
+    'aabha/journey-outcomes-completeness': 'error',
 
     // Persona Rules
     'aabha/persona-archetype-required': 'error',

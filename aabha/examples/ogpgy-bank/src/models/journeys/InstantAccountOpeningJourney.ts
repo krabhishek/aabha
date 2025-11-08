@@ -1,11 +1,16 @@
 import { Journey } from 'aabha';
 import { DigitalCustomerStakeholder } from '../stakeholders/human/DigitalCustomerStakeholder.js';
 import { StartAccountApplicationAction } from '../actions/StartAccountApplicationAction.js';
+import { SubmitApplicationAction } from '../actions/SubmitApplicationAction.js';
+import { ActivateAccountAction } from '../actions/ActivateAccountAction.js';
 import { AccountOpeningTime } from '../metrics/AccountOpeningTime.js';
 
 /**
  * Instant Account Opening Journey
  * Complete journey for a customer to open an account digitally in under 5 minutes
+ * 
+ * This journey demonstrates how Actions, Expectations, Interactions, Behaviors, and Witnesses
+ * work together to model a complete customer experience flow.
  */
 @Journey({
   name: 'Instant Account Opening',
@@ -13,6 +18,11 @@ import { AccountOpeningTime } from '../metrics/AccountOpeningTime.js';
   primaryStakeholder: DigitalCustomerStakeholder,
   entryActions: [
     StartAccountApplicationAction
+  ],
+  actions: [
+    StartAccountApplicationAction,
+    SubmitApplicationAction,
+    ActivateAccountAction
   ],
   outcomes: [
     'Account opened successfully',
@@ -22,7 +32,8 @@ import { AccountOpeningTime } from '../metrics/AccountOpeningTime.js';
   ],
   metrics: [
     AccountOpeningTime
-  ]
+  ],
+  tags: ['onboarding', 'account-opening', 'digital', 'customer-facing', 'critical-path', 'instant']
 })
 export class InstantAccountOpeningJourney {}
 
