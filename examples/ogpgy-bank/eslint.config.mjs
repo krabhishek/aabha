@@ -4,7 +4,7 @@ import tsparser from '@typescript-eslint/parser';
 
 export default [
   {
-    ignores: ['**/out-tsc', '**/dist', '**/node_modules'],
+    ignores: ['**/out-tsc', '**/dist', '**/node_modules', '**/vite.config.*', '**/vitest.config.*'],
   },
   {
     files: ['**/*.ts', '**/*.tsx'],
@@ -13,7 +13,8 @@ export default [
       parserOptions: {
         ecmaVersion: 'latest',
         sourceType: 'module',
-        project: './tsconfig.json',
+        project: true,
+        tsconfigRootDir: import.meta.dirname,
       },
     },
     plugins: {
