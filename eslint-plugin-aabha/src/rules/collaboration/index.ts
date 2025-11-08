@@ -17,3 +17,14 @@ export { collaborationRequiredParticipants } from './collaboration-required-part
 export { collaborationSchedulingLeadTime } from './collaboration-scheduling-lead-time.js';
 export { collaborationSuccessCriteria } from './collaboration-success-criteria.js';
 export { collaborationSynchronicityChannelMatching } from './collaboration-synchronicity-channel-matching.js';
+export { collaborationPurposeRequired } from './collaboration-purpose-required.js';
+export { collaborationDescriptionRecommended } from './collaboration-description-recommended.js';
+export { collaborationContextRecommended } from './collaboration-context-recommended.js';
+export { collaborationTypeRecommended } from './collaboration-type-recommended.js';
+export { collaborationFrequencyRecommended } from './collaboration-frequency-recommended.js';
+export { collaborationCommunicationChannelRecommended } from './collaboration-communication-channel-recommended.js';
+export { collaborationSynchronicityRecommended } from './collaboration-synchronicity-recommended.js';
+export { collaborationExpectedOutcomesRecommended } from './collaboration-expected-outcomes-recommended.js';
+export { collaborationTagsRecommended } from './collaboration-tags-recommended.js';
+export { collaborationOutcomesCompleteness } from './collaboration-outcomes-completeness.js';
+export { collaborationDocumentationCompleteness } from './collaboration-documentation-completeness.js';

@@ -80,7 +80,9 @@ import { NetPromoterScore } from '../metrics/NetPromoterScore.js';
       impact: 'medium',
       mitigation: 'Phased rollout with proven identity verification vendors'
     }
-  ]
+  ],
+  tags: [],  // TODO: Add categorization tags
+  journeys: [],  // TODO: Add @Journey decorated classes
 })
 export class InstantAccountOpeningInitiative {}
 

@@ -1,5 +1,5 @@
 import { Stakeholder, StakeholderType } from 'aabha';
-import { BankingContext } from '../../contexts/BankingContext.js';
+import { WealthManagementContext } from '../../contexts/WealthManagementContext.js';
 import { VictoriaZhangPersona } from '../../personas/human/VictoriaZhangPersona.js';
 
 /**
@@ -12,7 +12,7 @@ import { VictoriaZhangPersona } from '../../personas/human/VictoriaZhangPersona.
   type: StakeholderType.Human,
   role: 'Premium Customer',
   persona: VictoriaZhangPersona,
-  context: BankingContext,
+  context: WealthManagementContext,
   responsibilities: [
     'Manage wealth portfolio',
     'Access premium investment products',

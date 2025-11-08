@@ -47,6 +47,19 @@ import { initiativeNoJourneys } from './business-initiative/initiative-no-journe
 import { initiativeRequiredFields } from './business-initiative/initiative-required-fields.js';
 import { initiativeStrategyAlignment } from './business-initiative/initiative-strategy-alignment.js';
 import { initiativeTimelineValidation } from './business-initiative/initiative-timeline-validation.js';
+import { initiativeObjectivesRequired } from './business-initiative/initiative-objectives-required.js';
+import { initiativeOutcomesRequired } from './business-initiative/initiative-outcomes-required.js';
+import { initiativeOwnerRequired } from './business-initiative/initiative-owner-required.js';
+import { initiativeStrategyRequired } from './business-initiative/initiative-strategy-required.js';
+import { initiativeTagsRecommended } from './business-initiative/initiative-tags-recommended.js';
+import { initiativeTeamRecommended } from './business-initiative/initiative-team-recommended.js';
+import { initiativeSuccessCriteriaRecommended } from './business-initiative/initiative-success-criteria-recommended.js';
+import { initiativeRisksRecommended } from './business-initiative/initiative-risks-recommended.js';
+import { initiativeJourneysRecommended } from './business-initiative/initiative-journeys-recommended.js';
+import { initiativeMetricsRecommended } from './business-initiative/initiative-metrics-recommended.js';
+import { initiativeTimelineCompleteness } from './business-initiative/initiative-timeline-completeness.js';
+import { initiativeMilestonesCompleteness } from './business-initiative/initiative-milestones-completeness.js';
+import { initiativeRisksCompleteness } from './business-initiative/initiative-risks-completeness.js';
 import { collaborationArtifactOwnership } from './collaboration/collaboration-artifact-ownership.js';
 import { collaborationArtifactsCompleteness } from './collaboration/collaboration-artifacts-completeness.js';
 import { collaborationDecisionMakingApproach } from './collaboration/collaboration-decision-making-approach.js';
@@ -61,6 +74,17 @@ import { collaborationRequiredParticipants } from './collaboration/collaboration
 import { collaborationSchedulingLeadTime } from './collaboration/collaboration-scheduling-lead-time.js';
 import { collaborationSuccessCriteria } from './collaboration/collaboration-success-criteria.js';
 import { collaborationSynchronicityChannelMatching } from './collaboration/collaboration-synchronicity-channel-matching.js';
+import { collaborationPurposeRequired } from './collaboration/collaboration-purpose-required.js';
+import { collaborationDescriptionRecommended } from './collaboration/collaboration-description-recommended.js';
+import { collaborationContextRecommended } from './collaboration/collaboration-context-recommended.js';
+import { collaborationTypeRecommended } from './collaboration/collaboration-type-recommended.js';
+import { collaborationFrequencyRecommended } from './collaboration/collaboration-frequency-recommended.js';
+import { collaborationCommunicationChannelRecommended } from './collaboration/collaboration-communication-channel-recommended.js';
+import { collaborationSynchronicityRecommended } from './collaboration/collaboration-synchronicity-recommended.js';
+import { collaborationExpectedOutcomesRecommended } from './collaboration/collaboration-expected-outcomes-recommended.js';
+import { collaborationTagsRecommended } from './collaboration/collaboration-tags-recommended.js';
+import { collaborationOutcomesCompleteness } from './collaboration/collaboration-outcomes-completeness.js';
+import { collaborationDocumentationCompleteness } from './collaboration/collaboration-documentation-completeness.js';
 
 import { contextBoundaryRequired } from './context/context-boundary-required.js';
 import { contextCapabilityStructure } from './context/context-capability-structure.js';
@@ -238,6 +262,19 @@ export const rules: Record<string, TSESLint.RuleModule<string, readonly unknown[
   'initiative-required-fields': initiativeRequiredFields,
   'initiative-strategy-alignment': initiativeStrategyAlignment,
   'initiative-timeline-validation': initiativeTimelineValidation,
+  'initiative-objectives-required': initiativeObjectivesRequired,
+  'initiative-outcomes-required': initiativeOutcomesRequired,
+  'initiative-owner-required': initiativeOwnerRequired,
+  'initiative-strategy-required': initiativeStrategyRequired,
+  'initiative-tags-recommended': initiativeTagsRecommended,
+  'initiative-team-recommended': initiativeTeamRecommended,
+  'initiative-success-criteria-recommended': initiativeSuccessCriteriaRecommended,
+  'initiative-risks-recommended': initiativeRisksRecommended,
+  'initiative-journeys-recommended': initiativeJourneysRecommended,
+  'initiative-metrics-recommended': initiativeMetricsRecommended,
+  'initiative-timeline-completeness': initiativeTimelineCompleteness,
+  'initiative-milestones-completeness': initiativeMilestonesCompleteness,
+  'initiative-risks-completeness': initiativeRisksCompleteness,
   'collaboration-artifact-ownership': collaborationArtifactOwnership,
   'collaboration-artifacts-completeness': collaborationArtifactsCompleteness,
   'collaboration-decision-making-approach': collaborationDecisionMakingApproach,
@@ -252,6 +289,17 @@ export const rules: Record<string, TSESLint.RuleModule<string, readonly unknown[
   'collaboration-scheduling-lead-time': collaborationSchedulingLeadTime,
   'collaboration-success-criteria': collaborationSuccessCriteria,
   'collaboration-synchronicity-channel-matching': collaborationSynchronicityChannelMatching,
+  'collaboration-purpose-required': collaborationPurposeRequired,
+  'collaboration-description-recommended': collaborationDescriptionRecommended,
+  'collaboration-context-recommended': collaborationContextRecommended,
+  'collaboration-type-recommended': collaborationTypeRecommended,
+  'collaboration-frequency-recommended': collaborationFrequencyRecommended,
+  'collaboration-communication-channel-recommended': collaborationCommunicationChannelRecommended,
+  'collaboration-synchronicity-recommended': collaborationSynchronicityRecommended,
+  'collaboration-expected-outcomes-recommended': collaborationExpectedOutcomesRecommended,
+  'collaboration-tags-recommended': collaborationTagsRecommended,
+  'collaboration-outcomes-completeness': collaborationOutcomesCompleteness,
+  'collaboration-documentation-completeness': collaborationDocumentationCompleteness,
 
   'context-boundary-required': contextBoundaryRequired,
   'context-capability-structure': contextCapabilityStructure,

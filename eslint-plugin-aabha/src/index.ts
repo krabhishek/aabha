@@ -86,11 +86,24 @@ const recommendedConfig: TSESLint.FlatConfig.Config = {
     'aabha/initiative-required-fields': 'error',
     'aabha/initiative-strategy-alignment': 'error',
     'aabha/initiative-no-journeys': 'error',
+    'aabha/initiative-objectives-required': 'warn',
+    'aabha/initiative-outcomes-required': 'warn',
+    'aabha/initiative-owner-required': 'warn',
+    'aabha/initiative-strategy-required': 'warn',
 
     // Business Initiative Rules - Warnings for best practices
     'aabha/initiative-budget-breakdown': 'warn',
     'aabha/initiative-timeline-validation': 'warn',
     'aabha/initiative-metrics-consistency': 'warn',
+    'aabha/initiative-tags-recommended': 'warn',
+    'aabha/initiative-team-recommended': 'warn',
+    'aabha/initiative-success-criteria-recommended': 'warn',
+    'aabha/initiative-risks-recommended': 'warn',
+    'aabha/initiative-journeys-recommended': 'warn',
+    'aabha/initiative-metrics-recommended': 'warn',
+    'aabha/initiative-timeline-completeness': 'warn',
+    'aabha/initiative-milestones-completeness': 'warn',
+    'aabha/initiative-risks-completeness': 'warn',
 
     // Context Rules - Critical errors
     'aabha/context-boundary-required': 'error',
@@ -192,6 +205,7 @@ const recommendedConfig: TSESLint.FlatConfig.Config = {
     'aabha/collaboration-required-participants': 'error',
     'aabha/collaboration-success-criteria': 'error',
     'aabha/collaboration-artifact-ownership': 'error',
+    'aabha/collaboration-purpose-required': 'warn',
 
     // Collaboration Rules - Warnings for best practices
     'aabha/collaboration-artifacts-completeness': 'warn',
@@ -205,6 +219,16 @@ const recommendedConfig: TSESLint.FlatConfig.Config = {
     'aabha/collaboration-participant-role-validation': 'warn',
     'aabha/collaboration-scheduling-lead-time': 'warn',
     'aabha/collaboration-synchronicity-channel-matching': 'warn',
+    'aabha/collaboration-description-recommended': 'warn',
+    'aabha/collaboration-context-recommended': 'warn',
+    'aabha/collaboration-type-recommended': 'warn',
+    'aabha/collaboration-frequency-recommended': 'warn',
+    'aabha/collaboration-communication-channel-recommended': 'warn',
+    'aabha/collaboration-synchronicity-recommended': 'warn',
+    'aabha/collaboration-expected-outcomes-recommended': 'warn',
+    'aabha/collaboration-tags-recommended': 'warn',
+    'aabha/collaboration-outcomes-completeness': 'warn',
+    'aabha/collaboration-documentation-completeness': 'warn',
 
     // Expectation Rules - Critical errors
     'aabha/expectation-provider-consumer-distinct': 'error',
@@ -334,6 +358,19 @@ const allConfig: TSESLint.FlatConfig.Config = {
     'aabha/initiative-strategy-alignment': 'error',
     'aabha/initiative-metrics-consistency': 'error',
     'aabha/initiative-no-journeys': 'error',
+    'aabha/initiative-objectives-required': 'error',
+    'aabha/initiative-outcomes-required': 'error',
+    'aabha/initiative-owner-required': 'error',
+    'aabha/initiative-strategy-required': 'error',
+    'aabha/initiative-tags-recommended': 'error',
+    'aabha/initiative-team-recommended': 'error',
+    'aabha/initiative-success-criteria-recommended': 'error',
+    'aabha/initiative-risks-recommended': 'error',
+    'aabha/initiative-journeys-recommended': 'error',
+    'aabha/initiative-metrics-recommended': 'error',
+    'aabha/initiative-timeline-completeness': 'error',
+    'aabha/initiative-milestones-completeness': 'error',
+    'aabha/initiative-risks-completeness': 'error',
 
     // Context Rules
     'aabha/context-boundary-required': 'error',
@@ -437,6 +474,17 @@ const allConfig: TSESLint.FlatConfig.Config = {
     'aabha/collaboration-scheduling-lead-time': 'error',
     'aabha/collaboration-success-criteria': 'error',
     'aabha/collaboration-synchronicity-channel-matching': 'error',
+    'aabha/collaboration-purpose-required': 'error',
+    'aabha/collaboration-description-recommended': 'error',
+    'aabha/collaboration-context-recommended': 'error',
+    'aabha/collaboration-type-recommended': 'error',
+    'aabha/collaboration-frequency-recommended': 'error',
+    'aabha/collaboration-communication-channel-recommended': 'error',
+    'aabha/collaboration-synchronicity-recommended': 'error',
+    'aabha/collaboration-expected-outcomes-recommended': 'error',
+    'aabha/collaboration-tags-recommended': 'error',
+    'aabha/collaboration-outcomes-completeness': 'error',
+    'aabha/collaboration-documentation-completeness': 'error',
 
     // Expectation Rules
     'aabha/expectation-additional-interactions-unique-roles': 'error',
