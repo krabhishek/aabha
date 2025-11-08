@@ -123,6 +123,16 @@ importers:
         specifier: ~4.5.4
         version: 4.5.4(@types/node@24.7.1)(rollup@4.53.0)(typescript@5.9.3)(vite@7.2.2(@types/node@24.7.1)(jiti@2.4.2)(tsx@4.20.6)(yaml@2.8.1))
 
+  aabha/examples/ogpgy-bank:
+    dependencies:
+      aabha:
+        specifier: 1.1.0
+        version: 1.1.0
+    devDependencies:
+      eslint-plugin-aabha:
+        specifier: workspace:*
+        version: link:../../../eslint-plugin-aabha
+
   eslint-plugin-aabha:
     dependencies:
       '@typescript-eslint/utils':
@@ -131,9 +141,6 @@ importers:
       eslint:
         specifier: '>=9.0.0'
         version: 9.39.1(jiti@2.4.2)
-      zod:
-        specifier: ^4.1.12
-        version: 4.1.12
     devDependencies:
       '@types/eslint':
         specifier: ^9.6.1
@@ -2107,6 +2114,9 @@ packages:
   JSONStream@1.3.5:
     resolution: {integrity: sha512-E+iruNOY8VV9s4JEbe1aNEm6MiszPRr/UfcHMz0TQh1BXSxHK+ASV1R6W4HpjBhSeS+54PIsAMCBmwD06LLsqQ==}
     hasBin: true
+
+  aabha@1.1.0:
+    resolution: {integrity: sha512-Fkad3LasTCe2/MlpvMqvGI/8w2Pa6pGsO+vCtprxIRGcQzGAp0qSR/zYJUYkuKdxlLovo9NRn5k2qOVCmGNEEA==}
 
   abab@2.0.6:
     resolution: {integrity: sha512-j2afSsaIENvHZN2B8GOpF566vZ5WVk5opAiMTvWgaQT8DkbOqsTfvNAvHoRGU2zzP8cPoqys+xHTRDWW8L+/BA==}
@@ -4915,9 +4925,6 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
 
-  zod@4.1.12:
-    resolution: {integrity: sha512-JInaHOamG8pt5+Ey8kGmdcAcg3OL9reK8ltczgHTAwNhMys/6ThXHityHxVV2p3fkw/c+MAvBHFVYHFZDmjMCQ==}
-
 snapshots:
 
   '@ampproject/remapping@2.3.0':
@@ -7358,6 +7365,8 @@ snapshots:
     dependencies:
       jsonparse: 1.3.1
       through: 2.3.8
+
+  aabha@1.1.0: {}
 
   abab@2.0.6: {}
 
@@ -10517,5 +10526,3 @@ snapshots:
       yargs-parser: 21.1.1
 
   yocto-queue@0.1.0: {}
-
-  zod@4.1.12: {}

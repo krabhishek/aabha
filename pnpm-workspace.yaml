@@ -1,8 +1,15 @@
 packages:
   - aabha
+  - aabha/examples/*
   - eslint-plugin-aabha
 
 autoInstallPeers: true
+
+ignoredBuiltDependencies:
+  - '@swc/core'
+  - esbuild
+  - rollup
+  - unrs-resolver
 
 onlyBuiltDependencies:
   - '@swc/core'

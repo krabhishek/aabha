@@ -14,3 +14,11 @@ export { actionParallelGroupConsistency } from './action-parallel-group-consiste
 export { actionRetryTimeoutPairing } from './action-retry-timeout-pairing.js';
 export { actionScopePropertiesAlignment } from './action-scope-properties-alignment.js';
 export { actionTriggerCycleDetection } from './action-trigger-cycle-detection.js';
+export { actionDescriptionRequired } from './action-description-required.js';
+export { actionAutomationLevelRecommended } from './action-automation-level-recommended.js';
+export { actionCriticalityRecommended } from './action-criticality-recommended.js';
+export { actionTimeoutDurationRecommended } from './action-timeout-duration-recommended.js';
+export { actionJourneyScopeEventRecommended } from './action-journey-scope-event-recommended.js';
+export { actionSystemScopeEventRequired } from './action-system-scope-event-required.js';
+export { actionTagsRecommended } from './action-tags-recommended.js';
+export { actionParallelGroupRequired } from './action-parallel-group-required.js';

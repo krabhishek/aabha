@@ -123,8 +123,18 @@ export const actionAutomationActorAlignment = createRule<[], MessageIds>({
 
           const isSystem = isSystemActor(actorName);
 
+          // Check for both the enum value 'fully-automated' and the enum reference 'StepAutomationLevel.FullyAutomated'
+          const isFullyAutomated = automationLevel === 'fully-automated' || 
+                                  automationLevel === 'StepAutomationLevel.FullyAutomated' ||
+                                  (typeof automationLevel === 'string' && automationLevel.includes('FullyAutomated'));
+          
+          // Check for both the enum value 'manual' and the enum reference 'StepAutomationLevel.Manual'
+          const isManual = automationLevel === 'manual' || 
+                          automationLevel === 'StepAutomationLevel.Manual' ||
+                          (typeof automationLevel === 'string' && automationLevel.includes('Manual'));
+
           // Fully automated actions should have system actors
-          if (automationLevel === 'fully-automated' && !isSystem) {
+          if (isFullyAutomated && !isSystem) {
             context.report({
               node: decorator.node,
               messageId: 'automatedActionHumanActor',
@@ -136,7 +146,7 @@ export const actionAutomationActorAlignment = createRule<[], MessageIds>({
           }
 
           // Manual actions should have human actors
-          if (automationLevel === 'manual' && isSystem) {
+          if (isManual && isSystem) {
             context.report({
               node: decorator.node,
               messageId: 'manualActionSystemActor',

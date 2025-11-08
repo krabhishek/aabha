@@ -85,9 +85,9 @@ export const actionParallelGroupConsistency = createRule<[], MessageIds>({
     },
     messages: {
       parallelGroupWithoutMode:
-        "Action '{{name}}' has parallelGroup='{{parallelGroup}}' but executionMode is '{{executionMode}}'. This creates conflicting parallelization context! Actions in a parallel group should have executionMode='parallel' to signal concurrent execution semantics. Without this alignment, AI systems and workflow orchestrators can't determine if this action should run concurrently or sequentially. The parallelGroup says 'I run with others', but missing parallel executionMode suggests sequential execution. Set executionMode='parallel' to enable AI-generated concurrent workflows.",
+        "Action '{{name}}' has parallelGroup='{{parallelGroup}}' but executionMode is '{{executionMode}}'. This creates conflicting parallelization context! Actions in a parallel group should have executionMode: StepExecutionMode.Parallel to signal concurrent execution semantics. Without this alignment, AI systems and workflow orchestrators can't determine if this action should run concurrently or sequentially. The parallelGroup says 'I run with others', but missing parallel executionMode suggests sequential execution. Set executionMode: StepExecutionMode.Parallel to enable AI-generated concurrent workflows.",
       parallelModeWithoutGroup:
-        "Action '{{name}}' has executionMode='parallel' but no parallelGroup. While this signals parallel execution intent, it's unclear which actions run concurrently together. Parallel groups create explicit concurrency boundaries that help AI understand synchronization points and generate correct Promise.all(), async/await, or thread pool patterns. Consider adding 'parallelGroup' (e.g., 'notifications', 'data-fetch') to make parallelization strategy explicit and enable AI to group related concurrent operations.",
+        "Action '{{name}}' has executionMode: StepExecutionMode.Parallel but no parallelGroup. While this signals parallel execution intent, it's unclear which actions run concurrently together. Parallel groups create explicit concurrency boundaries that help AI understand synchronization points and generate correct Promise.all(), async/await, or thread pool patterns. Consider adding 'parallelGroup' (e.g., 'notifications', 'data-fetch') to make parallelization strategy explicit and enable AI to group related concurrent operations.",
     },
     schema: [],
   },
@@ -108,8 +108,13 @@ export const actionParallelGroupConsistency = createRule<[], MessageIds>({
           const parallelGroup = decorator.metadata.parallelGroup as string | undefined;
           const executionMode = decorator.metadata.executionMode as string | undefined;
 
+          // Check for both the enum value 'parallel' and the enum reference 'StepExecutionMode.Parallel'
+          const isParallel = executionMode === 'parallel' || 
+                            executionMode === 'StepExecutionMode.Parallel' ||
+                            (typeof executionMode === 'string' && executionMode.includes('Parallel'));
+
           // Check if parallelGroup is set without parallel executionMode
-          if (parallelGroup && executionMode !== 'parallel') {
+          if (parallelGroup && !isParallel) {
             context.report({
               node: decorator.node,
               messageId: 'parallelGroupWithoutMode',
@@ -122,7 +127,7 @@ export const actionParallelGroupConsistency = createRule<[], MessageIds>({
           }
 
           // Check if parallel executionMode is set without parallelGroup
-          if (executionMode === 'parallel' && !parallelGroup) {
+          if (isParallel && !parallelGroup) {
             context.report({
               node: decorator.node,
               messageId: 'parallelModeWithoutGroup',

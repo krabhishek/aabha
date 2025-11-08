@@ -76,9 +76,9 @@ export const actionCriticalitySkipConflict = createRule<[], MessageIds>({
     },
     messages: {
       criticalActionSkippable:
-        "Action '{{name}}' is marked 'critical' but has skipOnError=true. This is a logical conflict! Critical actions represent business-essential operations that MUST succeed - they form core business invariants. If an action can be skipped on error, it's not critical by definition. AI systems can't generate correct error handling with contradictory signals: 'critical' suggests retry logic and fallbacks, but 'skipOnError' suggests ignoring failures. Fix this by either removing skipOnError or changing criticality to 'optional' or 'recommended'.",
+        "Action '{{name}}' is marked StepCriticality.Critical but has skipOnError=true. This is a logical conflict! Critical actions represent business-essential operations that MUST succeed - they form core business invariants. If an action can be skipped on error, it's not critical by definition. AI systems can't generate correct error handling with contradictory signals: StepCriticality.Critical suggests retry logic and fallbacks, but 'skipOnError' suggests ignoring failures. Fix this by either removing skipOnError or changing criticality to StepCriticality.Optional or StepCriticality.Recommended.",
       requiredActionSkippable:
-        "Action '{{name}}' is marked 'required' but has skipOnError=true. Required actions should complete successfully for journey success - allowing skip on error undermines this contract. This creates ambiguous business semantics: is this action required or optional? AI assistants can't determine if they should generate retry logic, fallbacks, or simply continue on failure. Consider removing skipOnError (make it truly required) or changing criticality to 'recommended' or 'optional' (acknowledge it can fail).",
+        "Action '{{name}}' is marked StepCriticality.Required but has skipOnError=true. Required actions should complete successfully for journey success - allowing skip on error undermines this contract. This creates ambiguous business semantics: is this action required or optional? AI assistants can't determine if they should generate retry logic, fallbacks, or simply continue on failure. Consider removing skipOnError (make it truly required) or changing criticality to StepCriticality.Recommended or StepCriticality.Optional (acknowledge it can fail).",
     },
     schema: [],
   },
@@ -102,8 +102,18 @@ export const actionCriticalitySkipConflict = createRule<[], MessageIds>({
           // Skip if skipOnError is not set or is false
           if (!skipOnError) continue;
 
+          // Check for both the enum value 'critical' and the enum reference 'StepCriticality.Critical'
+          const isCritical = criticality === 'critical' || 
+                            criticality === 'StepCriticality.Critical' ||
+                            (typeof criticality === 'string' && criticality.includes('Critical'));
+          
+          // Check for both the enum value 'required' and the enum reference 'StepCriticality.Required'
+          const isRequired = criticality === 'required' || 
+                            criticality === 'StepCriticality.Required' ||
+                            (typeof criticality === 'string' && criticality.includes('Required'));
+
           // Critical actions cannot be skipped (error severity)
-          if (criticality === 'critical') {
+          if (isCritical) {
             context.report({
               node: decorator.node,
               messageId: 'criticalActionSkippable',
@@ -114,7 +124,7 @@ export const actionCriticalitySkipConflict = createRule<[], MessageIds>({
           }
 
           // Required actions should not be skipped (warning severity)
-          if (criticality === 'required') {
+          if (isRequired) {
             context.report({
               node: decorator.node,
               messageId: 'requiredActionSkippable',

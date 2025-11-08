@@ -67,6 +67,9 @@ export const personaTypeConsistency = createRule<[], MessageIds>({
 
           if (!personaType) continue;
 
+          // Normalize personaType to handle both enum values and enum references
+          const typeNormalized = personaType.toLowerCase().replace('personatype.', '');
+
           const hasHumanAttr = decorator.metadata.humanAttributes !== undefined;
           const hasTeamAttr = decorator.metadata.teamAttributes !== undefined;
           const hasSystemAttr = decorator.metadata.systemAttributes !== undefined;
@@ -76,7 +79,7 @@ export const personaTypeConsistency = createRule<[], MessageIds>({
           let wrongAttr: string | null = null;
           let correctAttr: string | null = null;
 
-          switch (personaType) {
+          switch (typeNormalized) {
             case 'human':
               if (hasTeamAttr) wrongAttr = 'teamAttributes';
               else if (hasSystemAttr) wrongAttr = 'systemAttributes';

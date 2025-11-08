@@ -85,7 +85,7 @@ export const behaviorImplementationQuality = createRule<[], MessageIds>({
           }
 
           const name = decorator.metadata.name as string | undefined;
-          const implementation = decorator.metadata.implementation as string | undefined;
+          const implementation = decorator.metadata.implementation;
           const complexity = decorator.metadata.complexity as string | undefined;
 
           // Check if implementation is missing
@@ -95,23 +95,30 @@ export const behaviorImplementationQuality = createRule<[], MessageIds>({
               messageId: 'missingImplementation',
               data: { name: name || 'Unknown' },
             });
+            continue;
           }
-          // Check if implementation exists but is empty/whitespace
-          else if (implementation.trim().length === 0) {
-            context.report({
-              node: decorator.node,
-              messageId: 'emptyImplementation',
-              data: { name: name || 'Unknown' },
-            });
+
+          // Handle string implementation
+          if (typeof implementation === 'string') {
+            // Check if implementation exists but is empty/whitespace
+            if (implementation.trim().length === 0) {
+              context.report({
+                node: decorator.node,
+                messageId: 'emptyImplementation',
+                data: { name: name || 'Unknown' },
+              });
+            }
+            // Check if complex behavior has minimal details
+            else if (complexity === 'complex' && implementation.trim().length < 50) {
+              context.report({
+                node: decorator.node,
+                messageId: 'complexBehaviorNeedsDetails',
+                data: { name: name || 'Unknown' },
+              });
+            }
           }
-          // Check if complex behavior has minimal details
-          else if (complexity === 'complex' && implementation.trim().length < 50) {
-            context.report({
-              node: decorator.node,
-              messageId: 'complexBehaviorNeedsDetails',
-              data: { name: name || 'Unknown' },
-            });
-          }
+          // If implementation is an object, it's considered valid (has structured implementation details)
+          // No validation needed for object implementations
         }
       },
     };

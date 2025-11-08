@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-aabha",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Official ESLint plugin for Aabha - 111 validation rules for context engineering models",
   "keywords": [
     "eslint",

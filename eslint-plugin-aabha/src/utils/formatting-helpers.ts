@@ -107,3 +107,106 @@ export function ensureTrailingComma(text: string): string {
 export function removeTrailingComma(text: string): string {
   return text.trimEnd().replace(/,$/, '');
 }
+
+/**
+ * Determine if a comma is needed before inserting a new field in an object literal
+ * 
+ * This function analyzes the text before a closing brace to determine if a comma
+ * is needed when inserting a new field. It handles cases where:
+ * - The previous field ends with `]` (array) or `}` (object)
+ * - There are comments between fields
+ * - The object is empty (starts with `{`)
+ * 
+ * @param textBeforeBrace - The text content before the closing brace `}`
+ * @returns true if a comma is needed, false otherwise
+ * 
+ * @example
+ * ```typescript
+ * // Text: "  postconditions: [\n    'test'\n  ]"
+ * needsCommaBeforeField("  postconditions: [\n    'test'\n  ]") // returns true
+ * 
+ * // Text: "  name: 'test',"
+ * needsCommaBeforeField("  name: 'test',") // returns false (already has comma)
+ * 
+ * // Text: "{"
+ * needsCommaBeforeField("{") // returns false (empty object)
+ * ```
+ */
+export function needsCommaBeforeField(textBeforeBrace: string): boolean {
+  // Remove single-line comments (// ...) and trailing whitespace
+  // This allows us to find the last actual character before any comments
+  // The regex /\/\/.*$/gm matches // followed by any characters to end of line, globally and multiline
+  const withoutComments = textBeforeBrace.replace(/\/\/.*$/gm, '').trimEnd();
+  
+  // Need comma if:
+  // 1. Text is not empty
+  // 2. Text doesn't already end with comma
+  // 3. Text doesn't end with opening brace (empty object case)
+  // All other cases (ending with ], }, or any other character) need a comma
+  if (withoutComments.length === 0) {
+    return false; // Empty object, no comma needed
+  }
+  
+  if (withoutComments.endsWith(',')) {
+    return false; // Already has comma
+  }
+  
+  if (withoutComments.endsWith('{')) {
+    return false; // Empty object, no comma needed
+  }
+  
+  // All other cases need a comma (ends with ], }, or any other character)
+  return true;
+}
+
+/**
+ * Find the insertion position for a new field in an object literal
+ * 
+ * This function finds where to insert a new field in an object literal, handling
+ * cases where there are comments after the last property. It returns the offset
+ * from the start of the text where the new field should be inserted.
+ * 
+ * @param textBeforeBrace - The text content before the closing brace `}`
+ * @param closingBraceIndex - The index of the closing brace in the source
+ * @returns The offset from the start where the new field should be inserted
+ */
+export function findFieldInsertionPosition(
+  textBeforeBrace: string,
+  closingBraceIndex: number
+): number {
+  // Remove comments to find the last actual content
+  const withoutComments = textBeforeBrace.replace(/\/\/.*$/gm, '').trimEnd();
+  
+  // If no content, insert right before the closing brace
+  if (withoutComments.length === 0) {
+    return closingBraceIndex;
+  }
+  
+  // Find the last line that has actual content (not just comments)
+  const lines = textBeforeBrace.split('\n');
+  let lastContentLineIndex = -1;
+  
+  for (let i = lines.length - 1; i >= 0; i--) {
+    const lineWithoutComment = lines[i].replace(/\/\/.*$/, '').trim();
+    if (lineWithoutComment.length > 0) {
+      lastContentLineIndex = i;
+      break;
+    }
+  }
+  
+  if (lastContentLineIndex >= 0) {
+    // Calculate position after the last content line
+    // We need to find where the last content line ends in the original text
+    let position = 0;
+    for (let i = 0; i <= lastContentLineIndex; i++) {
+      position += lines[i].length;
+      if (i < lastContentLineIndex) {
+        position += 1; // Add newline character
+      }
+    }
+    return position;
+  }
+  
+  // Fallback: insert right before the closing brace
+  return closingBraceIndex;
+}

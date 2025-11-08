@@ -89,6 +89,66 @@ function suggestPastTense(verb: string): string {
   }
 }
 
+/**
+ * Convert past tense verb to base form for comparison with action names
+ * Examples: "started" -> "start", "submitted" -> "submit", "created" -> "create"
+ */
+function pastTenseToBase(verb: string): string {
+  // Handle common irregular past tense verbs
+  const irregularMap: Record<string, string> = {
+    'sent': 'send',
+    'received': 'receive',
+    'done': 'do',
+    'gone': 'go',
+    'taken': 'take',
+    'given': 'give',
+    'written': 'write',
+    'spoken': 'speak',
+    'broken': 'break',
+    'chosen': 'choose',
+    'frozen': 'freeze',
+    'stolen': 'steal',
+    'thrown': 'throw',
+    'known': 'know',
+    'grown': 'grow',
+    'shown': 'show',
+    'drawn': 'draw',
+  };
+
+  if (irregularMap[verb]) {
+    return irregularMap[verb];
+  }
+
+  // Handle regular past tense patterns
+  if (verb.endsWith('ied')) {
+    // Verbs ending in "y" become "ied" (e.g., "verified" -> "verify")
+    // But "submitted" doesn't follow this pattern - it's "submit" + "ted"
+    // Check if it's actually a doubled consonant case
+    const withoutEd = verb.slice(0, -3);
+    if (withoutEd.length > 1 && withoutEd[withoutEd.length - 1] === withoutEd[withoutEd.length - 2]) {
+      // Doubled consonant case (e.g., "submitted" -> "submitt" -> "submit")
+      return withoutEd.slice(0, -1);
+    }
+    // Regular "ied" case (e.g., "verified" -> "verify")
+    return withoutEd + 'y';
+  } else if (verb.endsWith('ed')) {
+    // Remove "ed" suffix
+    const base = verb.slice(0, -2);
+    // Handle doubled consonants (e.g., "stopped" -> "stop", "submitted" -> "submit")
+    if (base.length > 1 && base[base.length - 1] === base[base.length - 2]) {
+      return base.slice(0, -1);
+    }
+    // Handle verbs ending in "e" that add "d" (e.g., "created" -> "create")
+    if (base.endsWith('e')) {
+      return base; // "created" -> "create"
+    }
+    return base; // "started" -> "start"
+  }
+
+  // If not past tense pattern, return as-is
+  return verb;
+}
+
 type MessageIds = 'notPastTense' | 'vagueVerb' | 'nameAlignment';
 
 export const actionEventNaming = createRule<[], MessageIds>({
@@ -156,16 +216,24 @@ export const actionEventNaming = createRule<[], MessageIds>({
             });
           }
 
-          // Suggest alignment with action name (info level)
-          if (actionName && !actionName.toLowerCase().includes(verb)) {
-            context.report({
-              node: decorator.node,
-              messageId: 'nameAlignment',
-              data: {
-                event: emitsEvent,
-                actionName,
-              },
-            });
+          // Suggest alignment with action name
+          // Check if action name contains the base verb form (not past tense)
+          if (actionName) {
+            const actionNameLower = actionName.toLowerCase();
+            const baseVerb = pastTenseToBase(verb).toLowerCase();
+            
+            // Check if action name contains either the base verb or the past tense verb
+            // This handles cases like "Start Account" with event "account.application.started"
+            if (!actionNameLower.includes(baseVerb) && !actionNameLower.includes(verb)) {
+              context.report({
+                node: decorator.node,
+                messageId: 'nameAlignment',
+                data: {
+                  event: emitsEvent,
+                  actionName,
+                },
+              });
+            }
           }
         }
       },

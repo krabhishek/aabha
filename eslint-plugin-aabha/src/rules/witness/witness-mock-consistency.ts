@@ -54,10 +54,10 @@ export const witnessMockConsistency = createRule<[], MessageIds>({
   meta: {
     type: 'suggestion',
     docs: {
-      description: 'Integration and E2E witnesses should have mocks declared in fixtures when external dependencies are used',
+      description: 'Integration and E2E witnesses should consider declaring mocks in fixtures when external dependencies are used',
     },
     messages: {
-      integrationTestMissingMocks: "Witness '{{name}}' is an integration test but doesn't declare mocks. Integration tests typically interact with external services and should declare mocks in fixtures.mocks to document test dependencies and enable proper test setup. Consider adding 'fixtures: { mocks: [\"ServiceName1\", \"ServiceName2\"] }' if this test uses external dependencies.",
+      integrationTestMissingMocks: "Witness '{{name}}' is an integration/E2E test but doesn't declare mocks. If this test interacts with external services, consider declaring them in fixtures.mocks to document test dependencies and enable proper test setup. Note: Not all integration tests require mocks - some test against real services. Add 'fixtures: { mocks: [\"ServiceName1\", \"ServiceName2\"] }' only if this test uses mocked external dependencies.",
     },
     schema: [],
   },
@@ -80,13 +80,17 @@ export const witnessMockConsistency = createRule<[], MessageIds>({
           if (!type) continue;
 
           const typeLower = type.toLowerCase().replace('witnesstype.', '');
-          const isIntegration = typeLower === 'integration' || typeLower === 'e2e';
+          // Only check integration tests, not E2E (E2E tests typically use real services)
+          const isIntegration = typeLower === 'integration';
 
           if (isIntegration) {
             const mocks = fixtures?.mocks;
             const hasMocks = mocks && Array.isArray(mocks) && mocks.length > 0;
 
-            if (!hasMocks) {
+            // Only suggest mocks if fixtures object exists but mocks are not declared
+            // This means the developer has thought about fixtures but hasn't declared mocks
+            // If no fixtures object exists at all, the test might not need mocks
+            if (fixtures && !hasMocks) {
               context.report({
                 node: decorator,
                 messageId: 'integrationTestMissingMocks',

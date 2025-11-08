@@ -42,6 +42,7 @@
 import type { TSESTree } from '@typescript-eslint/utils';
 import { createRule } from '../../utils/create-rule.js';
 import { parseAabhaDecorator } from '../../utils/decorator-parser.js';
+import { detectIndentation } from '../../utils/formatting-helpers.js';
 
 const VAGUE_SCENARIO_TERMS = ['test', 'check', 'verify', 'validate', 'ensure'];
 
@@ -60,6 +61,7 @@ export const witnessScenarioQuality = createRule<[], MessageIds>({
       scenarioTooVague: "Witness '{{name}}' has a vague scenario '{{scenario}}'. Scenarios should be specific and descriptive, avoiding generic terms like 'test', 'check', or 'verify'. Write a scenario that describes the specific business situation being tested (e.g., 'User successfully completes payment with valid credit card').",
     },
     schema: [],
+    fixable: 'code',
   },
   defaultOptions: [],
   create(context) {
@@ -77,10 +79,42 @@ export const witnessScenarioQuality = createRule<[], MessageIds>({
           const scenario = parsed.metadata.scenario as string | undefined;
 
           if (!scenario) {
+            const sourceCode = context.sourceCode;
+            
             context.report({
               node: decorator,
               messageId: 'missingScenario',
               data: { name: name || 'Unnamed witness' },
+              fix(fixer) {
+                // Access the decorator's expression
+                if (decorator.expression.type !== 'CallExpression') return null;
+
+                const arg = decorator.expression.arguments[0];
+                if (!arg || arg.type !== 'ObjectExpression') return null;
+
+                // Find the name property to insert scenario after it
+                const nameProperty = arg.properties.find(
+                  (p): p is TSESTree.Property =>
+                    p.type === 'Property' &&
+                    p.key.type === 'Identifier' &&
+                    p.key.name === 'name'
+                );
+
+                if (!nameProperty) return null;
+
+                const indentation = detectIndentation(nameProperty, sourceCode);
+                const insertPosition = nameProperty.range[1];
+
+                // Generate a scenario based on the witness name
+                const scenarioText = name 
+                  ? name.replace(/^Test\s+/i, '').replace(/\s+/g, ' ').trim()
+                  : 'TODO: Describe the test scenario';
+
+                return fixer.insertTextAfterRange(
+                  [insertPosition, insertPosition],
+                  `,\n${indentation}scenario: '${scenarioText}',  // TODO: Provide a descriptive scenario`
+                );
+              },
             });
             continue;
           }

@@ -102,13 +102,13 @@ export const actionConditionalTriggers = createRule<[], MessageIds>({
     },
     messages: {
       conditionalWithoutTriggers:
-        "Action '{{name}}' has executionMode='conditional' but no triggers defined. Conditional execution means 'branch based on runtime conditions' - without triggers, there's no branching logic! AI systems can't generate if/else code or workflow routing without triggers. Add triggers array with conditional branches, or change executionMode to 'sequential' if no branching is needed.",
+        "Action '{{name}}' has executionMode='conditional' but no triggers defined. Conditional execution means 'branch based on runtime conditions' - without triggers, there's no branching logic! AI systems can't generate if/else code or workflow routing without triggers. Add triggers array with conditional branches, or change executionMode to StepExecutionMode.Sequential if no branching is needed.",
       conditionalTriggerNoCondition:
         "Action '{{name}}' has executionMode='conditional' but {{count}} of {{total}} trigger(s) lack conditions. Conditional execution requires conditions to determine which path to take. Triggers without conditions in conditional mode create ambiguous branching semantics - AI can't determine when to execute them. Add conditions (e.g., 'riskScore > 70') or mark one trigger as the default/else case by omitting its condition.",
       vagueCondition:
         "Trigger condition '{{condition}}' for action '{{triggeredAction}}' appears vague or trivial. Meaningful conditions help AI understand business rules and generate accurate branching logic. Instead of '{{condition}}', use descriptive boolean expressions like 'riskScore > 70', 'verificationStatus === \"approved\"', or 'customerAge >= 18 && hasConsent'. Clear conditions create self-documenting workflows that AI can comprehend and implement correctly.",
       conditionsWithoutConditionalMode:
-        "Action '{{name}}' has triggers with conditions but executionMode is '{{executionMode}}'. This creates unclear branching semantics! Conditions suggest 'execute different actions based on runtime state', but missing conditional executionMode makes the branching intent implicit. AI systems can't determine if this is sequential-with-filtering or true conditional branching. Set executionMode='conditional' to make branching logic explicit and enable AI to generate proper if/else or switch patterns.",
+        "Action '{{name}}' has triggers with conditions but executionMode is '{{executionMode}}'. This creates unclear branching semantics! Conditions suggest 'execute different actions based on runtime state', but missing conditional executionMode makes the branching intent implicit. AI systems can't determine if this is sequential-with-filtering or true conditional branching. Set executionMode: StepExecutionMode.Conditional to make branching logic explicit and enable AI to generate proper if/else or switch patterns.",
     },
     schema: [],
   },
@@ -133,7 +133,12 @@ export const actionConditionalTriggers = createRule<[], MessageIds>({
           }> | undefined;
 
           // If execution mode is conditional, check for triggers
-          if (executionMode === 'conditional') {
+          // Check for both the enum value 'conditional' and the enum reference 'StepExecutionMode.Conditional'
+          const isConditional = executionMode === 'conditional' || 
+                               executionMode === 'StepExecutionMode.Conditional' ||
+                               (typeof executionMode === 'string' && executionMode.includes('Conditional'));
+          
+          if (isConditional) {
             if (!triggers || triggers.length === 0) {
               context.report({
                 node: decorator.node,
@@ -192,8 +197,13 @@ export const actionConditionalTriggers = createRule<[], MessageIds>({
                 }
               });
 
-              // Suggest executionMode='conditional' if not set
-              if (executionMode !== 'conditional') {
+              // Suggest executionMode=StepExecutionMode.Conditional if not set or not the enum reference
+              // Check for both the enum value 'conditional' and the enum reference 'StepExecutionMode.Conditional'
+              const isConditional = executionMode === 'conditional' || 
+                                   executionMode === 'StepExecutionMode.Conditional' ||
+                                   (typeof executionMode === 'string' && executionMode.includes('Conditional'));
+              
+              if (!isConditional) {
                 context.report({
                   node: decorator.node,
                   messageId: 'conditionsWithoutConditionalMode',

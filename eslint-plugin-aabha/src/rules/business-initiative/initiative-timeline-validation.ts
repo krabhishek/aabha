@@ -27,8 +27,8 @@
  * @BusinessInitiative({
  *   name: 'Customer Portal Redesign',
  *   timeline: {
- *     start: '2024-01-01',
- *     end: '2024-06-30'
+ *     startDate: '2024-01-01',
+ *     endDate: '2024-06-30'
  *   }
  * })
  *
@@ -36,8 +36,8 @@
  * @BusinessInitiative({
  *   name: 'Customer Portal Redesign',
  *   timeline: {
- *     start: '2024-06-30',
- *     end: '2024-01-01'  // Invalid - end before start
+ *     startDate: '2024-06-30',
+ *     endDate: '2024-01-01'  // Invalid - end before start
  *   }
  * })
  *
@@ -51,8 +51,8 @@
  * @BusinessInitiative({
  *   name: 'Customer Portal Redesign',
  *   timeline: {
- *     start: 'invalid-date',
- *     end: '2024-06-30'
+ *     startDate: 'invalid-date',
+ *     endDate: '2024-06-30'
  *   }
  * })
  * ```
@@ -75,9 +75,9 @@ export const initiativeTimelineValidation = createRule<[], MessageIds>({
       description: 'Ensure initiative timelines are valid and properly structured to help AI generate accurate project planning code',
     },
     messages: {
-      missingTimeline: "Initiative '{{name}}' is missing a timeline. Timelines provide valuable context about project duration and scheduling that helps AI systems generate project planning code and understand initiative scope. Add a timeline with start and end dates to enable AI-assisted project planning.",
-      invalidTimeline: "Initiative '{{name}}' has an invalid timeline structure. Timelines should have 'start' and 'end' date fields. Invalid timeline structures create contradictory context - AI can't generate project planning without proper timeline information. Fix the timeline structure to include valid start and end dates.",
-      endBeforeStart: "Initiative '{{name}}' has timeline end date '{{end}}' before start date '{{start}}'. Timeline end dates must be after start dates to create valid project schedules. Invalid date ordering creates contradictory context - AI can't generate realistic project plans with impossible timelines. Fix the timeline dates so end is after start.",
+      missingTimeline: "Initiative '{{name}}' is missing a timeline. Timelines provide valuable context about project duration and scheduling that helps AI systems generate project planning code and understand initiative scope. Add a timeline with startDate and endDate to enable AI-assisted project planning.",
+      invalidTimeline: "Initiative '{{name}}' has an invalid timeline structure. Timelines should have 'startDate' and 'endDate' date fields. Invalid timeline structures create contradictory context - AI can't generate project planning without proper timeline information. Fix the timeline structure to include valid startDate and endDate.",
+      endBeforeStart: "Initiative '{{name}}' has timeline endDate '{{endDate}}' before startDate '{{startDate}}'. Timeline end dates must be after start dates to create valid project schedules. Invalid date ordering creates contradictory context - AI can't generate realistic project plans with impossible timelines. Fix the timeline dates so endDate is after startDate.",
       invalidDateFormat: "Initiative '{{name}}' has invalid date format in timeline. Dates should be in ISO 8601 format (YYYY-MM-DD). Invalid date formats create contradictory context - AI can't parse dates or generate project planning with malformed timeline data. Use ISO 8601 date format (YYYY-MM-DD) for timeline dates.",
     },
     schema: [],
@@ -98,7 +98,7 @@ export const initiativeTimelineValidation = createRule<[], MessageIds>({
 
           const name = decorator.metadata.name as string | undefined;
           const timeline = decorator.metadata.timeline as
-            | { start?: string; end?: string }
+            | { startDate?: string; endDate?: string; milestones?: unknown[] }
             | undefined;
 
           // Check if timeline is missing
@@ -127,7 +127,7 @@ export const initiativeTimelineValidation = createRule<[], MessageIds>({
                 // Add timeline with TODO dates
                 return fixer.insertTextAfterRange(
                   [insertPosition, insertPosition],
-                  `,\n${indentation}timeline: {\n${indentation}  start: 'YYYY-MM-DD',  // TODO: Set start date\n${indentation}  end: 'YYYY-MM-DD'  // TODO: Set end date\n${indentation}}`
+                  `,\n${indentation}timeline: {\n${indentation}  startDate: 'YYYY-MM-DD',  // TODO: Set start date\n${indentation}  endDate: 'YYYY-MM-DD'  // TODO: Set end date\n${indentation}}`
                 );
               },
             });
@@ -144,11 +144,11 @@ export const initiativeTimelineValidation = createRule<[], MessageIds>({
             continue;
           }
 
-          const start = timeline.start;
-          const end = timeline.end;
+          const startDate = timeline.startDate;
+          const endDate = timeline.endDate;
 
-          // Check if start or end is missing
-          if (!start || !end) {
+          // Check if startDate or endDate is missing
+          if (!startDate || !endDate) {
             context.report({
               node: decorator.node,
               messageId: 'invalidTimeline',
@@ -159,7 +159,7 @@ export const initiativeTimelineValidation = createRule<[], MessageIds>({
 
           // Validate date format (ISO 8601: YYYY-MM-DD)
           const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
-          if (!dateRegex.test(start) || !dateRegex.test(end)) {
+          if (!dateRegex.test(startDate) || !dateRegex.test(endDate)) {
             context.report({
               node: decorator.node,
               messageId: 'invalidDateFormat',
@@ -168,17 +168,17 @@ export const initiativeTimelineValidation = createRule<[], MessageIds>({
             continue;
           }
 
-          // Check if end is before start
-          const startDate = new Date(start);
-          const endDate = new Date(end);
-          if (endDate < startDate) {
+          // Check if endDate is before startDate
+          const start = new Date(startDate);
+          const end = new Date(endDate);
+          if (end < start) {
             context.report({
               node: decorator.node,
               messageId: 'endBeforeStart',
               data: {
                 name: name || 'Unknown',
-                start,
-                end,
+                startDate,
+                endDate,
               },
             });
           }

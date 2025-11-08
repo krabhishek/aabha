@@ -41,7 +41,9 @@ export const personaPsychologyDepth = createRule<[], MessageIds>({
           if (decorator.type !== 'Persona') continue;
 
           const personaType = decorator.metadata.type as string | undefined;
-          if (personaType !== 'human') continue; // Only validate for human personas
+          // Normalize personaType to handle both enum values and enum references
+          const typeNormalized = personaType?.toLowerCase().replace('personatype.', '') || '';
+          if (typeNormalized !== 'human') continue; // Only validate for human personas
 
           const personaName = decorator.metadata.name as string | undefined;
           const psychology = decorator.metadata.psychology as

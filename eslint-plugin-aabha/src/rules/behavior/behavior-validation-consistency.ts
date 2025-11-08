@@ -69,7 +69,7 @@ export const behaviorValidationConsistency = createRule<[], MessageIds>({
     },
     messages: {
       validationContradictsPrecondition: "Behavior '{{name}}' has validation rule '{{validationRule}}' that contradicts precondition '{{precondition}}'. Contradictory validation creates confusing context - AI systems can't generate coherent validation code when rules conflict. Preconditions define what must be true before execution, so validation shouldn't check for the opposite. Align validation rules with preconditions to create consistent, AI-comprehensible validation logic.",
-      missingValidationForPrecondition: "Behavior '{{name}}' has precondition '{{precondition}}' but no corresponding validation rule. Preconditions define required state, and validation rules should verify those requirements. Missing validation for preconditions means AI can't generate complete validation code. Add validation rules that align with your preconditions to ensure comprehensive input validation.",
+      missingValidationForPrecondition: "Behavior '{{name}}' has {{precondition}} but no validation configuration. Behaviors with preconditions should have validation configured (with strictPreconditions, strictPostconditions, and/or invariants) to ensure model completeness. While invariants don't need to map 1:1 to preconditions, having validation configured helps AI generate complete validation code. Add a 'validation' object to configure validation behavior.",
     },
     schema: [],
   },
@@ -88,26 +88,36 @@ export const behaviorValidationConsistency = createRule<[], MessageIds>({
 
           const name = decorator.metadata.name as string | undefined;
           const preconditions = decorator.metadata.preconditions as unknown[] | undefined;
-          const validation = decorator.metadata.validation as Record<string, unknown> | undefined;
-          const validationRules = validation?.rules as unknown[] | undefined;
+          const validation = decorator.metadata.validation as
+            | { strictPreconditions?: boolean; strictPostconditions?: boolean; invariants?: string[] }
+            | undefined;
 
           if (!preconditions || preconditions.length === 0) continue;
-          if (!validationRules || validationRules.length === 0) {
-            // Check if we have preconditions but no validation
-            for (const precondition of preconditions) {
-              if (typeof precondition === 'string') {
-                context.report({
-                  node: decorator.node,
-                  messageId: 'missingValidationForPrecondition',
-                  data: {
-                    name: name || 'Unknown',
-                    precondition: precondition.trim(),
-                  },
-                });
-              }
-            }
+          
+          // Check if we have preconditions but no validation configuration
+          // The schema has validation with strictPreconditions, strictPostconditions, and invariants
+          // For complete models, behaviors with preconditions should have validation configured
+          // However, invariants are not necessarily a 1:1 mapping to preconditions - they are
+          // conditions that must hold throughout execution. So we just check if validation exists.
+          if (!validation) {
+            // No validation object at all - report once that validation should be configured
+            // when preconditions exist (for model completeness), but don't require 1:1 mapping
+            context.report({
+              node: decorator.node,
+              messageId: 'missingValidationForPrecondition',
+              data: {
+                name: name || 'Unknown',
+                precondition: preconditions.length === 1 
+                  ? (typeof preconditions[0] === 'string' ? preconditions[0].trim() : 'preconditions')
+                  : `${preconditions.length} preconditions`,
+              },
+            });
             continue;
           }
+
+          // Extract validation rules from invariants if they exist
+          // Invariants can serve as validation rules that align with preconditions
+          const validationRules = validation.invariants || [];
 
           // Check for contradictions (simple heuristic: look for "NOT" or negative patterns)
           const validationRuleStrings = validationRules

@@ -64,8 +64,8 @@ export const witnessPriorityRiskAlignment = createRule<[], MessageIds>({
       description: 'Witness priority and risk level should be aligned - critical priority should have high risk, low priority should have low risk',
     },
     messages: {
-      criticalPriorityLowRisk: "Witness '{{name}}' has critical priority but low risk level. Critical witnesses should have high risk levels to reflect their importance. Update coverage.riskLevel to 'high' to align with the critical priority, or reduce the priority if the risk is actually low.",
-      lowPriorityHighRisk: "Witness '{{name}}' has low priority but high risk level. Low-priority witnesses should have low risk levels. Update coverage.riskLevel to 'low' to align with the low priority, or increase the priority if the risk is actually high.",
+      criticalPriorityLowRisk: "Witness '{{name}}' has critical priority but low risk level. Critical witnesses should have high risk levels to reflect their importance. Update coverage.riskLevel to WitnessRiskLevel.High to align with the critical priority, or reduce the priority if the risk is actually low.",
+      lowPriorityHighRisk: "Witness '{{name}}' has low priority but high risk level. Low-priority witnesses should have low risk levels. Update coverage.riskLevel to WitnessRiskLevel.Low to align with the low priority, or increase the priority if the risk is actually high.",
     },
     schema: [],
   },

@@ -16,6 +16,14 @@ import { actionParallelGroupConsistency } from './action/action-parallel-group-c
 import { actionRetryTimeoutPairing } from './action/action-retry-timeout-pairing.js';
 import { actionScopePropertiesAlignment } from './action/action-scope-properties-alignment.js';
 import { actionTriggerCycleDetection } from './action/action-trigger-cycle-detection.js';
+import { actionDescriptionRequired } from './action/action-description-required.js';
+import { actionAutomationLevelRecommended } from './action/action-automation-level-recommended.js';
+import { actionCriticalityRecommended } from './action/action-criticality-recommended.js';
+import { actionTimeoutDurationRecommended } from './action/action-timeout-duration-recommended.js';
+import { actionJourneyScopeEventRecommended } from './action/action-journey-scope-event-recommended.js';
+import { actionSystemScopeEventRequired } from './action/action-system-scope-event-required.js';
+import { actionTagsRecommended } from './action/action-tags-recommended.js';
+import { actionParallelGroupRequired } from './action/action-parallel-group-required.js';
 import { behaviorComplexityAlignment } from './behavior/behavior-complexity-alignment.js';
 import { behaviorImplementationQuality } from './behavior/behavior-implementation-quality.js';
 import { behaviorPerformanceValidation } from './behavior/behavior-performance-validation.js';
@@ -24,6 +32,15 @@ import { behaviorPreconditionsQuality } from './behavior/behavior-preconditions-
 import { behaviorTracingConfiguration } from './behavior/behavior-tracing-configuration.js';
 import { behaviorValidationConsistency } from './behavior/behavior-validation-consistency.js';
 import { behaviorWitnessCoverage } from './behavior/behavior-witness-coverage.js';
+import { behaviorDescriptionRequired } from './behavior/behavior-description-required.js';
+import { behaviorParticipantsRecommended } from './behavior/behavior-participants-recommended.js';
+import { behaviorSideEffectsRecommended } from './behavior/behavior-side-effects-recommended.js';
+import { behaviorComplexityRecommended } from './behavior/behavior-complexity-recommended.js';
+import { behaviorScopeRecommended } from './behavior/behavior-scope-recommended.js';
+import { behaviorReusabilityRecommended } from './behavior/behavior-reusability-recommended.js';
+import { behaviorPerformanceCompleteness } from './behavior/behavior-performance-completeness.js';
+import { behaviorValidationCompleteness } from './behavior/behavior-validation-completeness.js';
+import { behaviorTagsRecommended } from './behavior/behavior-tags-recommended.js';
 import { initiativeBudgetBreakdown } from './business-initiative/initiative-budget-breakdown.js';
 import { initiativeMetricsConsistency } from './business-initiative/initiative-metrics-consistency.js';
 import { initiativeNoJourneys } from './business-initiative/initiative-no-journeys.js';
@@ -51,6 +68,14 @@ import { contextDescriptionQuality } from './context/context-description-quality
 import { contextMetricsRequired } from './context/context-metrics-required.js';
 import { contextNamingConvention } from './context/context-naming-convention.js';
 import { contextRelationshipConsistency } from './context/context-relationship-consistency.js';
+import { contextGoalsRequired } from './context/context-goals-required.js';
+import { contextOwnerRequired } from './context/context-owner-required.js';
+import { contextTeamRecommended } from './context/context-team-recommended.js';
+import { contextAssumptionsRecommended } from './context/context-assumptions-recommended.js';
+import { contextConstraintsRecommended } from './context/context-constraints-recommended.js';
+import { contextOutOfScopeRecommended } from './context/context-out-of-scope-recommended.js';
+import { contextTagsRecommended } from './context/context-tags-recommended.js';
+import { contextDomainModelCompleteness } from './context/context-domain-model-completeness.js';
 import { expectationAdditionalInteractionsUniqueRoles } from './expectation/expectation-additional-interactions-unique-roles.js';
 import { expectationAdditionalStakeholdersUniqueRoles } from './expectation/expectation-additional-stakeholders-unique-roles.js';
 import { expectationNoSelfReference } from './expectation/expectation-no-self-reference.js';
@@ -84,25 +109,77 @@ import { metricHierarchyConsistency } from './metric/metric-hierarchy-consistenc
 import { metricOwnerAssignment } from './metric/metric-owner-assignment.js';
 import { metricTargetAlignment } from './metric/metric-target-alignment.js';
 import { metricThresholdOrdering } from './metric/metric-threshold-ordering.js';
+import { metricCategoryRequired } from './metric/metric-category-required.js';
+import { metricUnitRequired } from './metric/metric-unit-required.js';
+import { metricTargetRecommended } from './metric/metric-target-recommended.js';
+import { metricDirectionRequired } from './metric/metric-direction-required.js';
+import { metricDescriptionRequired } from './metric/metric-description-required.js';
+import { metricFrequencyRecommended } from './metric/metric-frequency-recommended.js';
+import { metricGoalCompleteness } from './metric/metric-goal-completeness.js';
+import { metricHistoryCompleteness } from './metric/metric-history-completeness.js';
+import { metricVisualizationCompleteness } from './metric/metric-visualization-completeness.js';
+import { metricDimensionsCompleteness } from './metric/metric-dimensions-completeness.js';
+import { metricTagsRecommended } from './metric/metric-tags-recommended.js';
+import { metricCurrentValueRecommended } from './metric/metric-current-value-recommended.js';
 import { componentNamingConvention } from './naming/component-naming-convention.js';
 import { requiredDescription } from './naming/required-description.js';
 import { stakeholderNamingClarity } from './naming/stakeholder-naming-clarity.js';
+import { personaArchetypeRequired } from './persona/persona-archetype-required.js';
+import { personaBehaviorRequired } from './persona/persona-behavior-required.js';
+import { personaContextRequired } from './persona/persona-context-required.js';
+import { personaDemographicsRequired } from './persona/persona-demographics-required.js';
 import { personaIdentityCompleteness } from './persona/persona-identity-completeness.js';
 import { personaMetricsDefinition } from './persona/persona-metrics-definition.js';
+import { personaNameTypeAlignment } from './persona/persona-name-type-alignment.js';
 import { personaNeedsGoalsAlignment } from './persona/persona-needs-goals-alignment.js';
+import { personaOrganizationAttributesRequired } from './persona/persona-organization-attributes-required.js';
+import { personaOrganizationAttributesCompleteness } from './persona/persona-organization-attributes-completeness.js';
+import { personaPainPointsRequired } from './persona/persona-pain-points-required.js';
 import { personaPsychologyDepth } from './persona/persona-psychology-depth.js';
 import { personaQuoteValidation } from './persona/persona-quote-validation.js';
+import { personaSystemAdoptionBarriers } from './persona/persona-system-adoption-barriers.js';
 import { personaSystemAttributes } from './persona/persona-system-attributes.js';
+import { personaSystemAttributesCompleteness } from './persona/persona-system-attributes-completeness.js';
+import { personaTeamAttributesRequired } from './persona/persona-team-attributes-required.js';
+import { personaTeamAttributesCompleteness } from './persona/persona-team-attributes-completeness.js';
 import { personaTypeConsistency } from './persona/persona-type-consistency.js';
+import { personaMotivationsRequired } from './persona/persona-motivations-required.js';
+import { personaGoalsRequired } from './persona/persona-goals-required.js';
+import { personaNeedsRequired } from './persona/persona-needs-required.js';
+import { personaTechnicalProficiencyRequired } from './persona/persona-technical-proficiency-required.js';
+import { personaPreferredChannelsRequired } from './persona/persona-preferred-channels-required.js';
+import { personaDependenciesIntegrations } from './persona/persona-dependencies-integrations.js';
+import { personaDayInTheLifeRecommended } from './persona/persona-day-in-the-life-recommended.js';
+import { personaSecurityProfileRequired } from './persona/persona-security-profile-required.js';
+import { stakeholderCollaborationPatternsCompleteness } from './stakeholder/stakeholder-collaboration-patterns-completeness.js';
+import { stakeholderCommunicationPreferencesCompleteness } from './stakeholder/stakeholder-communication-preferences-completeness.js';
+import { stakeholderContextAttributesCompleteness } from './stakeholder/stakeholder-context-attributes-completeness.js';
+import { stakeholderDecisionRightsCompleteness } from './stakeholder/stakeholder-decision-rights-completeness.js';
+import { stakeholderDescriptionRequired } from './stakeholder/stakeholder-description-required.js';
 import { stakeholderEngagementCompleteness } from './stakeholder/stakeholder-engagement-completeness.js';
+import { stakeholderHumanCommunicationPatterns } from './stakeholder/stakeholder-human-communication-patterns.js';
 import { stakeholderInfluenceConsistency } from './stakeholder/stakeholder-influence-consistency.js';
 import { stakeholderMetricsTracking } from './stakeholder/stakeholder-metrics-tracking.js';
+import { stakeholderOrganizationFormalAgreements } from './stakeholder/stakeholder-organization-formal-agreements.js';
 import { stakeholderRelationshipReciprocity } from './stakeholder/stakeholder-relationship-reciprocity.js';
+import { stakeholderRelationshipsCompleteness } from './stakeholder/stakeholder-relationships-completeness.js';
+import { stakeholderRequiredFields } from './stakeholder/stakeholder-required-fields.js';
 import { stakeholderRoleDefinition } from './stakeholder/stakeholder-role-definition.js';
 import { stakeholderStrategicAlignment } from './stakeholder/stakeholder-strategic-alignment.js';
+import { stakeholderSystemEngagementPatterns } from './stakeholder/stakeholder-system-engagement-patterns.js';
+import { stakeholderTeamCollaborationRequired } from './stakeholder/stakeholder-team-collaboration-required.js';
+import { stakeholderTypePersonaAlignment } from './stakeholder/stakeholder-type-persona-alignment.js';
 import { strategyGovernanceCompleteness } from './strategy/strategy-governance-completeness.js';
 import { strategyMetricsRequired } from './strategy/strategy-metrics-required.js';
 import { strategyP2wCompleteness } from './strategy/strategy-p2w-completeness.js';
+import { strategyDescriptionRequired } from './strategy/strategy-description-required.js';
+import { strategyStrategicChoicesRequired } from './strategy/strategy-strategic-choices-required.js';
+import { strategyValuePropositionRequired } from './strategy/strategy-value-proposition-required.js';
+import { strategyCompetitiveContextRequired } from './strategy/strategy-competitive-context-required.js';
+import { strategyAssumptionsRequired } from './strategy/strategy-assumptions-required.js';
+import { strategyTimeHorizonRequired } from './strategy/strategy-time-horizon-required.js';
+import { strategyObjectivesRequired } from './strategy/strategy-objectives-required.js';
+import { strategyRisksRecommended } from './strategy/strategy-risks-recommended.js';
 import { witnessBddCompleteness } from './witness/witness-bdd-completeness.js';
 import { witnessBelongsToBehavior } from './witness/witness-belongs-to-behavior.js';
 import { witnessCoverageTraceability } from './witness/witness-coverage-traceability.js';
@@ -130,6 +207,14 @@ export const rules: Record<string, TSESLint.RuleModule<string, readonly unknown[
   'action-retry-timeout-pairing': actionRetryTimeoutPairing,
   'action-scope-properties-alignment': actionScopePropertiesAlignment,
   'action-trigger-cycle-detection': actionTriggerCycleDetection,
+  'action-description-required': actionDescriptionRequired,
+  'action-automation-level-recommended': actionAutomationLevelRecommended,
+  'action-criticality-recommended': actionCriticalityRecommended,
+  'action-timeout-duration-recommended': actionTimeoutDurationRecommended,
+  'action-journey-scope-event-recommended': actionJourneyScopeEventRecommended,
+  'action-system-scope-event-required': actionSystemScopeEventRequired,
+  'action-tags-recommended': actionTagsRecommended,
+  'action-parallel-group-required': actionParallelGroupRequired,
   'behavior-complexity-alignment': behaviorComplexityAlignment,
   'behavior-implementation-quality': behaviorImplementationQuality,
   'behavior-performance-validation': behaviorPerformanceValidation,
@@ -138,6 +223,15 @@ export const rules: Record<string, TSESLint.RuleModule<string, readonly unknown[
   'behavior-tracing-configuration': behaviorTracingConfiguration,
   'behavior-validation-consistency': behaviorValidationConsistency,
   'behavior-witness-coverage': behaviorWitnessCoverage,
+  'behavior-description-required': behaviorDescriptionRequired,
+  'behavior-participants-recommended': behaviorParticipantsRecommended,
+  'behavior-side-effects-recommended': behaviorSideEffectsRecommended,
+  'behavior-complexity-recommended': behaviorComplexityRecommended,
+  'behavior-scope-recommended': behaviorScopeRecommended,
+  'behavior-reusability-recommended': behaviorReusabilityRecommended,
+  'behavior-performance-completeness': behaviorPerformanceCompleteness,
+  'behavior-validation-completeness': behaviorValidationCompleteness,
+  'behavior-tags-recommended': behaviorTagsRecommended,
   'initiative-budget-breakdown': initiativeBudgetBreakdown,
   'initiative-metrics-consistency': initiativeMetricsConsistency,
   'initiative-no-journeys': initiativeNoJourneys,
@@ -165,6 +259,14 @@ export const rules: Record<string, TSESLint.RuleModule<string, readonly unknown[
   'context-metrics-required': contextMetricsRequired,
   'context-naming-convention': contextNamingConvention,
   'context-relationship-consistency': contextRelationshipConsistency,
+  'context-goals-required': contextGoalsRequired,
+  'context-owner-required': contextOwnerRequired,
+  'context-team-recommended': contextTeamRecommended,
+  'context-assumptions-recommended': contextAssumptionsRecommended,
+  'context-constraints-recommended': contextConstraintsRecommended,
+  'context-out-of-scope-recommended': contextOutOfScopeRecommended,
+  'context-tags-recommended': contextTagsRecommended,
+  'context-domain-model-completeness': contextDomainModelCompleteness,
   'expectation-additional-interactions-unique-roles': expectationAdditionalInteractionsUniqueRoles,
   'expectation-additional-stakeholders-unique-roles': expectationAdditionalStakeholdersUniqueRoles,
   'expectation-no-self-reference': expectationNoSelfReference,
@@ -198,25 +300,77 @@ export const rules: Record<string, TSESLint.RuleModule<string, readonly unknown[
   'metric-owner-assignment': metricOwnerAssignment,
   'metric-target-alignment': metricTargetAlignment,
   'metric-threshold-ordering': metricThresholdOrdering,
+  'metric-category-required': metricCategoryRequired,
+  'metric-unit-required': metricUnitRequired,
+  'metric-target-recommended': metricTargetRecommended,
+  'metric-direction-required': metricDirectionRequired,
+  'metric-description-required': metricDescriptionRequired,
+  'metric-frequency-recommended': metricFrequencyRecommended,
+  'metric-goal-completeness': metricGoalCompleteness,
+  'metric-history-completeness': metricHistoryCompleteness,
+  'metric-visualization-completeness': metricVisualizationCompleteness,
+  'metric-dimensions-completeness': metricDimensionsCompleteness,
+  'metric-tags-recommended': metricTagsRecommended,
+  'metric-current-value-recommended': metricCurrentValueRecommended,
   'component-naming-convention': componentNamingConvention,
   'required-description': requiredDescription,
   'stakeholder-naming-clarity': stakeholderNamingClarity,
+  'persona-archetype-required': personaArchetypeRequired,
+  'persona-behavior-required': personaBehaviorRequired,
+  'persona-context-required': personaContextRequired,
+  'persona-demographics-required': personaDemographicsRequired,
   'persona-identity-completeness': personaIdentityCompleteness,
   'persona-metrics-definition': personaMetricsDefinition,
+  'persona-name-type-alignment': personaNameTypeAlignment,
   'persona-needs-goals-alignment': personaNeedsGoalsAlignment,
+  'persona-organization-attributes-required': personaOrganizationAttributesRequired,
+  'persona-organization-attributes-completeness': personaOrganizationAttributesCompleteness,
+  'persona-pain-points-required': personaPainPointsRequired,
   'persona-psychology-depth': personaPsychologyDepth,
   'persona-quote-validation': personaQuoteValidation,
+  'persona-system-adoption-barriers': personaSystemAdoptionBarriers,
   'persona-system-attributes': personaSystemAttributes,
+  'persona-system-attributes-completeness': personaSystemAttributesCompleteness,
+  'persona-team-attributes-required': personaTeamAttributesRequired,
+  'persona-team-attributes-completeness': personaTeamAttributesCompleteness,
   'persona-type-consistency': personaTypeConsistency,
+  'persona-motivations-required': personaMotivationsRequired,
+  'persona-goals-required': personaGoalsRequired,
+  'persona-needs-required': personaNeedsRequired,
+  'persona-technical-proficiency-required': personaTechnicalProficiencyRequired,
+  'persona-preferred-channels-required': personaPreferredChannelsRequired,
+  'persona-dependencies-integrations': personaDependenciesIntegrations,
+  'persona-day-in-the-life-recommended': personaDayInTheLifeRecommended,
+  'persona-security-profile-required': personaSecurityProfileRequired,
+  'stakeholder-collaboration-patterns-completeness': stakeholderCollaborationPatternsCompleteness,
+  'stakeholder-communication-preferences-completeness': stakeholderCommunicationPreferencesCompleteness,
+  'stakeholder-context-attributes-completeness': stakeholderContextAttributesCompleteness,
+  'stakeholder-decision-rights-completeness': stakeholderDecisionRightsCompleteness,
+  'stakeholder-description-required': stakeholderDescriptionRequired,
   'stakeholder-engagement-completeness': stakeholderEngagementCompleteness,
+  'stakeholder-human-communication-patterns': stakeholderHumanCommunicationPatterns,
   'stakeholder-influence-consistency': stakeholderInfluenceConsistency,
   'stakeholder-metrics-tracking': stakeholderMetricsTracking,
+  'stakeholder-organization-formal-agreements': stakeholderOrganizationFormalAgreements,
   'stakeholder-relationship-reciprocity': stakeholderRelationshipReciprocity,
+  'stakeholder-relationships-completeness': stakeholderRelationshipsCompleteness,
+  'stakeholder-required-fields': stakeholderRequiredFields,
   'stakeholder-role-definition': stakeholderRoleDefinition,
   'stakeholder-strategic-alignment': stakeholderStrategicAlignment,
+  'stakeholder-system-engagement-patterns': stakeholderSystemEngagementPatterns,
+  'stakeholder-team-collaboration-required': stakeholderTeamCollaborationRequired,
+  'stakeholder-type-persona-alignment': stakeholderTypePersonaAlignment,
   'strategy-governance-completeness': strategyGovernanceCompleteness,
   'strategy-metrics-required': strategyMetricsRequired,
   'strategy-p2w-completeness': strategyP2wCompleteness,
+  'strategy-description-required': strategyDescriptionRequired,
+  'strategy-strategic-choices-required': strategyStrategicChoicesRequired,
+  'strategy-value-proposition-required': strategyValuePropositionRequired,
+  'strategy-competitive-context-required': strategyCompetitiveContextRequired,
+  'strategy-assumptions-required': strategyAssumptionsRequired,
+  'strategy-time-horizon-required': strategyTimeHorizonRequired,
+  'strategy-objectives-required': strategyObjectivesRequired,
+  'strategy-risks-recommended': strategyRisksRecommended,
   'witness-bdd-completeness': witnessBddCompleteness,
   'witness-belongs-to-behavior': witnessBelongsToBehavior,
   'witness-coverage-traceability': witnessCoverageTraceability,

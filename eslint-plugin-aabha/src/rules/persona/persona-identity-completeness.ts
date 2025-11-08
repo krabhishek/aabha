@@ -106,8 +106,11 @@ export const personaIdentityCompleteness = createRule<[], MessageIds>({
                 const insertIndex = nameMatch.index! + nameMatch[0].length;
                 let descriptionTemplate = '';
 
+                // Normalize personaType to handle both enum values and enum references
+                const typeNormalized = personaType?.toLowerCase().replace('personatype.', '') || '';
+
                 // Provide type-specific description templates
-                switch (personaType) {
+                switch (typeNormalized) {
                   case 'human':
                     descriptionTemplate = `\n  description: '', // TODO: Describe this persona - demographics, psychology, key behaviors, needs`;
                     break;

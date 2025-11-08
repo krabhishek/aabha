@@ -124,8 +124,18 @@ export const behaviorComplexityAlignment = createRule<[], MessageIds>({
             reason = 'has many requirements (>5 total)';
           }
 
+          // Normalize complexity value for comparison
+          // Handle enum values like "BehaviorComplexity.Simple" or just "Simple"
+          const normalizedComplexity = complexity.toLowerCase().includes('simple') 
+            ? 'simple' 
+            : complexity.toLowerCase().includes('moderate')
+            ? 'moderate'
+            : complexity.toLowerCase().includes('complex')
+            ? 'complex'
+            : complexity.toLowerCase();
+
           // Check if complexity aligns
-          if (complexity !== expectedComplexity) {
+          if (normalizedComplexity !== expectedComplexity) {
             context.report({
               node: decorator.node,
               messageId: 'complexityMismatch',

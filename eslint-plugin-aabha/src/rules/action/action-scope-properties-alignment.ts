@@ -77,7 +77,7 @@ export const actionScopePropertiesAlignment = createRule<[], MessageIds>({
       scopeMissingEvent:
         "Action '{{name}}' has scope '{{scope}}' but doesn't emit a business event. {{severity}} scope actions {{requirement}} have 'emitsEvent' to signal business-significant state changes. Without events, AI systems can't understand the architectural impact of this action or generate appropriate event handlers. Domain events are how distributed systems communicate - missing events break the context chain.",
       systemScopeNotAutomated:
-        "Action '{{name}}' has scope 'System' but automationLevel is '{{automationLevel}}'. System scope actions represent cross-system integrations that MUST be fully-automated - they run without human intervention. Manual system actions create conflicting context: 'System' signals automated integration, but 'manual' requires human actors. This confuses AI assistants trying to generate implementation code. Either change scope or set automationLevel='fully-automated'.",
+        "Action '{{name}}' has scope 'System' but automationLevel is '{{automationLevel}}'. System scope actions represent cross-system integrations that MUST be fully-automated - they run without human intervention. Manual system actions create conflicting context: 'System' signals automated integration, but 'manual' requires human actors. This confuses AI assistants trying to generate implementation code. Either change scope or set automationLevel: StepAutomationLevel.FullyAutomated.",
       atomicMissingDuration:
         "Action '{{name}}' has scope 'Atomic' but doesn't specify estimatedDuration. Atomic actions are the smallest units of work - knowing their duration helps AI understand workflow timing, UX expectations, and timeout configurations. Duration context enables AI to generate realistic journey flows and identify performance bottlenecks. Consider adding estimatedDuration for better planning.",
       atomicEmitsEvent:
@@ -106,22 +106,41 @@ export const actionScopePropertiesAlignment = createRule<[], MessageIds>({
 
           if (!scope) continue;
 
+          // Normalize scope to handle both enum values and enum references
+          const isJourney = scope === 'Journey' || scope === 'journey' || 
+                          scope === 'ActionScope.Journey' ||
+                          (typeof scope === 'string' && scope.includes('Journey'));
+          const isSystem = scope === 'System' || scope === 'system' || 
+                          scope === 'ActionScope.System' ||
+                          (typeof scope === 'string' && scope.includes('System'));
+          const isAtomic = scope === 'Atomic' || scope === 'atomic' || 
+                          scope === 'ActionScope.Atomic' ||
+                          (typeof scope === 'string' && scope.includes('Atomic'));
+          const isComposite = scope === 'Composite' || scope === 'composite' || 
+                            scope === 'ActionScope.Composite' ||
+                            (typeof scope === 'string' && scope.includes('Composite'));
+
+          // Check for both the enum value 'fully-automated' and the enum reference 'StepAutomationLevel.FullyAutomated'
+          const isFullyAutomated = automationLevel === 'fully-automated' || 
+                                  automationLevel === 'StepAutomationLevel.FullyAutomated' ||
+                                  (typeof automationLevel === 'string' && automationLevel.includes('FullyAutomated'));
+
           // Journey/System scope should emit events
-          if ((scope === 'Journey' || scope === 'System') && !emitsEvent) {
+          if ((isJourney || isSystem) && !emitsEvent) {
             context.report({
               node: decorator.node,
               messageId: 'scopeMissingEvent',
               data: {
                 name: name || 'Unknown',
                 scope,
-                severity: scope === 'System' ? 'System' : 'Journey',
-                requirement: scope === 'System' ? 'MUST' : 'SHOULD',
+                severity: isSystem ? 'System' : 'Journey',
+                requirement: isSystem ? 'MUST' : 'SHOULD',
               },
             });
           }
 
           // System scope MUST be fully automated
-          if (scope === 'System' && automationLevel !== 'fully-automated') {
+          if (isSystem && !isFullyAutomated) {
             context.report({
               node: decorator.node,
               messageId: 'systemScopeNotAutomated',
@@ -133,7 +152,7 @@ export const actionScopePropertiesAlignment = createRule<[], MessageIds>({
           }
 
           // Atomic scope should have estimatedDuration
-          if (scope === 'Atomic' && !estimatedDuration) {
+          if (isAtomic && !estimatedDuration) {
             context.report({
               node: decorator.node,
               messageId: 'atomicMissingDuration',
@@ -144,7 +163,7 @@ export const actionScopePropertiesAlignment = createRule<[], MessageIds>({
           }
 
           // Atomic/Composite with emitsEvent should be reconsidered
-          if ((scope === 'Atomic' || scope === 'Composite') && emitsEvent) {
+          if ((isAtomic || isComposite) && emitsEvent) {
             context.report({
               node: decorator.node,
               messageId: 'atomicEmitsEvent',

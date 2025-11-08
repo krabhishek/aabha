@@ -28,7 +28,7 @@
  *   name: 'Customer Portal Redesign',
  *   description: 'Modernize customer portal to improve user experience and reduce support tickets',
  *   expectedOutcomes: ['20% increase in user engagement', '30% reduction in support tickets'],
- *   timeline: { start: '2024-01-01', end: '2024-06-30' }
+ *   timeline: { startDate: '2024-01-01', endDate: '2024-06-30' }
  * })
  *
  * // ❌ Bad - Missing required fields

@@ -42,7 +42,9 @@ export const personaSystemAttributes = createRule<[], MessageIds>({
           if (decorator.type !== 'Persona') continue;
 
           const personaType = decorator.metadata.type as string | undefined;
-          if (personaType !== 'system') continue; // Only validate for system personas
+          // Normalize personaType to handle both enum values and enum references
+          const typeNormalized = personaType?.toLowerCase().replace('personatype.', '') || '';
+          if (typeNormalized !== 'system') continue; // Only validate for system personas
 
           const personaName = decorator.metadata.name as string | undefined;
           const systemAttributes = decorator.metadata.systemAttributes as object | undefined;
