@@ -1,5 +1,5 @@
 {
-  "name": "@bhumika-ai/ogpgy-bank-example",
+  "name": "@aabha-example/ogpgy-bank-example",
   "version": "0.0.1",
   "type": "module",
   "main": "./dist/index.js",
