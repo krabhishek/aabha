@@ -13,6 +13,9 @@
   "references": [
     {
       "path": "../../tsconfig.lib.json"
+    },
+    {
+      "path": "../../../eslint-plugin-aabha/tsconfig.lib.json"
     }
   ],
   "exclude": [

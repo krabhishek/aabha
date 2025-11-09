@@ -11,6 +11,9 @@
       "path": "../.."
     },
     {
+      "path": "../../../eslint-plugin-aabha"
+    },
+    {
       "path": "./tsconfig.lib.json"
     }
   ]
