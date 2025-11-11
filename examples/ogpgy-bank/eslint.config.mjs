@@ -13,7 +13,7 @@ export default [
       parserOptions: {
         ecmaVersion: 'latest',
         sourceType: 'module',
-        project: true,
+        projectService: true,
         tsconfigRootDir: import.meta.dirname,
       },
     },
