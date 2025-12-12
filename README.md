@@ -369,14 +369,14 @@ expectations are met and CartAbandonmentRate metric is tracked" ✅
 
 ## Features
 
-🧬 **Formal Ontological Framework** - Pre-defined categories (Strategy, Persona, Stakeholder, Journey, etc.) with rich schemas
-✨ **Compile-Time Ontology Enforcement** - TypeScript branded types ensure correct conceptual composition
-🚀 **Zero Runtime Overhead** - Decorators only apply type brands; pure compile-time validation
-📊 **Holistic Enterprise Coverage** - Model digital products AND offline operations in unified ontology
-🔗 **One-Way Ontological Hierarchy** - Parents reference children; children remain reusable
-🎯 **Independent Package** - No external dependencies; pure TypeScript
-🤖 **AI-Comprehensible Structure** - Ontological categories create rich, structured context for AI systems
-🏢 **Pre-defined Schemas** - Each decorator comes with comprehensive, battle-tested schema options
+- 🧬 **Formal Ontological Framework** - Pre-defined categories (Strategy, Persona, Stakeholder, Journey, etc.) with rich schemas that are resuable across the enterprise
+- ✨ **Compile-Time Ontology Enforcement** - TypeScript branded types ensure correct conceptual composition
+- 🚀 **Zero Runtime Overhead** - Decorators only apply type brands; pure compile-time validation
+- 📊 **Holistic Enterprise Coverage** - Model digital products AND offline operations in unified ontology
+- 🔗 **One-Way Ontological Hierarchy** - Parents reference children; children remain reusable
+- 🎯 **Independent Package** - No external dependencies; pure TypeScript
+- 🤖 **AI-Comprehensible Structure** - Ontological categories create rich, structured context for AI systems
+- 🏢 **Pre-defined Schemas** - Each decorator comes with comprehensive, battle-tested schema options
 
 ## Installation
 
