@@ -1,7 +1,7 @@
 {
   "name": "aabha",
   "version": "1.1.0",
-  "description": "Aabha - A Context Management Framework for Context Engineering at Scale. Systematic framework for engineering enterprise scale context—digital products, offline operations, organizational processes—with TypeScript decorators. Model strategy, digital journeys (APIs, mobile apps), offline processes (branch operations, manual reviews), human collaboration, and organizational governance in a unified, type-safe system. Creates engineered, AI-comprehensible context for enterprise-scale development.",
+  "description": "Aabha - Context Engineering Framework with Ontological Structure. Solve context management at enterprise scale through a formal ontology of strongly-typed TypeScript decorators. Pre-defined ontological components (@Strategy, @Context, @Persona, @Stakeholder, @Journey, @Expectation, @Behavior, @Witness) provide rich schemas with compile-time enforced composition rules—ensuring context is structured, consistent, and AI-comprehensible. Model digital products, offline operations, and organizational processes in a unified, type-safe ontology.",
   "author": {
     "name": "Abhishek Pathak",
     "url": "https://github.com/krabhishek"
