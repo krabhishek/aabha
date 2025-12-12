@@ -1,12 +1,12 @@
 # Aabha
 
-**Aabha** (Sanskrit: आभा, meaning "aura" or "radiance") - **Enterprise Context Management Framework for Context Engineering at Scale**
+**Aabha** (Sanskrit: आभा, meaning "aura" or "radiance") - **Context Engineering Framework with Ontological Structure**
 
-Foundation for **systematic context engineering** across the enterprise. Define strategy, initiatives, **digital products**, **offline operations**, and organizational processes with TypeScript decorators—creating engineered, AI-comprehensible context.
+Aabha solves **context management at enterprise scale** through a unique approach: a **formal ontology** of strongly-typed TypeScript decorators. Instead of free-form documentation that drifts and fragments, Aabha provides **pre-defined ontological components** with rich schemas and compile-time enforced composition rules.
 
-Aabha enables **context engineering at enterprise scale** - from digital customer journeys to offline business processes - with the rigor and formality of the TypeScript programming language. It transforms product strategy, user journeys, stakeholder expectations, manual workflows, and organizational knowledge into declarative, type-safe code that serves as structured, engineered context for AI systems and human teams.
+> **The Core Insight**: Context engineering at scale requires more than documentation—it requires **structure**. Aabha provides that structure through an ontological approach where each decorator (`@Strategy`, `@Context`, `@Persona`, `@Stakeholder`, `@Journey`, `@Expectation`, `@Behavior`, `@Witness`) represents a distinct conceptual category with a pre-defined schema. TypeScript enforces that you compose context using the correct building blocks—a Strategy cannot be used where a Journey is expected, a Persona cannot substitute for a Stakeholder.
 
-Just as an aura radiates from a well-crafted enterprise vision, Aabha brings clarity, structure, and machine-readable context to both **online digital products** and **offline operational processes** making it a truly holistic **context engineering framework** for the modern enterprise.
+Aabha transforms scattered enterprise knowledge—strategy documents, user research, process workflows, stakeholder expectations—into **structured, type-safe context** that AI systems comprehend efficiently and human teams navigate confidently. The ontological structure ensures context remains consistent, complete, and machine-readable at any scale.
 
 ---
 
@@ -17,6 +17,7 @@ Just as an aura radiates from a well-crafted enterprise vision, Aabha brings cla
 📚 **Start here**: [`docs/ai-primer/README.md`](./docs/ai-primer/README.md)
 
 The AI Primer provides:
+
 - **Token-efficient documentation** (~71K tokens total, modular loading strategy)
 - **Complete decorator reference** (12 core decorators: @Strategy, @BusinessInitiative, @Context, @Journey, @Stakeholder, @Persona, @Expectation, @Interaction, @Collaboration, @Behavior, @Witness, @Metric)
 - **Digital and offline journey patterns** (mobile apps, APIs, branch operations, manual processes, hybrid workflows)
@@ -25,6 +26,7 @@ The AI Primer provides:
 - **Common mistakes** and anti-patterns to avoid
 
 **Quick loading guide**:
+
 - **Minimum start** (~9K tokens): `00-overview.md` + `01-core-concepts.md`
 - **Digital journeys** (~20K tokens): Add `03-digital-journey-decorators.md` + `05-stakeholder-persona-decorators.md`
 - **Offline processes** (~24K tokens): Add `04-offline-journey-decorators.md` + `05-stakeholder-persona-decorators.md`
@@ -35,24 +37,118 @@ The primer uses **scenario-based loading** to optimize your token budget while p
 
 ---
 
+## 🧬 The Ontological Approach to Context Engineering
+
+Aabha's approach to context engineering is built on a **formal ontology**—a predefined taxonomy where each decorator represents a distinct conceptual category with a rich, strongly-typed schema. This ontological structure is what makes context manageable at enterprise scale.
+
+### Ontological Categories (Decorators)
+
+| Category        | Decorator      | What It Models                | Pre-defined Schema Highlights                                                                 |
+| --------------- | -------------- | ----------------------------- | --------------------------------------------------------------------------------------------- |
+| **Strategy**    | `@Strategy`    | Business direction            | Playing to Win framework: `whereToPlay`, `howToWin`, `coreCapabilities`, `strategicChoices`   |
+| **Context**     | `@Context`     | Bounded organizational domain | DDD bounded context: `domainModel`, `inScope`, `outOfScope`, `capabilities`, `relationships`  |
+| **Persona**     | `@Persona`     | WHO people are                | Identity archetypes: `demographics`, `psychology`, `behavior`, `needs`, `goals`, `painPoints` |
+| **Stakeholder** | `@Stakeholder` | WHAT people do WHERE          | Role-in-context: `persona` + `context` + `responsibilities`, `influence`, `decisionRights`    |
+| **Journey**     | `@Journey`     | End-to-end experience         | Experience flow: `primaryStakeholder`, `entryActions`, `outcomes`, `metrics`                  |
+| **Expectation** | `@Expectation` | Provider-Consumer contract    | Contract terms: `provider`, `consumer`, `behaviors`, `quality` (SLOs), `verification`         |
+| **Behavior**    | `@Behavior`    | Executable implementation     | Logic container: `preconditions`, `postconditions`, `dependencies`, `stateModel`, `logic`     |
+| **Witness**     | `@Witness`     | BDD test scenario             | Test spec: `given`, `when`, `then`, `fixtures`, `execution`                                   |
+
+### Type-Enforced Ontological Relationships
+
+The ontology isn't just documentation—it's **compile-time enforced**. Each decorator's options include typed references that only accept correctly-decorated classes:
+
+```typescript
+// Stakeholder MUST have both Persona (WHO) and Context (WHERE)
+@Stakeholder({
+  role: 'Primary Investor',
+  persona: TechSavvyMillennial, // Must be @Persona decorated ✓
+  context: InvestmentManagementContext, // Must be @Context decorated ✓
+  responsibilities: ['Review investments', 'Approve transactions'],
+})
+class InvestorStakeholder {}
+
+// Expectation MUST define provider and consumer (both @Stakeholder decorated)
+@Expectation({
+  name: 'Fast Trade Execution',
+  provider: TradingSystemStakeholder, // Must be @Stakeholder decorated ✓
+  consumer: InvestorStakeholder, // Must be @Stakeholder decorated ✓
+  behaviors: [ValidateTradeBehavior, ExecuteTradeBehavior], // Must be @Behavior decorated ✓
+})
+class FastTradeExecutionExpectation {}
+
+// What happens if you violate the ontology?
+@Expectation({
+  provider: TechSavvyMillennial, // ❌ COMPILE ERROR: Persona is not a Stakeholder!
+  consumer: InvestorStakeholder,
+})
+class InvalidExpectation {}
+```
+
+### The Branding Mechanism
+
+Aabha uses TypeScript's **branded types** pattern to distinguish ontological categories:
+
+```typescript
+// Each decorator creates a unique type brand
+type WithStrategy<T> = T & DecoratorBrand<'strategy'>;
+type WithStakeholder<T> = T & DecoratorBrand<'stakeholder'>;
+type WithPersona<T> = T & DecoratorBrand<'persona'>;
+
+// Decorator options enforce correct types
+interface StakeholderOptions {
+  persona: WithPersona<Constructor>; // Only accepts @Persona decorated
+  context: WithContext<Constructor>; // Only accepts @Context decorated
+}
+
+interface ExpectationOptions {
+  provider: WithStakeholder<Constructor>; // Only accepts @Stakeholder decorated
+  consumer: WithStakeholder<Constructor>;
+  behaviors: WithBehavior<Constructor>[]; // Only accepts @Behavior decorated
+}
+```
+
+This means the TypeScript compiler itself enforces your ontological model's correctness—**compile-time type errors guide you to use the right conceptual building blocks**.
+
+### One-Way Ontological Hierarchy
+
+Aabha enforces a **one-way dependency direction**—higher-level concepts reference lower-level ones, never the reverse:
+
+```
+Strategy → BusinessInitiative → Journey → Expectation → Behavior → Witness
+                                    ↓
+                             Stakeholder ← Persona
+                                    ↓
+                                Context
+```
+
+This enables:
+
+- **Reusability**: Same `@Journey` can appear in multiple `@BusinessInitiative`s
+- **Independence**: `@Behavior` doesn't know which `@Expectation` uses it
+- **Composability**: Build libraries of reusable ontological components
+
+---
+
 ## Why Aabha?
 
-### 📋 Enterprise-Scale Context Engineering Foundation
+### 📋 Context Engineering Requires Structure—Ontology Provides It
 
-Traditional enterprise context is scattered across documents, spreadsheets, and diagrams that can't handle complexity at scale. Aabha provides a **systematic context engineering approach** with highly dense, reusable foundation for entire enterprise contexts:
+Traditional enterprise context is scattered across documents, spreadsheets, and diagrams with no enforced structure. Context engineering at scale fails because there's no shared vocabulary, no composition rules, and no validation. Aabha solves this through an **ontological approach**:
 
-- **Single Source of Truth** - Entire enterprise context engineered as type-safe code
-- **Dense Context Representation** - Engineered for maximum information density while maintaining readability
-- **Compile-Time Validation** - Enterprise-wide context inconsistencies caught before implementation
-- **Reusable Context Components** - Engineer libraries of reusable strategies, journeys, and stakeholders
-- **Version Control** - Track enterprise context evolution with Git's rigor
-- **Testable Context Models** - Write tests validating your engineered organizational knowledge
+- **Pre-defined Conceptual Categories** - Don't invent your own structure; use proven ontological categories (Strategy, Persona, Stakeholder, Journey, Expectation, Behavior, Witness)
+- **Rich Pre-defined Schemas** - Each category has a comprehensive schema (e.g., `@Persona` includes demographics, psychology, behavior, needs, goals, painPoints)
+- **Compile-Time Context Validation** - TypeScript catches when you use the wrong conceptual building block (Persona where Stakeholder expected)
+- **Reusable Context Components** - Build libraries of type-safe Personas, Contexts, Stakeholders that compose correctly across the enterprise
+- **Context as Code** - Track enterprise knowledge evolution with Git; diff conceptual changes
+- **Testable Context Models** - Write tests that validate your enterprise context's completeness and consistency
 
 ### 📊 Model the Entire Enterprise - Digital AND Offline
 
 Aabha is unique in modeling **both online digital products and offline operational processes** in a unified framework:
 
 **✅ Digital Journeys** - Fast, automated, self-service experiences
+
 - Mobile applications (iOS/Android)
 - Web applications (browser-based)
 - APIs and microservices
@@ -60,6 +156,7 @@ Aabha is unique in modeling **both online digital products and offline operation
 - Measured in seconds/minutes
 
 **✅ Offline Journeys** - Human-driven, manual, compliance-heavy processes
+
 - Branch operations and in-person services
 - Manual reviews and approvals (compliance, risk, legal)
 - Physical documents and wet signatures
@@ -67,18 +164,21 @@ Aabha is unique in modeling **both online digital products and offline operation
 - Measured in hours/days/weeks
 
 **✅ Human Collaboration** - Multi-stakeholder coordination
+
 - Governance meetings (investment committees, boards)
 - Review/approval processes (compliance, audits)
 - Consultations and negotiations
 - Organizational decision-making
 
 **✅ Organizational Processes** - Enterprise-to-enterprise interactions
+
 - Regulatory audits and submissions
 - Partnership contracts and SLAs
 - Legal agreements and compliance
 - Third-party vendor management
 
 **✅ Hybrid Workflows** - Seamless digital-to-offline-to-digital transitions
+
 - AI triage → manual review → digital completion
 - Digital application → branch verification → account creation
 - Online submission → physical signature → digital processing
@@ -269,13 +369,14 @@ expectations are met and CartAbandonmentRate metric is tracked" ✅
 
 ## Features
 
-✨ **Compile-Time Type Safety** - Catch errors before runtime
-🚀 **Zero Runtime Overhead** - Decorators only apply type brands
-📊 **Holistic Enterprise Coverage** - Model digital products AND offline operations
-🔗 **One-Way References** - Parents know children, not vice versa
-🎯 **Independent Package** - No external dependencies
-🤖 **AI-Ready Context** - Rich metadata for AI coding assistants
-🏢 **Unified Framework** - From strategy to digital APIs to branch operations
+🧬 **Formal Ontological Framework** - Pre-defined categories (Strategy, Persona, Stakeholder, Journey, etc.) with rich schemas
+✨ **Compile-Time Ontology Enforcement** - TypeScript branded types ensure correct conceptual composition
+🚀 **Zero Runtime Overhead** - Decorators only apply type brands; pure compile-time validation
+📊 **Holistic Enterprise Coverage** - Model digital products AND offline operations in unified ontology
+🔗 **One-Way Ontological Hierarchy** - Parents reference children; children remain reusable
+🎯 **Independent Package** - No external dependencies; pure TypeScript
+🤖 **AI-Comprehensible Structure** - Ontological categories create rich, structured context for AI systems
+🏢 **Pre-defined Schemas** - Each decorator comes with comprehensive, battle-tested schema options
 
 ## Installation
 
@@ -292,16 +393,16 @@ pnpm add aabha
 To ensure your Aabha models follow best practices and catch common mistakes at development time, install the official ESLint plugin:
 
 ```bash
-npm install --save-dev eslint-plugin-aabha
+npm install --save-dev @bhumika-ai/eslint-plugin-aabha
 # or
-pnpm add -D eslint-plugin-aabha
+pnpm add -D @bhumika-ai/eslint-plugin-aabha
 ```
 
 Configure ESLint:
 
 ```javascript
 // eslint.config.js (flat config)
-import aabhaPlugin from 'eslint-plugin-aabha';
+import aabhaPlugin from '@bhumika-ai/eslint-plugin-aabha';
 
 export default [
   {
@@ -309,13 +410,14 @@ export default [
       aabha: aabhaPlugin,
     },
     rules: {
-      ...aabhaPlugin.configs.recommended.rules,  // Use recommended rules
+      ...aabhaPlugin.configs.recommended.rules, // Use recommended rules
     },
   },
 ];
 ```
 
 The ESLint plugin provides:
+
 - **80+ validation rules** across all decorators
 - **Automatic fixes** for common issues (missing properties, incorrect configurations)
 - **Real-time feedback** in your IDE
@@ -323,6 +425,7 @@ The ESLint plugin provides:
 - **Context engineering quality** checks (verification levels, metrics alignment, stakeholder completeness)
 
 **Rule Categories**:
+
 - Expectation rules (7) - SLO validation, verification coverage
 - Collaboration rules (14) - Participant validation, artifact ownership, decision-making
 - Interaction rules (15) - Layer-config matching, protocol validation, error code uniqueness
@@ -338,6 +441,12 @@ The ESLint plugin provides:
 
 ## Quick Start
 
+The following example demonstrates Aabha's ontological approach to context engineering. Notice how:
+
+- Each decorator represents a distinct **ontological category** with its own schema
+- **Typed references** enforce correct composition (Stakeholder requires Persona + Context)
+- The **build order** follows ontological dependencies (define Personas before Stakeholders)
+
 ```typescript
 import {
   Strategy,
@@ -350,21 +459,27 @@ import {
   Metric,
 } from 'aabha';
 
-// 1. Define a Persona (WHO people are)
+// ═══════════════════════════════════════════════════════════════════════════
+// STEP 1: Define foundational ontological components (no dependencies)
+// ═══════════════════════════════════════════════════════════════════════════
+
+// Persona: WHO people are (identity, psychology, behavior, needs)
+// This is a foundational category—Personas exist independently
 @Persona({
   name: 'Tech-Savvy Millennial',
   type: 'user',
   identity: {
     age: '25-35',
     occupation: 'Digital professional',
-    techSavviness: 'high'
+    techSavviness: 'high',
   },
   goals: ['Quick online shopping', 'Seamless checkout'],
-  needs: ['Fast, mobile-first experience', 'Minimal friction']
+  needs: ['Fast, mobile-first experience', 'Minimal friction'],
 })
 class TechSavvyMillennial {}
 
-// 2. Define a Context (WHERE they operate)
+// Context: WHERE people operate (bounded domain with capabilities)
+// Also foundational—Contexts exist independently
 @Context({
   name: 'E-Commerce',
   boundary: 'Online shopping and checkout platform',
@@ -372,97 +487,133 @@ class TechSavvyMillennial {}
 })
 class ECommerceContext {}
 
-// 3. Define a Stakeholder (WHAT they do in WHERE)
-@Stakeholder({
-  role: 'Customer',
-  persona: TechSavvyMillennial,
-  context: ECommerceContext,
-  responsibilities: ['Browse products', 'Complete checkout', 'Provide payment']
-})
-class CustomerStakeholder {}
-
-// 4. Define Metrics (WHAT we measure)
+// Metric: WHAT we measure (can attach to many ontological levels)
 @Metric({
   name: 'Cart Abandonment Rate',
   type: 'percentage',
   target: { value: 30, comparison: 'lessThanOrEqual' },
   unit: '%',
   baseline: 45,
-  owner: 'Product Team'
+  owner: 'Product Team',
 })
 class CartAbandonmentRate {}
 
-// 5. Define Strategy (WHERE to play, HOW to win)
+// ═══════════════════════════════════════════════════════════════════════════
+// STEP 2: Compose Stakeholder from Persona + Context
+// ═══════════════════════════════════════════════════════════════════════════
+
+// Stakeholder: WHO (Persona) does WHAT (role) in WHERE (Context)
+// ONTOLOGICAL COMPOSITION: Must reference @Persona and @Context decorated classes
+@Stakeholder({
+  role: 'Customer',
+  persona: TechSavvyMillennial, // ✓ Must be @Persona decorated
+  context: ECommerceContext, // ✓ Must be @Context decorated
+  responsibilities: ['Browse products', 'Complete checkout', 'Provide payment'],
+})
+class CustomerStakeholder {}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// STEP 3: Define Strategy (references Metrics)
+// ═══════════════════════════════════════════════════════════════════════════
+
+// Strategy: Business direction with Playing to Win framework
 @Strategy({
   name: 'E-Commerce Growth',
   vision: 'Become the fastest checkout in the market',
   whereToPlay: {
     markets: ['Direct-to-Consumer'],
-    segments: ['Tech-savvy millennials', 'Mobile-first shoppers']
+    segments: ['Tech-savvy millennials', 'Mobile-first shoppers'],
   },
   howToWin: 'Fastest checkout in the market with < 2 minute completion',
-  metrics: [CartAbandonmentRate],
+  metrics: [CartAbandonmentRate], // ✓ Must be @Metric decorated
 })
 class GrowthStrategy {}
 
-// 6. Define an Expectation (Provider-Consumer contract)
+// ═══════════════════════════════════════════════════════════════════════════
+// STEP 4: Define Expectations (Provider-Consumer contracts)
+// ═══════════════════════════════════════════════════════════════════════════
+
+// Expectation: Contract between Stakeholders
+// ONTOLOGICAL COMPOSITION: provider and consumer must be @Stakeholder decorated
 @Expectation({
   name: 'Fast Checkout Completion',
-  provider: CustomerStakeholder,
-  consumer: CustomerStakeholder,
+  provider: CustomerStakeholder, // ✓ Must be @Stakeholder decorated
+  consumer: CustomerStakeholder, // ✓ Must be @Stakeholder decorated
   description: 'Customer expects checkout to complete in under 2 minutes',
   slos: [
     {
       metric: 'Checkout completion time',
       target: '< 2 minutes',
-      percentile: 'p95'
-    }
+      percentile: 'p95',
+    },
   ],
   verification: {
     level: 'monitored',
-    testCoverage: { minWitnessCoverage: 50 }
-  }
+    testCoverage: { minWitnessCoverage: 50 },
+  },
 })
 class FastCheckoutExpectation {}
 
-// 7. Define a Journey
+// ═══════════════════════════════════════════════════════════════════════════
+// STEP 5: Define Journey (references Stakeholder)
+// ═══════════════════════════════════════════════════════════════════════════
+
+// Journey: End-to-end experience driven by a Stakeholder
 @Journey({
   name: 'Checkout Journey',
-  primaryStakeholder: CustomerStakeholder,
+  primaryStakeholder: CustomerStakeholder, // ✓ Must be @Stakeholder decorated
   description: 'Customer completes purchase from cart to order confirmation',
   entryPoints: ['Cart page', 'Buy now button'],
   exitPoints: ['Order confirmation', 'Payment failure'],
-  expectations: [FastCheckoutExpectation],
-  metrics: [CartAbandonmentRate]
+  expectations: [FastCheckoutExpectation], // ✓ Must be @Expectation decorated
+  metrics: [CartAbandonmentRate], // ✓ Must be @Metric decorated
 })
 class CheckoutJourney {}
 
-// 8. Define a Business Initiative
+// ═══════════════════════════════════════════════════════════════════════════
+// STEP 6: Define Business Initiative (ties it all together)
+// ═══════════════════════════════════════════════════════════════════════════
+
+// BusinessInitiative: Concrete initiative referencing Strategy and Journeys
 @BusinessInitiative({
   name: 'Seamless Checkout Experience',
-  strategy: GrowthStrategy,
-  journeys: [CheckoutJourney],
+  strategy: GrowthStrategy, // ✓ Must be @Strategy decorated
+  journeys: [CheckoutJourney], // ✓ Must be @Journey decorated
   objectives: ['Reduce cart abandonment to <30%', 'Achieve <2min checkout time'],
-  metrics: [CartAbandonmentRate],
+  metrics: [CartAbandonmentRate], // ✓ Must be @Metric decorated
   budget: {
     amount: 500000,
     currency: 'USD',
     breakdown: [
       { category: 'Engineering', amount: 300000 },
       { category: 'Design', amount: 100000 },
-      { category: 'Testing', amount: 100000 }
-    ]
+      { category: 'Testing', amount: 100000 },
+    ],
   },
   timeline: {
     startDate: '2025-Q1',
     targetDate: '2025-Q2',
     milestones: [
       { name: 'Design complete', date: '2025-02-15' },
-      { name: 'MVP launch', date: '2025-04-01' }
-    ]
-  }
+      { name: 'MVP launch', date: '2025-04-01' },
+    ],
+  },
 })
 class SeamlessCheckoutInitiative {}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// ONTOLOGICAL ENFORCEMENT: What happens if you violate the structure?
+// ═══════════════════════════════════════════════════════════════════════════
+
+// ❌ COMPILE ERROR: Persona cannot be used where Stakeholder is expected
+// @Journey({
+//   primaryStakeholder: TechSavvyMillennial,  // ERROR: Type 'WithPersona' not assignable to 'WithStakeholder'
+// })
+
+// ❌ COMPILE ERROR: Strategy cannot be used where Journey is expected
+// @BusinessInitiative({
+//   journeys: [GrowthStrategy],  // ERROR: Type 'WithStrategy' not assignable to 'WithJourney'
+// })
 ```
 
 ### Quick Start - Offline Journey Example
@@ -472,9 +623,12 @@ Aabha also models offline processes like branch operations and manual reviews:
 ```typescript
 import {
   Collaboration,
-  Interaction, InteractionPattern, InteractionLayer,
-  Action, ActionScope,
-  Journey
+  Interaction,
+  InteractionPattern,
+  InteractionLayer,
+  Action,
+  ActionScope,
+  Journey,
 } from 'aabha';
 
 // Define a manual review collaboration
@@ -488,21 +642,19 @@ import {
       stakeholder: ComplianceOfficerStakeholder,
       role: 'reviewer',
       required: true,
-      responsibilities: ['Verify documents', 'Check sanctions', 'Assess risk']
+      responsibilities: ['Verify documents', 'Check sanctions', 'Assess risk'],
     },
     {
       stakeholder: SeniorOfficerStakeholder,
       role: 'approver',
-      required: true
-    }
+      required: true,
+    },
   ],
 
-  duration: 'PT4H',  // 4 hours typical
+  duration: 'PT4H', // 4 hours typical
   communicationChannel: 'document-review',
 
-  expectedOutcomes: [
-    { outcome: 'Application approved or rejected', type: 'decision' }
-  ]
+  expectedOutcomes: [{ outcome: 'Application approved or rejected', type: 'decision' }],
 })
 class ComplianceReviewCollaboration {}
 
@@ -514,12 +666,12 @@ class ComplianceReviewCollaboration {}
 
   inputs: [
     { name: 'applicationForm', type: 'PhysicalDocument', required: true },
-    { name: 'identityDocuments', type: 'PhysicalDocument[]', required: true }
+    { name: 'identityDocuments', type: 'PhysicalDocument[]', required: true },
   ],
 
   outputs: [
     { name: 'reviewDecision', type: 'string', required: true },
-    { name: 'reviewerSignature', type: 'PhysicalSignature', required: true }
+    { name: 'reviewerSignature', type: 'PhysicalSignature', required: true },
   ],
 
   manualConfig: {
@@ -527,9 +679,9 @@ class ComplianceReviewCollaboration {}
     physicalLocation: 'Compliance Department',
     documentsRequired: ['Application', 'ID', 'Risk assessment'],
     offlineStorage: {
-      retentionPeriod: '7 years'  // Regulatory requirement
-    }
-  }
+      retentionPeriod: '7 years', // Regulatory requirement
+    },
+  },
 })
 class PhysicalDocumentReviewInteraction {}
 
@@ -539,12 +691,12 @@ class PhysicalDocumentReviewInteraction {}
   actor: ComplianceOfficerStakeholder,
   scope: ActionScope.Composite,
 
-  collaboration: ComplianceReviewCollaboration,  // Links human coordination
+  collaboration: ComplianceReviewCollaboration, // Links human coordination
 
   triggers: [
     { action: ApplicationApprovedAction, condition: 'approved' },
-    { action: ApplicationRejectedAction, condition: 'rejected' }
-  ]
+    { action: ApplicationRejectedAction, condition: 'rejected' },
+  ],
 })
 class ManualComplianceReviewAction {}
 
@@ -554,19 +706,20 @@ class ManualComplianceReviewAction {}
   primaryStakeholder: TraditionalCustomer,
 
   actions: [
-    BranchConsultationAction,      // In-person meeting
-    PhysicalFormAction,             // Paper form
-    PhysicalSignatureAction,        // Wet signature
-    ManualComplianceReviewAction,   // Manual review (hours)
-    AccountCreatedAction
+    BranchConsultationAction, // In-person meeting
+    PhysicalFormAction, // Paper form
+    PhysicalSignatureAction, // Wet signature
+    ManualComplianceReviewAction, // Manual review (hours)
+    AccountCreatedAction,
   ],
 
-  outcomes: ['Account opened at branch', 'All documents verified']
+  outcomes: ['Account opened at branch', 'All documents verified'],
 })
 class BranchAccountOpeningJourney {}
 ```
 
 **Key Differences**:
+
 - **Digital**: Measured in seconds, fully automated, APIs and databases
 - **Offline**: Measured in hours/days, human-driven, physical documents and signatures
 - **Both**: Modeled in the same unified Aabha framework with type safety
@@ -593,7 +746,9 @@ class InvalidInitiative {}
 
 **Type error-free compilation = Internally consistent product model!**
 
-## Decorator Hierarchy
+## Ontological Hierarchy
+
+The decorators form a **formal ontological hierarchy**—a taxonomy of enterprise concepts with enforced composition rules:
 
 ```
 Strategy (business strategy)
@@ -609,32 +764,34 @@ Behavior (executable implementations)
 Witness (BDD test scenarios)
 ```
 
-### Strategic Level
+### Strategic Ontology Layer
 
-- `@Strategy` - Business strategy (where to play, how to win, governance)
-- `@BusinessInitiative` - Concrete initiatives implementing strategy with budget, timeline, success metrics
-- `@Context` - Business contexts/perspectives (bounded contexts from DDD)
-- `@Metric` - Measurable outcomes (attachable to any level)
+- `@Strategy` - Business strategy with Playing to Win framework (whereToPlay, howToWin, coreCapabilities)
+- `@BusinessInitiative` - Concrete initiatives with budget, timeline, success metrics; references `@Strategy`
+- `@Context` - DDD bounded contexts (domainModel, inScope, outOfScope, capabilities)
+- `@Metric` - Measurable outcomes (attachable to Strategy, Journey, Expectation, Stakeholder)
 
-### Stakeholder & User Level
+### Actor Ontology Layer
 
-- `@Stakeholder` - Context-specific roles and responsibilities
-- `@Persona` - User/organization archetypes with psychology, behaviors, and needs
+- `@Persona` - **WHO** people are (demographics, psychology, behavior, needs, goals)
+- `@Stakeholder` - **WHAT** people do **WHERE** (persona + context + role + responsibilities + influence)
 
-### Experience Level
+### Experience Ontology Layer
 
-- `@Journey` - End-to-end user/stakeholder experience flows with entry/exit points
-- `@Expectation` - Provider/consumer expectations with SLOs and verification levels
+- `@Journey` - End-to-end experience flows; references `@Stakeholder` as primaryStakeholder
+- `@Expectation` - Provider-Consumer contracts with SLOs; references `@Stakeholder` (provider/consumer) and `@Behavior`
 
-### Technical Contract Level
+### Interaction Ontology Layer
 
-- `@Interaction` - Technical data exchange contracts (API, UI, Database, Device, Interpersonal, Manual, Organizational)
+- `@Interaction` - Technical data exchange contracts (API, UI, Database, Device, Manual, Organizational)
 - `@Collaboration` - Multi-stakeholder human interactions (meetings, reviews, workshops)
 
-### Implementation & Testing Level
+### Implementation Ontology Layer
 
-- `@Behavior` - Executable behaviors with preconditions, postconditions, and complexity
-- `@Witness` - BDD-style test witnesses with scenarios and fixtures
+- `@Behavior` - Executable logic with preconditions, postconditions, dependencies, stateModel
+- `@Witness` - BDD-style test scenarios (given, when, then, fixtures)
+- `@BusinessObject` - Domain entities, value objects, services (DDD patterns)
+- `@Logic` - Pure functions within BusinessObjects
 
 ## One-Way Hierarchy Principle
 
@@ -758,20 +915,20 @@ See [ARCHITECTURE.md](./ARCHITECTURE.md) for full details.
 
 ## Aabha vs Traditional Approaches
 
-| Traditional Approach                      | Aabha Approach                              |
-| ----------------------------------------- | ------------------------------------------- |
-| 📄 Scattered docs (PRDs, specs, diagrams) | 💻 Single executable codebase               |
-| ❌ Manual validation                      | ✅ Compile-time type checking               |
-| 📝 Docs drift from reality                | 🔄 Code IS the documentation                |
-| 🤔 Ambiguous requirements                 | 🎯 Type-safe relationships                  |
-| 👥 Siloed teams (PM, Design, Eng)         | 🤝 Shared language & model                  |
-| 🐌 Slow AI context gathering              | ⚡ Rich, structured AI context              |
-| 📊 Metrics tracked separately             | 📈 Metrics embedded in model                |
-| 🔍 Manual impact analysis                 | 🤖 TypeScript shows dependencies            |
-| 📚 Tribal knowledge                       | 💾 Knowledge in code                        |
-| ❌ Only digital products modeled          | ✅ Digital AND offline processes modeled    |
-| ❌ Manual processes undocumented          | ✅ Manual workflows as first-class citizens |
-| ❌ Compliance trails separate             | ✅ Audit trails and retention built-in      |
+| Traditional Approach                      | Aabha Ontological Approach                    |
+| ----------------------------------------- | --------------------------------------------- |
+| 📄 Free-form docs (PRDs, specs, diagrams) | 🧬 Formal ontology with predefined categories |
+| ❌ Invent your own structure              | ✅ Pre-defined schemas per ontological type   |
+| ❌ No enforced conceptual consistency     | ✅ Compile-time ontology validation           |
+| 🤔 Ambiguous category boundaries          | 🎯 Typed references enforce correct concepts  |
+| 📝 Docs drift from reality                | 🔄 Ontology IS the documentation              |
+| 👥 Siloed teams use different concepts    | 🤝 Shared ontological vocabulary              |
+| 🐌 AI guesses at context structure        | ⚡ AI reads formal ontological structure      |
+| 📊 Metrics tracked ad-hoc                 | 📈 Metrics embedded in ontological model      |
+| 🔍 Manual impact analysis                 | 🤖 TypeScript shows ontological dependencies  |
+| 📚 Tribal knowledge                       | 💾 Knowledge captured in typed ontology       |
+| ❌ Only digital products modeled          | ✅ Digital AND offline in unified ontology    |
+| ❌ Persona ≠ Stakeholder confusion        | ✅ Clear ontological distinction enforced     |
 
 ### Concrete Example: Adding a Feature
 
@@ -811,7 +968,7 @@ Aabha uses **TypeScript 5.0+ Stage 3 decorators** (native decorators), NOT the e
 {
   "compilerOptions": {
     // TypeScript 5.0+ required (Stage 3 decorators are default)
-    "target": "ES2022",  // or higher
+    "target": "ES2022" // or higher
 
     // Do NOT enable these (they're for legacy decorators):
     // "experimentalDecorators": false,  // Must be false or omitted
@@ -819,6 +976,8 @@ Aabha uses **TypeScript 5.0+ Stage 3 decorators** (native decorators), NOT the e
   }
 }
 ```
+
+**Important**: Aabha is incompatible with legacy `experimentalDecorators`. Ensure it's **disabled** or **omitted** from your tsconfig.json.
 
 ## Building
 
@@ -835,22 +994,26 @@ Run `pnpm test` to execute the unit tests via [Vitest](https://vitest.dev/).
 📚 **[Read the Full Documentation →](./docs/README.md)**
 
 **Quick Links**:
+
 - [Quick Start Guide](./docs/getting-started/quick-start.md) - Build your first model in 5 minutes
 - [Core Concepts](./docs/getting-started/core-concepts.md) - Understand Context = Perspective
 - [Strategic Build Order](./docs/best-practices/strategic-build-order.md) - Step-by-step guide
 - [API Reference](./docs/api/) - Complete decorator documentation
+- [OgPgy Bank Examples](./docs/examples/ogpgy-bank/) - Real-world banking examples
 
 ## Contributing
 
-We welcome contributions! **many documentation files** are marked "In Progress" and ready for community input.
+We welcome contributions! **50+ documentation files** are marked "In Progress" and ready for community input.
 
 **📚 Read the [CONTRIBUTING.md](./CONTRIBUTING.md) guide** for:
+
 - How to contribute documentation
 - Development setup
 - Pull request process
 - Style guidelines
 
 **High-priority areas**:
+
 - ✍️ **API Reference** - 13 decorator docs need completion
 - 📖 **Guides** - Understanding Contexts, Product Completeness, etc.
 - 💡 **OgPgy Bank Examples** - Real-world banking transformation
@@ -859,7 +1022,6 @@ We welcome contributions! **many documentation files** are marked "In Progress" 
 See [CONTRIBUTING.md](./CONTRIBUTING.md) for complete list and guidelines.
 
 Fork and contribute: [github.com/krabhishek/aabha](https://github.com/krabhishek/aabha)
-
 
 ## License
 
