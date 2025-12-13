@@ -393,16 +393,16 @@ pnpm add aabha
 To ensure your Aabha models follow best practices and catch common mistakes at development time, install the official ESLint plugin:
 
 ```bash
-npm install --save-dev @bhumika-ai/eslint-plugin-aabha
+npm install --save-dev eslint-plugin-aabha
 # or
-pnpm add -D @bhumika-ai/eslint-plugin-aabha
+pnpm add -D eslint-plugin-aabha
 ```
 
 Configure ESLint:
 
 ```javascript
 // eslint.config.js (flat config)
-import aabhaPlugin from '@bhumika-ai/eslint-plugin-aabha';
+import aabhaPlugin from 'eslint-plugin-aabha';
 
 export default [
   {
